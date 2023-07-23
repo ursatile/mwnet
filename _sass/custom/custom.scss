@@ -1,0 +1,49 @@
+@use '../fontawesome/css/all.min.css';
+
+div.highlight {
+  font-size: 14px;
+
+  code {
+    font-size: inherit;
+  }
+}
+
+ul#index-nav {
+  list-style-type: none;
+
+  li::before {
+    content: none;
+  }
+
+  padding: 0;
+  margin: 0;
+
+  a {
+    font-weight: bold;
+  }
+
+  p {
+    padding-left: 20px;
+  }
+}
+
+.main-content {
+
+  p.note::before {
+    color: #7253ed;
+    content: "\f05a";
+    font-family: "Font Awesome 6 Pro";
+    display: inline;
+    font-size: 150%;
+    margin-right: 8px;
+  }
+
+  h2 {
+    margin-top: 0;    
+  }
+
+  .fa-circle-info {
+    color: #005eff;
+    font-size: 120%;
+  }
+}
