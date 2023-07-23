@@ -42,6 +42,9 @@ so open that URL in a browser -- you might find you can Ctrl-Click on the URL in
 
 ![image-20230722154335382](images/image-20230722154335382.png)
 
+{: .note }
+The URL that your web app runs on uses a port number that's generated at random when you create the app; if you want to change it, it's defined in the `launchSettings.json` file which you'll find in `Rockaway.WebApp/Properties/`
+
 Let's take a look at the code that makes it work. Open up `Rockaway.WebApp/Program.cs`: 
 
 ```csharp
