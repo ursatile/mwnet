@@ -12,13 +12,30 @@ callouts:
     color: yellow
   important:
     title: Important
-    color: blue
+    color: purple
   new:
     title: New
     color: green
   note:
     title: Note
-    color: purple
+    color: blue
   warning:
     title: Warning
     color: red
+
+exclude:
+  - .git
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - node_modules/
+  - examples/**/.vs
+  - examples/**/obj
+  - examples/**/bin
