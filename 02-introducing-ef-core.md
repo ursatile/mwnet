@@ -1,5 +1,5 @@
 ---
-title: 2. Introducing Entity Framework
+title: 2. Introducing EF Core
 layout: module
 nav_order: 02
 summary: >-
@@ -308,13 +308,12 @@ dotnet ef migrations add InsertSampleArtistRecords
 Then we'll edit our new migration to insert some Artist records.
 
 {: .note }
-
 We're specifying the values for the GUIDs in our SQL, so that we can tell at a glance whether a record is one of our sample data records or if it's real data from real users:
 
 ```csharp
-// Tikitapp.Website/Migrations/20221201170934_InsertSampleArtistRecords.cs
+// Rockaway.WebApp/Migrations/20230723142837_InsertSampleArtistRecords
 
-{% include_relative dotnet/module04/Tikitapp/Tikitapp.Website/Migrations/20221201170934_InsertSampleArtistRecords.cs %}
+{% include_relative examples/module02/Rockaway.WebApp/Migrations/20230723142837_InsertSampleArtistRecords.cs %}
 ```
 
 Finally, apply our migration:
@@ -324,4 +323,28 @@ dotnet ef database update
 ```
 
 We now have a database with 26 example artist records in it, and a request to our `/artists` endpoint will return a JSON document containing details of our artists.
+
+## Exercise: Adding an Entity to the Data Model
+
+The next entity we need to add to our data model is a **Venue**
+
+A venue has the following properties:
+
+* `Name` : Unicode text, up to 100 characters, not null
+* `Address`: Unicode text, up to 500 characters, not null
+* `City`: Unicode text, up to 100 characters, not null
+* `CountryCode`: ANSI text (not Unicode); exactly 2 characters. This is a country code as defined by [https://en.wikipedia.org/wiki/ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2), not null
+* `WebsiteUrl`: Unicode text, up to 255 characters. Null values are allowed.
+* `Telephone`: ANSI text, up to 32 characters. Null values are allowed.
+
+Add Venue to our application:
+
+1. Create a `Venue` class in the `Data/Entities` folder, with the properties specified above
+2. Add a migration to the project which will create the `Venues` table in the database.
+3. Add a migration to populate `Venues` with a few sample records. (Find some concert venues online, or make something up!)
+4. Add a venues property to the `RockawayDbContext`.
+5. Add an endpoint in `Program.cs` to expose a list of venues at `/venues`
+6. Add a test in `WebTests.cs` to confirm that the `/venues` endpoint exists, and returns a success status code.
+
+
 
