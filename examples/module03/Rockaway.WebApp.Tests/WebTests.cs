@@ -1,3 +1,7 @@
+using Newtonsoft.Json;
+using Rockaway.WebApp.Data.Entities;
+using Shouldly;
+
 namespace Rockaway.WebApp.Tests;
 
 public class WebTests {
@@ -11,9 +15,20 @@ public class WebTests {
 
 	[Fact]
 	public async Task GET_Artists_Returns_OK() {
-		var factory = new WebApplicationFactory<Program>();
+		// Arrange
+		var factory = new TestFactory();
+		var artist = new Artist { Name = "Test Artist" }; 
+		factory.DbContext.Artists.Add(artist);
+		await factory.DbContext.SaveChangesAsync();
+
+		// Act
 		var client = factory.CreateClient();
 		var response = await client.GetAsync("/artists");
-		response.EnsureSuccessStatusCode();
+
+		// Assert
+		var json = await response.Content.ReadAsStringAsync();
+		var data = JsonConvert.DeserializeObject<List<Artist>>(json);
+		var result = data.Single();
+		result.Name.ShouldBe("Test Artist");
 	}
 }
