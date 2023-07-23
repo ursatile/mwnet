@@ -1,6 +1,6 @@
 ---
 title: 1. Getting Started
-layout: home
+layout: module
 nav_order: 01
 summary: >-
   Creating a new .NET web application. Adding a test project, creating our first end-to-end web test. Using a .editorconfig file to   format your source code files. Using GitHub Actions to deploy to Microsoft Azure.
