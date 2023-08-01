@@ -185,7 +185,7 @@ Next, we'll modify `Program.cs` and register `RockawayDbContext` as a service. W
 Finally, we need to add a database connection string to our app configuration -- we'll add this to the `appSettings.Development.json` file so that it'll only apply when we're running our app in `Development` mode.
 
 ```json
-{% include_relative examples/module02/Rockaway.WebApp/appSettings.Development.json %}
+{% include_relative examples/module02/Rockaway.WebApp/appsettings.Development.json %}
 ```
 
 {: .note }
