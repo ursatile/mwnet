@@ -8,4 +8,4 @@ gem "just-the-docs", "0.5.3" # pinned to the current release
 
 gem 'jemoji'
 
-gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+gem 'wdm', '>= 0.1.0', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
