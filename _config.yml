@@ -23,6 +23,9 @@ callouts:
     title: Warning
     color: red
 
+plugins:
+  - jemoji
+
 exclude:
   - .git
   - .sass-cache/

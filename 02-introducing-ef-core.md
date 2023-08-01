@@ -284,10 +284,13 @@ Every migration has two methods - `Up` and `Down`. `Up` happens when we update t
 
 This migration has not been applied to our database yet: it's a chance to look at what *will* happen when we apply it, and check it's doing the right thing:
 
-:white_check_mark: EF Core has inferred from the property name `Id` that this should be the primary key on our `Artist` table
-:white_check_mark: EF Core has mapped the `Guid` to an SQL `uniqueidentifier`
-:white_check_mark: The `Id`, `Name` and `Description` columns are all marked as  `nullable: false` (remember, we're in .NET 7 here, where *nothing* is nullable unless you ask nicely)
-:white_check_mark: It's picked up our `MaxLength(100)` attribute and set the column type for the 
+✅ EF Core has inferred from the property name `Id` that this should be the primary key on our `Artist` table
+
+✅ EF Core has mapped the `Guid` to an SQL `uniqueidentifier`
+
+✅ The `Id`, `Name` and `Description` columns are all marked as  `nullable: false` (remember, we're in .NET 7 here, where *nothing* is nullable unless you ask nicely)
+
+✅ It's picked up our `MaxLength(100)` attribute and set the column type for the 
 
 Looks good. Let's apply the migration and update our database:
 
