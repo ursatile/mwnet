@@ -52,7 +52,16 @@ Next, create a file alongside it called `Artists.cshtml.cs`. This contains our *
 ```csharp
 // Rockaway.WebApp/Pages/Artists.cshtml.cs
 
-{% include_relative examples/module04/Rockaway.WebApp/Pages/Artists.cshtml.cs %}
+@page
+@model Rockaway.WebApp.Pages.ArtistsPageModel
+
+@{
+	ViewBag.Title = "Artists";
+}
+<h1>Artists</h1>
+@foreach (var artist in Model.Artists) {
+	@Html.DisplayFor(_ => artist)
+}
 ```
 
 
