@@ -32,6 +32,90 @@ nav_order: 00
 
 **module 4: Razor Pages**
 
+**4.1 adding a Razor page**
+
+Add a Razor page at /artists with some very basic HTML boilerplate.
+
+Heading, and a DisplayFor loop.
+
+Talk through the page model behind it.
+
+**Exercise: create a Razor page to list all the venues in the system**
+
+4.2 ViewStart and Layouts
+
+Make the /artists page look good. Header, footer, plug in a bit of CSS
+
+Now look at /venues - erk. It looks like crap.
+
+INTRODUCE:
+
+* A layout page
+* ViewStart.cshtml
+* CSS - rudimentary at this stage; colours and typography
+
+4.3 _Partials
+
+* Set up partials for the page header and page footer.
+* Plug in responsive navigation (switches to a hamburger menu on narrow displays)
+  * Introduce @media queries
+
+Working on /venues here
+
+- Set up a DisplayTemplate for Venue
+  - Name
+  - Address
+  - Link to buy tickets
+- Set up a TagHelper for the nationality flag of the venue
+
+EXERCISE:
+
+* Set up a DisplayTemplate for Artist, including:
+  * artist name
+  * Artist description
+  * Logo
+  * Photo
+  * Link to buy tickets
+
+Adding shows
+
+How do we define a show?
+
+Displaying dates and ticket prices
+
+Placing an order
+
+Payment (do we integrate with Stripe here?)
+
+Order acknowledgement
+
+Sending a ticket
+
+* MJML
+* Papercut
+* Mailtrap
+* Admin endpoint to preview mail messages
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **module 5: asp.net MVC**
 
 DAY 2:

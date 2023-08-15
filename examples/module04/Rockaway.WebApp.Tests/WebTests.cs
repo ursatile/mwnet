@@ -17,7 +17,7 @@ public class WebTests {
 	public async Task GET_Artists_Returns_OK() {
 		// Arrange
 		var factory = new TestFactory();
-		var artist = new Artist { Name = "Test Artist" }; 
+		var artist = new Artist { Name = "Test Artists" }; 
 		factory.DbContext.Artists.Add(artist);
 		await factory.DbContext.SaveChangesAsync();
 
@@ -29,6 +29,6 @@ public class WebTests {
 		var json = await response.Content.ReadAsStringAsync();
 		var data = JsonConvert.DeserializeObject<List<Artist>>(json);
 		var result = data.Single();
-		result.Name.ShouldBe("Test Artist");
+		result.Name.ShouldBe("Test Artists");
 	}
 }
