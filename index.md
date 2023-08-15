@@ -15,101 +15,148 @@ nav_order: 00
 </li>
 {% endfor %}
 </ul>
+**Monday 09:00-10:00**
 
+20 minutes of talk:
 
-**Getting started (module01.zip)**
+* Principles of web architecture
+* Inputs & outputs
 
-* dotnet new web
-* Look, it works!
-* add a test project
-* add the WebApplicationFactory
-* end-to-end testing
-* deployment with GitHub Actions
+20 minutes of demo:
 
-**module 2: introducing EF core**
+* Minimal APIs
+* Requests and responses
 
-**module 3: testing and logging**
+20 minutes of exercise:
 
-**module 4: Razor Pages**
+* String reverser
+* Current UTC date and time
+* Calculator
 
-**module 5: asp.net MVC**
+**BREAK**
 
-DAY 2:
+Monday 10:15-11:15
 
-module 7@ 
+20 minutes of talk:
 
-WHAT WE'RE ACTUALLY BUILDING:
+* Razor pages and the page authoring model
+* Introducing MVC
+* Key differences
 
-* List of artists
-* List of venues
-* Artist page showing all forthcoming shows
-* Venue page showing all forthcoming shows
-* Show page listing tickets for sale
-* Customer details page
-* Payment simulation
-* Confirmation email with tickets included
+20 minutes of demo:
 
+* Add a Razor Pages endpoint
+* Add a model, view & controller
+* Add a layout page
 
+Exercise:
 
+* Work out how to share layouts between pages and views
 
+**BREAK**
 
+Monday 11:30-12:30
 
+Logging, Formatting, Testing
 
+Testing
 
+* Start with trivial MVC endpoint test
 
-It’s 2023. .NET is a free, open-source development framework that runs on everything from Raspberry Pis to cloud data centres, server-side rendering is cool again, and despite what you might have read on LinkedIn, AI is *not* about to take away all our jobs. In this two-day, workshop, you’ll learn how to design, deliver, and test state-of-the-art web applications that harness the power of the C# language and the [ASP.NET](http://asp.net/) Core platform. Alongside familiar patterns like model/view/controller and dependency injection, the latest versions of [ASP.NET](http://asp.net/) Core introduced a streamlined hosting model, a new set of conventions for routing requests within our applications, and a completely new architecture known as “minimal APIs” for building API endpoints and microservices.
-.NET also supports a thriving ecosystem of open source projects and packages. Entity Framework Core provides first-class abstractions over relational databases like MS SQL Server and PostgreSQL. Libraries like NodaTime can simplify and streamline your application logic. Projects like xUnit, Moq, and Shouldly let you test your applications at whatever level makes sense - from low-level unit testing to end-to-end integration tests that test your app’s entire HTTP pipeline. And on the front-end, it’s never been easier to incorporate technologies like SASS, CSS grids, responsive layouts, and even libraries like MJML for sending HTML emails.
+Testing with the WebApplicationFactory
 
-**Workshop Structure**
+Test a method that returns the current date and time
 
-Overview of .NET web application architecture
+Deployment - let's get a site running on Azure
 
-- .NET 6 vs .NET 7 - long term support, or latest & greatest?
-- Using the dotnet CLI tool
-- Creating a .NET web application
-- Configuration management
-- Registering services
-- Routing
-- Logging
-- Testing your web application
+**LUNCH**
 
-Working with Relational Databases
+13:30-14:30 Introducing Entity Framework
 
-- Lightweight data access with Dapper
-- Managing data with Entity Framework Core
-- Deploying database changes using EF Core Migrations
-- Development on localhost using Docker
+* **Scenario: a list of venues**
+* Create a DbContext
+* Create an entity (**Venue**)
+* create an empty DB (docker)
+* Introduce migrations
+* Inspect migration
+* Apply migration
+* Populate with some data
 
-Business Logic and Domain Modelling
+DATA EXPLAINED:
 
-- Entities and data transfer objects
-- Introducing abstractions
-- Testing application behaviour and business logic
+* Static data
+* Test data
+* Sample data
+* Live data
 
-Locales, Times, and Timezones
+EXERCISE:
 
-- What’s wrong with System.DateTime?
-- Introducing NodaTime
-- Mapping conventions for custom datatypes
-- Data formatting: dates, times, currencies
-- Formatting data using System.Globalization
+* **A list of artists**
+* Create the Artist entity (data supplied)
+* Add it to the database
+* Migration
 
-Frontend: Presentation and Validation
+**14:30-14:45 break**
 
-- Layouts, areas, partial views, and tag helpers.
-- Working with Razor Pages
-- Responsive layouts with CSS grid
-- Hosting SASS and SCSS in .NET
-- Styling forms and input validation
+14:45-15:45 Using SQLite for local development
 
-Deployment and Monitoring
+* Get SQLite set up locally
+* Show how to use it for end-to-end tests
+* Show how to use it for local dev mode (including connection persistence)
+  * Memory mode
+  * On-disk storage mode
 
-- Cross-platform gotchas: what to watch out for when you’re developing on Windows or macOS and hosting on Linux
-- Deploying to Microsoft Azure using GitHub Actions
-- Application monitoring using Application Insights
+15:45-16:00 break
 
-**Target Audience and Prerequisites
-**This workshop is aimed at developers with some experience of the C# language, the .NET platform, and some basic web development. If you understand classes, inheritance, Console. WriteLine, and you know what the <select> tag in HTML does, then you should be just fine.
+16:00-17:00 Frontend presentation and styling
 
-**Computer Setup**
-Attendees will need a computer running .NET 6 or .NET 7, Docker, and a code editor that supports .NET such as Microsoft Visual Studio 2022, JetBrains Rider, or Visual Studio Code.
+* SASS/SCSS
+* TagHelpers
+* Partials
+* Display templates
+
+DAY 2
+
+**09:00-10:00 Admin and editing data**
+
+* Admin dashboard
+* Security - *open question: how do we want to secure this?*
+  * Real security for production
+  * Fake security for localhost development
+
+* Edit screen for artists
+* Client-side validation
+* EXERCISE: Edit screen for venues
+
+**10:15-11:15 Shows and tickets**
+
+* Data modelling: what does a show look like?
+* Ticket price - how to store it?
+* Showtime: how do we fit that in?
+* Displaying ticket prices
+
+**11:30-12:30 The user checkout journey**
+
+* Choosing tickets
+* Validation and running totals
+* Client-side currency formatting
+* Showing your basket
+
+*12:30-13:30 LUNCH*
+
+**13:30-14:30 Integrating with an external payment system (do I have time to make a fake one of these?)**
+
+*14:30-14:45 BREAK*
+
+**14:45-15:45 Sending a ticket email**
+
+* Introducing Mailkit
+* Razor + MJML
+* Papercut
+* Mailtrap.IO
+* HTML vs Text Mode
+* Attachments
+
+15:45-16:00 break
+
+**16:00-17:00 Monitoring and Application Insights**

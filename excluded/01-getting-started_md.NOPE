@@ -22,7 +22,8 @@ As long as it starts with a 7, you should be good to go.
 
 Next, we're going to use the `dotnet` command and one of the built-in project templates to create our new web application.
 
-> <i title="Info" class="fa-solid fa-circle-info"></i> Running `dotnet new --list` will show you a list of all the available project templates. There's a *lot* of them in .NET 7, covering everything from Windows Forms applications to iOS class libraries.
+{: .note }
+Running `dotnet new --list` will show you a list of all the available project templates. There's a *lot* of them in .NET 7, covering everything from Windows Forms applications to iOS class libraries.
 
 Create a new folder called `rockaway`, then inside your new folder, run:
 

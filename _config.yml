@@ -27,6 +27,7 @@ plugins:
   - jemoji
 
 exclude:
+  - excluded/
   - .git
   - .sass-cache/
   - .jekyll-cache/
