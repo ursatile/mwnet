@@ -8,6 +8,9 @@ aux_links:
   Template Repository: https://github.com/just-the-docs/just-the-docs-template
 callouts_level: loud
 callouts:
+  question:
+    color: green
+    title: Question
   highlight:
     color: yellow
   important:
