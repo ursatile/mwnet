@@ -1,0 +1,12 @@
+@model Rockaway.WebApp.Models.SystemStatus
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+    </head>
+    <body>
+        <h1>@Model.Message</h1>
+        <p>The time is @Model.SystemTime?.ToString("d")</p>
+    </body>
+</html>

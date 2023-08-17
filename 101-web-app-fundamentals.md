@@ -50,7 +50,7 @@ As long as it starts with a 7, you should be good to go. (If it starts with an 8
 
 Next, we're going to use the `dotnet` command and one of the built-in project templates to create our new web application.
 
-{: .note }
+
 Running `dotnet new --list` will show you a list of all the available project templates. There's a *lot* of them in .NET 7, covering everything from Windows Forms applications to iOS class libraries.
 
 Create a new folder called `workshop`, then inside your new folder, run:
@@ -225,7 +225,7 @@ Here's the source code for a very simple calculator input form:
 This will submit an HTTP POST to `/calculate`.
 
 1. Add an `app.MapPost` method to your app that will perform the calculation and return the result as an integer.
-2. Modify your method to return the result as an HTML page containing the parameters and the result.
+2. Modify your method to return the result as an HTML page containing the parameters and the result. **Use only minimal APIs for this part. The point is to see first-hand what's involved in building HTML pages by manipulating strings.**
 3. Modify your method to return a graceful error if you try to divide by zero.
 
 ## Minimal APIs: References and Further Reading

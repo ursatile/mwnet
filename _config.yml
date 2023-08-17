@@ -1,8 +1,8 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: Handbook
+description: The online handbook for Dylan Beattie's workshop on modern web development with C# and .NET
 theme: just-the-docs
 
-url: https://just-the-docs.github.io
+url: https://ursatile.github.io/mwnet
 
 aux_links:
   Template Repository: https://github.com/just-the-docs/just-the-docs-template
