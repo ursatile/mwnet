@@ -35,7 +35,34 @@ Global using directives are useful in many situations, but they're particularly 
 {% include_relative examples/105/rockaway/Rockaway.WebApp.Tests/GlobalUsings.cs %}
 ```
 
+## Formatting code with .editorconfig and dotnet format
 
+Finally, we're going to apply some formatting rules to our project, and set up a `.editorconfig` file to enforce these rules.
+
+{: .note }
+EditorConfig is a way to maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. You can read more about it at [editorconfig.org](https://editorconfig.org)
+
+You can find the  `.editorconfig` file we'll use here: [.editorconfig](examples/105/rockaway/.editorconfig)
+
+Add this file to your solution folder alongside your `Rockaway.sln` file. 
+
+{: .note }
+**For Windows Users:** To create an `.editorconfig` file within Windows Explorer, you need to create a file named `.editorconfig.` (note the trailing dot), which Windows Explorer will automatically rename to `.editorconfig` for you.
+
+After adding the `.editorconfig` file, reformat all the files in your project to match the project's new formatting settings.
+
+Then run:
+
+```transcript
+dotnet format
+```
+
+That will reformat all the `.cs` files in the solution to conform to the code style specified in `.editorconfig`
+
+{: .highlight }
+The `.editorconfig` used in this  workshop uses tabs for indentation, not spaces. I used to prefer spaces for indentation. Then I read Adam Tuttle's article  "[Tabs vs Spaces: It's an Accessibility Issue](https://adamtuttle.codes/blog/2021/tabs-vs-spaces-its-an-accessibility-issue/)", and that completely changed my mind. I can use tabs. No big deal. But there are developers out there for whom tabs vs spaces is a Big Deal. Developers with visual impairments who use an extra-large font size, who set their tab width to 1 character. Developers using Braille displays, for whom a tab only occupies a single Braille cell. So now I use tabs wherever I can.
+
+If you're using Visual Studio, Resharper, or Jetbrains Rider, you'll get access to a whole lot more formatting tools and features than you get with the `dotnet format` command line. The good news is that all these applications respect settings defined in your `.editorconfig` file, so you can maintain consistent code formatting per-project across multiple projects, teams and code styles.
 
 
 
