@@ -6,16 +6,16 @@ namespace Rockaway.WebApp.Controllers;
 
 public class StatusController : Controller {
 
-    private readonly IClock clock;
-    public StatusController(IClock clock) {
-        this.clock = clock;
-    }
+	private readonly IClock clock;
+	public StatusController(IClock clock) {
+		this.clock = clock;
+	}
 
-    public IActionResult Index() {
-        var model = new SystemStatus {
-            Message = "Rockaway.WebApp is online",
-            SystemTime = clock.Now
-        };
-        return View(model);
-    }
+	public IActionResult Index() {
+		var model = new SystemStatus {
+			Message = "Rockaway.WebApp is online",
+			SystemTime = clock.Now
+		};
+		return View(model);
+	}
 }
