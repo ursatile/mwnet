@@ -356,6 +356,61 @@ If the test above passes, all we know is that the request produced a web page, a
 
 It would be more useful if we could dig into the HTML markup of the page, extract the element we're interested in, make sure it exists, and make sure it contains the correct value.
 
+There's a great .NET open source library called [https://github.com/AngleSharp/AngleSharp](https://github.com/AngleSharp/AngleSharp), which provides "the ability to parse angle bracket based hyper-texts like HTML, SVG, and MathML."
+
+Let's install AngleSharp into our test project:
+
+```
+dotnet add package AngleSharp
+```
+
+Then we'll modify our view and wrap the system time in a `<span>` tag with a specific `id`, which we can use to target this element in our test:
+
+**Rockaway.WebApp/Views/Status/Index.cshtml:**
+
+```html
+@model Rockaway.WebApp.Models.SystemStatus
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>@Model.Message</h1>
+    <p>
+      The time is
+      <span id="system-time">@Model.SystemTime?.ToString("O")</span>
+    </p>
+  </body>
+</html>
+
+```
+
+Then, we're going to modify our test to parse and validate a specific HTML tag:
+
+```csharp
+protected IBrowsingContext browsingContext => BrowsingContext.New(Configuration.Default);
+
+[Fact]
+public async Task GET_Status_Includes_ISO3601_DateTime_Element() {
+    var testDateTime = new DateTime(2023,4,5,6,7,8);
+    var clock = new TestClock(testDateTime);
+    var factory = new TestFactory(clock);
+    var client = factory.CreateClient();
+    var response = await client.GetAsync("/status");
+    var html = await response.Content.ReadAsStringAsync();
+    var dom = await browsingContext.OpenAsync(req => req.Content(html));
+    var element = dom.QuerySelector("#system-time");
+    element.ShouldNotBeNull();
+    element.InnerHtml.ShouldBe(testDateTime.ToString("O"));
+}
+```
+
+...and we're done. We can spin up a full end-to-end web stack, replace specific services with test versions, send a request, parse the response, and validate specific elements of the resulting HTML.
+
+
+
 
 
 
