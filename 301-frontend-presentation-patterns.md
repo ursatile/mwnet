@@ -7,3 +7,7 @@ summary: >-
 typora-copy-images-to: ./images
 ---
 
+So far, we've focused on backend development patterns -- HTTP endpoints, routing, databases, testing.
+
+Time to shift our focus and look at some frontend presentation patterns.
+

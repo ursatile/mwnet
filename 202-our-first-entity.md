@@ -261,7 +261,7 @@ First, we need some sample data. I'm a big fan of creating realistic sample data
 
 > Sample data is also a great place to catch edge cases. Use Unicode strings, empty strings, missing fields... anything that your users might throw at you once your app is running in production.
 
-Here's an example of how I create and manage test data in web applications. You can see the full sample data set at [SampleData.Artists.cs]({{ page.examples }}/Rockaway.WebApp/Data/Sample/SampleData.Artists.cs)
+Here's an example of how I create and manage test data in web applications. You can see the full sample data set at [SampleData.Artists.cs]({{ page.examples }}Rockaway.WebApp/Data/Sample/SampleData.Artists.cs)
 
 ```csharp
 // ReSharper disable StringLiteralTypo
@@ -278,7 +278,7 @@ public partial class SampleData {
 			Description = "Alter Column are South Africa's hottest math rock export. Founded in Cape Town in 2021, their debut album \"Drop Table Mountain\" was nominated for four Grammy awards."
 		};
 
-        public static Artist Ærbårn = new() {
+		public static Artist Ærbårn = new() {
 			Id = TestGuid(27, 'a'),
 			Name = "Ærbårn",
 			Description = "Inspired by their Australian namesakes, Ærbårn are Scandinavia's #1 party rock band. Thundering drums, huge guitar riffs and enough energy to light up the Arctic Circle, their shows have had amazing reviews all over the world"
@@ -288,9 +288,7 @@ public partial class SampleData {
 			AlterColumn, BinarySearch, Ærbårn
 		};
 	}
-}
-
-     
+}     
 ```
 
 Now we can call this from the `OnModelCreating` override in our `RockawayDbContext`:
