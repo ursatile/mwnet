@@ -6,6 +6,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Testing;
 global using Microsoft.Extensions.DependencyInjection;
 global using Rockaway.WebApp.Controllers;
+global using Rockaway.WebApp.Data;
 global using Rockaway.WebApp.Models;
 global using Rockaway.WebApp.Services;
 global using Rockaway.WebApp.Tests.Services;

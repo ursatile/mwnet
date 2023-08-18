@@ -6,8 +6,6 @@ summary: >-
   In this module, we'll connect our app to a relational database using Entity Framework (EF) Core, and create our first data-driven HTTP endpoint.
 ---
 
-In the last module, we created a .NET web application with a single "hello world" endpoint, and added some testing around this to verify that it worked.
-
 In this module, we're going to start adding some application data to our web app. The business scenario we're modelling here is tickets to rock concerts, so the first thing we're going to add here is a list of artists -- bands and musicians who are going to be performing at the shows we're selling tickets for.
 
 First, though, we need to set up some infrastructure so we actually have a database to connect to.
@@ -85,9 +83,7 @@ Done
 >
 > That will give you a SQL database instance, but the ARM64 version of SQL Edge doesn't include the `sqlcmd` tool -- so even if you can get it to start, you'll need to connect from a tool like DataGrip and run the SQL script to create the database manually.
 >
-> Yay progress... 
-
-
+> Yay progress.
 
 ## Adding the Artist class
 

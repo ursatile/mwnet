@@ -81,7 +81,9 @@ Now, browsing to `/status` will show us a system status page:
 
 
 
+### Working with Model/View/Controller: Exercises:
 
+* 
 
 
 
