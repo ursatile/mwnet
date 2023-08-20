@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
@@ -19,7 +20,7 @@ class TestFactory : WebApplicationFactory<Program> {
 		builder.UseEnvironment("Test");
 		builder.ConfigureServices(services => {
 			services.AddSingleton(clock);
-			services.UseTestDbContext(DbContext);
+			services.AddSingleton(tdb.DbContext);
 		});
 	}
 

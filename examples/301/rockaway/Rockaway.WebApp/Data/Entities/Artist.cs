@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Artist {

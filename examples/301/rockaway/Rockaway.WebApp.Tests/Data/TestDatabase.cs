@@ -1,21 +1,23 @@
-namespace Rockaway.WebApp.Tests.Data; 
+namespace Rockaway.WebApp.Tests.Data;
 
-class TestDatabase {
+public class TestDatabase : IDisposable {
+	public RockawayDbContext DbContext { get; }
+	private readonly SqliteConnection sqliteConnection;
 
-	public static async Task<RockawayDbContext> CreateAsync(string? dbName = null) {
+	public TestDatabase(string? dbName = null) {
 		dbName ??= Guid.NewGuid().ToString();
-		var dbContext = Connect(dbName);
-		await dbContext.Database.EnsureCreatedAsync();
-		return dbContext;
-	}
-
-	public static RockawayDbContext Connect(string dbName) {
 		var connectionString = $"Data Source={dbName};Mode=Memory;Cache=Shared";
-		var sqliteConnection = new SqliteConnection(connectionString);
+		sqliteConnection = new(connectionString);
+		sqliteConnection.Open();
 		var options = new DbContextOptionsBuilder<RockawayDbContext>()
 			.UseSqlite(sqliteConnection)
 			.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
 			.Options;
-		return new(options);
+		DbContext = new(options);
+		DbContext.Database.EnsureCreated();
+	}
+
+	public void Dispose() {
+		sqliteConnection.Close();
 	}
 }

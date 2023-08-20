@@ -9,15 +9,17 @@ public class RockawayDbContext : DbContext {
 	public RockawayDbContext(DbContextOptions<RockawayDbContext> options) : base(options) { }
 
 	public DbSet<Artist> Artists { get; set; } = null!;
+	public DbSet<Venue> Venues { get; set; } = null!;
 
 	protected override void OnModelCreating(ModelBuilder builder) {
 		builder.Entity<Artist>(a => a.HasData(SampleData.Artists.AllArtists));
+		builder.Entity<Venue>(v => v.HasData(SampleData.Venues.AllVenues));
 	}
 
 	private string DbVersionExpression {
 		get {
 			if (Database.IsSqlServer()) return "@@VERSION";
-			if (Database.IsSqlite()) return ("sqlite_version()");
+			if (Database.IsSqlite()) return ("'SQLite ' || sqlite_version()");
 			throw new Exception("Unsupported database provider");
 		}
 	}
