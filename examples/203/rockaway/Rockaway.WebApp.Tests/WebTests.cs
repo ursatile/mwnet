@@ -1,6 +1,19 @@
+using System.Net;
+
 namespace Rockaway.WebApp.Tests;
 
 public class WebTests {
+	[Fact]
+	public async Task Artists_Page_Lists_Artists() {
+		var clock = new TestClock();
+		var factory = new TestFactory(clock);
+		var client = factory.CreateClient();
+		var response = await client.GetAsync("/artists");
+		response.EnsureSuccessStatusCode();
+		var html = await response.Content.ReadAsStringAsync();
+		html = WebUtility.HtmlDecode(html);
+		foreach (var artist in factory.DbContext.Artists) html.ShouldContain(artist.Name);
+	}
 	[Fact]
 	public async Task GET_Status_Returns_OK() {
 		var testDateTime = new DateTime(2023, 4, 5, 6, 7, 8);

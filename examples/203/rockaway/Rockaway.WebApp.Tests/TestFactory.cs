@@ -1,20 +1,30 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+
 namespace Rockaway.WebApp.Tests;
 
 class TestFactory : WebApplicationFactory<Program> {
 
 	private readonly IClock clock;
+	private readonly TestDatabase tdb;
 
 	public TestFactory(IClock clock) {
+		tdb = new();
 		this.clock = clock;
 	}
 
-	public RockawayDbContext DbContext { get; } = TestDatabase.CreateAsync().Result;
+	public RockawayDbContext DbContext => tdb.DbContext;
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder) {
 		builder.UseEnvironment("Test");
 		builder.ConfigureServices(services => {
 			services.AddSingleton(clock);
-			services.AddSingleton(DbContext);
+			services.UseTestDbContext(DbContext);
 		});
+	}
+
+	protected override void Dispose(bool disposing) {
+		base.Dispose(disposing);
+		tdb.Dispose();
 	}
 }

@@ -29,7 +29,11 @@ ul#index-nav {
 }
 
 .main-content {
-
+  figcaption {
+    text-align: center;
+    font-size: 80%;
+    margin-top: -10px;
+  }
   p.note::before {
     color: #2c84fa;
     content: "\f05a";

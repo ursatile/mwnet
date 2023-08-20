@@ -261,7 +261,7 @@ First, we need some sample data. I'm a big fan of creating realistic sample data
 
 > Sample data is also a great place to catch edge cases. Use Unicode strings, empty strings, missing fields... anything that your users might throw at you once your app is running in production.
 
-Here's an example of how I create and manage test data in web applications. You can see the full sample data set at [SampleData.Artists.cs]({{ page.examples }}Rockaway.WebApp/Data/Sample/SampleData.Artists.cs)
+Here's an example of how I create and manage test data in web applications. You can see the full sample data set at [SampleData.cs]({{ page.examples }}Rockaway.WebApp/Data/Sample/SampleData.cs)
 
 ```csharp
 // ReSharper disable StringLiteralTypo

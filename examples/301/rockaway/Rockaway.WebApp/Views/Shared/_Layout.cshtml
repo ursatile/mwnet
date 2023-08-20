@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>@(ViewData["Title"] ?? "Rockaway")</title>
+</head>
+<body>
+<environment include="Development">
+	<span class="site-mode-header">DEVELOPMENT MODE</span>
+</environment>
+<environment include="Staging">
+	<span class="site-mode-header">TEST MODE</span>
+</environment>
+<partial name="_Header"/>
+<main>
+		@RenderBody()
+</main>
+<partial name="_Footer"/>
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>
