@@ -8,9 +8,11 @@
 </head>
 <body>
 	<header>
-		<h1>
-			<a href="/">Rockaway</a>
-		</h1>
+		<a href="/">
+			<h1>
+				Rockaway
+			</h1>
+		</a>
 		<nav>
 			<a href="/">home</a>
 			<a asp-page="/artists">artists</a>
@@ -20,8 +22,17 @@
 	<main>
 		@RenderBody()
 	</main>
-	<footer>
-		Copyright &copy; 2023 Rockaway &bull; <a asp-controller="Status" asp-action="Index">system status</a>
-	</footer>
+<footer>
+	<span>
+			Copyright &copy; 2023 Rockaway
+	</span>
+	<nav>
+		<a href="#">about us</a>
+		<a href="#">contact us</a>
+		<a href="#">privacy policy</a>
+		<a href="#">terms &amp; conditions</a>
+		<a asp-controller="Status" asp-action="Index">system status</a>
+	</nav>
+</footer>
 </body>
 </html>

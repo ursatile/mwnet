@@ -1,0 +1,94 @@
+@use "sass:color";
+@import 'reset.css';
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+$font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+
+$foreground-color: #fff;
+$brand-color: #036;
+$panel-background-color: #000;
+$link-color: color.scale($brand-color, $lightness: 50%);
+$border-radius: 8px;
+$gutter: 8px;
+
+html {
+	color: $foreground-color;
+	background: $brand-color;
+	background: linear-gradient(150deg, color.scale($brand-color, $lightness: -75%) 0%, color.scale($brand-color, $lightness: +15%) 50%, $brand-color 100%);
+	background-attachment: fixed;
+	font-family: $font-family;
+}
+
+@mixin fancy-panel($bg-color: $panel-background-color) {
+	margin: $gutter 0;
+	border-radius: $border-radius;
+	border: 1px solid $brand-color;
+	padding: 2px + $border-radius;
+	background-color: $bg-color;
+}
+
+body {
+	max-width: 960px;
+	margin: 0px auto;
+	padding: 0 $gutter;
+
+	> header {
+		@include fancy-panel;
+		display: flex;
+		justify-content: space-between;
+
+		h1 {
+			font-size: 0;
+			height: 38px;
+			width: 200px;
+			background: url(/img/rockaway-logotype.svg) left center no-repeat;
+		}
+
+		nav {
+			a {
+				background: $brand-color;
+				display: inline-block;
+				padding: 4px 16px;
+				color: #fff;
+				font-size: 120%;
+				border-radius: $border-radius/2;
+
+				&:hover {
+					background: color.scale($brand-color, $lightness: +20%);
+				}
+			}
+		}
+	}
+
+	> main {
+		@include fancy-panel;
+	}
+
+	> footer {
+		font-size: 80%;
+		display: flex;
+		justify-content: space-between;
+		@include fancy-panel;
+
+		nav {
+			a {
+				display: inline-block;
+				border-left: 1px solid #fff;
+				padding: 0 0.5em;
+			}
+
+			a:first-child {
+				border: none;
+			}
+
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	a {
+		color: $link-color;
+		text-decoration: none;
+	}
+}

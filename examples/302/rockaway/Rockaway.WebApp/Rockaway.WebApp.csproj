@@ -18,9 +18,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Styles\" />
-  </ItemGroup>
-  <ItemGroup>
     <UpToDateCheckInput Remove="styles\styles.scss" />
   </ItemGroup>
 </Project>
