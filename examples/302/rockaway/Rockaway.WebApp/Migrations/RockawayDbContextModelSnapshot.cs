@@ -206,6 +206,151 @@ namespace Rockaway.WebApp.Migrations
                             Name = "Ærbårn"
                         });
                 });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Telephone")
+                        .HasMaxLength(32)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Venues");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"),
+                            Address = "157 Charing Cross Road",
+                            City = "London",
+                            CountryCode = "GB",
+                            Name = "The Astoria",
+                            PostalCode = "WC2H 0EL",
+                            Telephone = "020 7412 3400",
+                            WebsiteUrl = "https://www.astoria.co.uk"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
+                            Address = "50 Boulevard Voltaire",
+                            City = "Paris",
+                            CountryCode = "FR",
+                            Name = "Bataclan",
+                            PostalCode = "75011",
+                            Telephone = "+33 1 43 14 00 30",
+                            WebsiteUrl = "https://www.bataclan.fr/"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
+                            Address = "Columbiadamm 9 - 11",
+                            City = "Berlin",
+                            CountryCode = "DE",
+                            Name = "Columbia Theatre",
+                            PostalCode = "10965",
+                            Telephone = "+49 30 69817584",
+                            WebsiteUrl = "https://columbia-theater.de/"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
+                            Address = "Liosion 205",
+                            City = "Athens",
+                            CountryCode = "GR",
+                            Name = "Gagarin 205",
+                            PostalCode = "104 45",
+                            Telephone = "+45 35 35 50 69",
+                            WebsiteUrl = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"),
+                            Address = "Torggata 16",
+                            City = "Oslo",
+                            CountryCode = "NO",
+                            Name = "John Dee Live Club & Pub",
+                            PostalCode = "0181",
+                            Telephone = "+47 22 20 32 32",
+                            WebsiteUrl = "https://www.rockefeller.no/"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"),
+                            Address = "Stengade 18",
+                            City = "Copenhagen",
+                            CountryCode = "DK",
+                            Name = "Stengade",
+                            PostalCode = "2200",
+                            Telephone = "+45 35355069",
+                            WebsiteUrl = "https://www.stengade.dk"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
+                            Address = "R da Madeira 186",
+                            City = "Porto",
+                            CountryCode = "PT",
+                            Name = "Barracuda",
+                            PostalCode = "400 - 433"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"),
+                            Address = "Sveavägen 90",
+                            City = "Stockholm",
+                            CountryCode = "SE",
+                            Name = "Pub Anchor",
+                            PostalCode = "113 59",
+                            Telephone = "+46 8 15 20 00",
+                            WebsiteUrl = "https://www.instagram.com/pubanchor/?hl=en"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"),
+                            Address = "323 New Cross Road",
+                            City = "London",
+                            CountryCode = "GB",
+                            Name = "New Cross Inn",
+                            PostalCode = "SE14 6AS",
+                            Telephone = "+44 20 8469 4382",
+                            WebsiteUrl = "https://www.newcrossinn.com/"
+                        });
+                });
 #pragma warning restore 612, 618
         }
     }

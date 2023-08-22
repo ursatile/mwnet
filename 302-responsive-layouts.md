@@ -1,5 +1,5 @@
 ---
-title: 3.1 Responsive Layouts
+title: 3.2 Responsive Layouts
 layout: module
 nav_order: 0302
 summary: >-

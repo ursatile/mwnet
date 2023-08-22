@@ -1,4 +1,5 @@
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IClock, SystemClock>();

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Rockaway.WebApp.Pages;
@@ -13,6 +12,6 @@ public class ArtistModel : PageModel {
 	public Artist Artist { get; set; } = null!;
 
 	public void OnGet(string slug) {
-		this.Artist = db.Artists.Single(a => a.Name == slug);
+		this.Artist = db.Artists.Single(a => a.Slug == slug);
 	}
 }
