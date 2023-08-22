@@ -52,10 +52,19 @@ public static class Users {
         Admin.PasswordHash = hasher.HashPassword(Admin, "Top5ecret!");
     }
     public static IdentityUser Admin { get; }
-}
+} 
 ```
 
-Then we need to modify `Program.cs` to register the new identity providers.
+Inheriting from the `IdentityDbContext<IdentityUser>` actually adds a whole bunch of new tables and entities to our data model, so once we've done this, we'll need to generate a database migration to add these to our database, and then apply it:
+
+```dotnetcli
+dotnet ef migrations add SetUpAspNetIdentity
+dotnet ef database update
+```
+
+As before, if we're using `database=sqlite`, it's all handled in `EnsureCreated()` so we can run our app locally without migrating any data.
+
+Next we need to modify `Program.cs` to register the new identity providers.
 
 After the call to `builder.Services.AddDbContext()`, add:
 
@@ -187,6 +196,11 @@ You can find out more about that here:
 [Scaffold Identity in ASP.NET Core Projects](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=visual-studio)
 
 For now, all we're interested in is a way to log in and log out, so we can build authenticated user journeys, so we're going to wrap it up here.
+
+## Resources and Further Reading:
+
+* [Adding Authentication and Authorisation to ASP.NET Core Web Applications](https://endjin.com/blog/2022/03/adding-authentication-and-authorisation-to-aspnet-core-web-applications) by Elisenda Gascon at endjin.com
+* [Scaffold Identity in ASP.NET Core Projects](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=visual-studio) at learn.microsoft.com
 
 
 

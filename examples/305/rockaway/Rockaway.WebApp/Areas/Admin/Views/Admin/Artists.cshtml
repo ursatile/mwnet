@@ -1,0 +1,7 @@
+@model IEnumerable<Artist>
+<h1>Artists</h1>
+<ul>
+@foreach (var artist in Model) {
+	<li><a asp-action="Artist" asp-route-id="@artist.Id">@artist.Name</a></li>
+}
+</ul>

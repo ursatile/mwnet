@@ -41,8 +41,18 @@ if (sqlite) {
 }
 
 app.UseRouting();
+
+app.Use(next => context => {
+	logger.LogInformation($"Routing: Found: {context.GetEndpoint()?.DisplayName}");
+	return next(context);
+});
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapRazorPages();
-app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "admin", pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Admin}/{action=Index}/{id?}");
+
 app.UseStaticFiles();
 app.Run();

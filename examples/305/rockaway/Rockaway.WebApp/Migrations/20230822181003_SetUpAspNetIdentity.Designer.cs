@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rockaway.WebApp.Data;
 
@@ -11,9 +12,11 @@ using Rockaway.WebApp.Data;
 namespace Rockaway.WebApp.Migrations
 {
     [DbContext(typeof(RockawayDbContext))]
-    partial class RockawayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230822181003_SetUpAspNetIdentity")]
+    partial class SetUpAspNetIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
