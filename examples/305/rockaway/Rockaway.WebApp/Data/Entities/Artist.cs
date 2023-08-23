@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Artist {

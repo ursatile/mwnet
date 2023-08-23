@@ -1,0 +1,9 @@
+@page
+@model Rockaway.WebApp.Pages.ArtistsModel
+
+@foreach (var artist in Model.Artists) {
+	<section>
+	@Html.DisplayFor(_ => artist)
+	<a asp-page="Artist" asp-route-slug="@artist.Slug">more info...</a>
+	</section>
+}
