@@ -7,6 +7,8 @@ summary: >-
 examples: examples/302/rockaway/
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet301
+complete: mwnet302
 ---
 
 ## Creating Response Layouts with SCSS

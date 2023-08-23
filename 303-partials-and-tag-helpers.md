@@ -7,6 +7,8 @@ summary: >-
 examples: examples/303/rockaway/
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet302
+complete: mwnet303
 ---
 
 OK, time to make our Artists listing page look good.

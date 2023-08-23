@@ -1,5 +1,15 @@
 @use '../fontawesome/css/all.min.css';
 
+div.download-link {
+  border-width: 2px 0;
+  border-style: solid;
+  border-color: #7253ed;
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  margin: 16px 0;
+}
+
 div.highlight {
   font-size: 14px;
 

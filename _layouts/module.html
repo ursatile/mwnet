@@ -3,4 +3,14 @@ layout: default
 ---
 <h1>{{ page.title }}</h1>
 <p>{{ page.summary }}</p>
+{% if page.previous %}
+<div class="download-link">
+Download the starting code for this section: <a href="examples/{{ page.previous }}.zip">{{ page.previous}}.zip</a>
+</div>
+{% endif %}
 {{ content }}
+{% if page.complete %}
+<div class="download-link">
+Download the complete code for this section: <a href="examples/{{ page.complete }}.zip">{{ page.complete }}.zip</a>
+</div>
+{% endif %}

@@ -7,6 +7,8 @@ summary: >-
 
 typora-root-url: ./
 typora-copy-images-to: ./images
+previous: mwnet102
+complete: mwnet103
 ---
 
 In the last module, we looked at Razor Pages, and learned about the page-based routing model.

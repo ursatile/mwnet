@@ -7,6 +7,8 @@ summary: >-
 examples: examples/202/rockaway/
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet201
+complete: mwnet202
 ---
 
 Creating the Artist class

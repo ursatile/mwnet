@@ -7,6 +7,8 @@ summary: >-
 
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet103
+complete: mwnet104
 ---
 
 So far, we've created web endpoints using Minimal APIs, using Razor Pages, and using the Model/View/Controller pattern.

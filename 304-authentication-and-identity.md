@@ -7,6 +7,8 @@ summary: >-
 typora-root-url: .
 typora-copy-images-to: ./images
 examples: examples/304/rockaway/
+previous: mwnet303
+complete: mwnet304
 ---
 
 Before we add an admin area to our application, we're going to wire in some authentication and authorization support.

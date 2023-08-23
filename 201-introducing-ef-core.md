@@ -7,6 +7,8 @@ summary: >-
 examples: examples/201/rockaway/
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet105
+complete: mwnet201
 ---
 
 In this module, we're going to start adding some application data to our web app. The business scenario we're modelling here is tickets to rock concerts, so the first thing we're going to add here is a list of artists -- bands and musicians who are going to be performing at the shows we're selling tickets for.

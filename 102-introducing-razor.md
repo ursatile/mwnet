@@ -5,10 +5,10 @@ nav_order: 0102
 summary: >-
   In this module, we'll meet the Razor view engine, used throughout ASP.NET for generating HTML and managing templated content, and learn about Razor Pages and how to build web apps using the page-based authoring model.
 typora-copy-images-to: ./images
-
+complete: mwnet102
 ---
 
-## What's a View Engine, Anyway?
+## What's a View Engine, Anyway? 
 
 At the end of the last module, we built a simple calculator app that returned results as an HTML web page.
 

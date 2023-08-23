@@ -6,6 +6,8 @@ summary: >-
   Before we move on to the next part of the workshop, let's take a moment to clean up our code, apply some formatting conventions, and generally make sure everything's nicely structured and organised before we go any further.
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet104
+complete: mwnet105
 ---
 
 Here's a quick recap of what we've accomplished so far.

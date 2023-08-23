@@ -7,6 +7,8 @@ summary: >-
 examples: examples/203/rockaway/
 typora-root-url: .
 typora-copy-images-to: ./images
+previous: mwnet202
+complete: mwnet203
 ---
 
 In the last module, we set up a SQL Server database, added EF Core to our application, and wired up an endpoint that displays a list of artists from our database.
