@@ -40,3 +40,5 @@ First, install NodaTime:
 dotnet add package NodaTime
 ```
 
+Next, create the classes which model shows, tickets, and show line-ups
+
