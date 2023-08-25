@@ -1,0 +1,48 @@
+@model IEnumerable<Rockaway.WebApp.Data.Entities.Show>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Venue)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Date)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Headliner)
+			</th>
+			@*<th>
+				@Html.DisplayNameFor(model => model.SupportActs)
+			</th>*@
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Venue)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Date)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Headliner)
+				</td>
+				@*<td>
+					@Html.DisplayFor(modelItem => item.SupportActs)
+				</td>*@
+			</tr>
+		}
+	</tbody>
+</table>

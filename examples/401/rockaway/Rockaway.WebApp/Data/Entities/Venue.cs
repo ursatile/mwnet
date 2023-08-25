@@ -1,3 +1,5 @@
+using NodaTime;
+
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Venue {
@@ -13,6 +15,21 @@ public class Venue {
 		PostalCode = postalCode;
 		Telephone = telephone;
 		WebsiteUrl = websiteUrl;
+	}
+
+	public IList<Show> Shows { get; set; } = new List<Show>();
+
+	public Show BookShow(Artist headliner, LocalDate date) {
+		var show = new Show() {
+			Headliner = headliner,
+			Date = date,
+			DoorsOpen = new(18, 00),
+			ShowBegins = new(19, 00),
+			Venue = this,
+			ShowEnds = new(23, 00),
+		};
+		this.Shows.Add(show);
+		return show;
 	}
 
 	public Guid Id { get; set; }
