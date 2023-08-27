@@ -2,48 +2,10 @@
 // ReSharper disable IdentifierTypo
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Elfie.Diagnostics;
-using NodaTime;
 
 namespace Rockaway.WebApp.Data.Sample;
 
-public static class SampleData {
-
-	public static object ToSeedData(this Show show) => new {
-		VenueId = show.Venue.Id,
-		HeadlinerId = show.Headliner.Id,
-		show.Date,
-		show.DoorsOpen,
-		show.ShowBegins,
-		show.SalesBegin,
-		show.ShowEnds
-	};
-
-	public static object ToSeedData(this Venue venue) => new {
-		venue.Id,
-		venue.Name,
-		venue.Address,
-		venue.City,
-		venue.CountryCode,
-		venue.PostalCode,
-		venue.Telephone,
-		venue.WebsiteUrl
-	};
-
-
-	public static class Shows {
-		public static Show Astoria20230901 =
-			Venues.Astoria.BookShow(Artists.DevLeppard, new(2023, 09, 01))
-				.WithSupportActs(Artists.BodyBag, Artists.KillerBite);
-
-		public static Show Astoria20230902 =
-			Venues.Astoria.BookShow(Artists.HaskellsAngels, new(2023, 09, 02))
-		.WithSupportActs(Artists.Coda, Artists.Yamb);
-
-		public static object[] AllShows = {
-			Astoria20230901.ToSeedData(), Astoria20230902.ToSeedData()
-		};
-	}
+public static partial class SampleData {
 
 	public static class Users {
 		static Users() {

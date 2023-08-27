@@ -11,7 +11,7 @@ previous: mwnet201
 complete: mwnet202
 ---
 
-Creating the Artist class
+## Creating the Artist class
 
 The first business object we're going to add to our data model is `Artist`.
 

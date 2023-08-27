@@ -130,7 +130,6 @@ The lines which actually make Razor Pages work are:
 // This line plugs in all the Razor Pages components to your application
 builder.Services.AddRazorPages();
 
-    
 // This line sets up the ASP.NET Core Routing infrastructure - Razor Pages
 // relies on Routing to map your requests onto your pages
 app.UseRouting();

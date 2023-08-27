@@ -1,14 +1,8 @@
 @model IEnumerable<Rockaway.WebApp.Data.Entities.Show>
-
 @{
 	ViewData["Title"] = "Index";
 }
-
 <h1>Index</h1>
-
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
 <table class="table">
 	<thead>
 		<tr>
@@ -21,27 +15,26 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Headliner)
 			</th>
-			@*<th>
+			<th>
 				@Html.DisplayNameFor(model => model.SupportActs)
-			</th>*@
+			</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model)
-		{
+		@foreach (var item in Model) {
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Venue)
+					<a asp-action="Details" asp-controller="Venues" asp-route-id="@item.Venue.Id">@item.Venue.Name</a>
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Date)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Headliner)
+					<a asp-action="Details" asp-controller="Artists" asp-route-id="@item.Headliner.Id">@item.Headliner.Name</a><br />
 				</td>
-				@*<td>
-					@Html.DisplayFor(modelItem => item.SupportActs)
-				</td>*@
+				<td>
+					@string.Join(", ", item.SupportActs.Select(a => a.Artist.Name).ToArray())
+				</td>
 			</tr>
 		}
 	</tbody>

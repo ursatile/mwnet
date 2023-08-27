@@ -411,6 +411,14 @@ public async Task GET_Status_Includes_ISO3601_DateTime_Element() {
 
 ...and we're done. We can spin up a full end-to-end web stack, replace specific services with test versions, send a request, parse the response, and validate specific elements of the resulting HTML.
 
+## Testing Web Applications: Exercises
+
+In the previous section, we added `Environment.MachineName` and the assembly last modified date to our status page.
+
+Add test coverage for these two features. You'll need to create interfaces which expose the required properties, test implementations of these interfaces to use in your unit and integration tests, and real implementations that return live data from the system hosting your app.
+
+
+
 
 
 

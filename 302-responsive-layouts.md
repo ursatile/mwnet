@@ -425,6 +425,10 @@ One final thing left to tweak: the label at the moment says NAV.
 
 I'd like that to be one of those three-row "hamburger menu" icons that's become an established convention for signifying mobile navigation.
 
+![image-20230827124104065](/images/image-20230827124104065.png)
+
+<caption>"Click on the hamburger menu"</caption>
+
 We *could* build a pseudo-icon by styling up some `<span> tags or something, but instead we're going to take this opportunity to install a library called FontAwesome, which we'll be using throughout the rest of the workshop.
 
 FontAwesome uses web font technology to add responsive icons and images to our web UI.

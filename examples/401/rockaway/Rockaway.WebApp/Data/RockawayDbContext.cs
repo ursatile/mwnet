@@ -26,6 +26,7 @@ public class RockawayDbContext : IdentityDbContext<IdentityUser> {
 
 	protected override void OnModelCreating(ModelBuilder builder) {
 		base.OnModelCreating(builder);
+
 		builder.Entity<Artist>(artist => {
 			artist.HasData(SampleData.Artists.AllArtists);
 			artist.HasIndex(a => a.Slug).IsUnique();
@@ -37,7 +38,11 @@ public class RockawayDbContext : IdentityDbContext<IdentityUser> {
 			show.HasKey("VenueId", nameof(Show.Date));
 			show.HasData(SampleData.Shows.AllShows);
 		});
-		builder.Entity<SupportSlot>(slot => slot.HasKey("ShowVenueId", "ShowDate", nameof(SupportSlot.SlotNumber)));
+
+		builder.Entity<SupportSlot>(slot => {
+			slot.HasKey("ShowVenueId", "ShowDate", nameof(SupportSlot.SlotNumber));
+			slot.HasData(SampleData.Shows.AllSupportSlots);
+		});
 
 		builder.Entity<IdentityUser>(users => users.HasData(SampleData.Users.Admin));
 	}
