@@ -206,7 +206,7 @@ As well as testing specific elements of our application logic, we're going to bu
 
 This used to be incredibly difficult, but ASP.NET Core introduced something called the `WebApplicationFactory`, which is quite possibly the best single addition to .NET I've seen since I started using C# back in 2002. Seriously, it is amazing.
 
-![web-application-factory-brain-meme](/images/web-application-factory-brain-meme.jpeg)
+![web-application-factory-brain-meme](images/web-application-factory-brain-meme.jpeg)
 
 
 
@@ -262,13 +262,13 @@ Next, we'll add a new file to our test project called `WebTests.cs`.
 
 Now, when we run `dotnet test`, our test code will spin up a standalone instance of our web app, send an HTTP request to `/status`, and verify the response has a `Success` status code:
 
-![image-20230817134717765](/images/image-20230817134717765.png)
+![image-20230817134717765](images/image-20230817134717765.png)
 
 OK, our app is broken. Good. Better to find out this way than to get angry customers shouting at our helpdesk team, right?
 
 If we open up `/status` in a browser, we can see what's actually going on:
 
-![image-20230817133333401](/images/image-20230817133333401.png)
+![image-20230817133333401](images/image-20230817133333401.png)
 
 We've made our `StatusController` dependent on something that implements `IClock`, but we haven't told ASP.NET Core about it -- so when that request comes in, the runtime looks at the routing map, determines that it needs to go to a `StatusController`, tries to create one, finds out that it can't make at `StatusController` without an `IClock`, realises it has no idea how to create `IClocks`, and falls over.
 
@@ -311,7 +311,7 @@ We're registering the `SystemClock` here using the `Services.AddSingleton` metho
 
 Now, when we re-run our tests:
 
-![image-20230817135005051](/images/image-20230817135005051.png)
+![image-20230817135005051](images/image-20230817135005051.png)
 
 Sweet.
 
@@ -354,7 +354,7 @@ A good test tells you WHEN your application doesn't work; a great test tells you
 
 If the test above passes, all we know is that the request produced a web page, and the web page contained the string `2023-04-05T06:07:08+01:00` - and if it fails, the error we get isn't terribly useful:
 
-![image-20230817144641851](/images/image-20230817144641851.png)
+![image-20230817144641851](images/image-20230817144641851.png)
 
 It would be more useful if we could dig into the HTML markup of the page, extract the element we're interested in, make sure it exists, and make sure it contains the correct value.
 

@@ -156,5 +156,5 @@ Let's add a database connection check to our `/status` endpoint. Notice that to 
 
 Now, when we open our status page, we should see something like this:
 
-![image-20230818115413775](/images/image-20230818115413775.png)
+![image-20230818115413775](images/image-20230818115413775.png)
 

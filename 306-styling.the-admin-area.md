@@ -96,4 +96,4 @@ form {
 
 That'll give us a form something like this:
 
-![image-20230827125430122](/images/image-20230827125430122.png)
+![image-20230827125430122](images/image-20230827125430122.png)

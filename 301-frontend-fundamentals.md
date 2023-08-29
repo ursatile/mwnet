@@ -67,11 +67,11 @@ I've decided we'll use `~/Views/Shared` for all our reusable bits of Razor code,
 
 Lots of modern websites are built using frameworks which produce markup like this:
 
-![image-20230818194242944](/images/image-20230818194242944.png)
+![image-20230818194242944](images/image-20230818194242944.png)
 
 That's not how do things around here. In this workshop, we're going to use semantic markup. Our page header will be a `<header>` tag, our footer will be a `<footer>`. The main bit of the page will be `<main>`. We'll organise content using `<section>`, we'll use `<nav>` and `<label>` and `<fieldset>` and all the other weird and wonderful tags that browsers know about.
 
-![image-20230818195111041](/images/image-20230818195111041.png)
+![image-20230818195111041](images/image-20230818195111041.png)
 
 <figcaption>The Periodic Table of HTML elements: <a href="https://madebymike.github.io/html5-periodic-table/">madebymike.github.io/html5-periodic-table</a></figcaption>
 
@@ -87,7 +87,7 @@ Here's the layout page we're going to kick off with:
 
 Cascading Style Sheets -- CSS -- is one of the technologies that developers love to hate. Working with poorly authored CSS can be a horribly frustrating experience.
 
-![CSS](/images/peter-griffin-venetian-blind-css.gif)
+![CSS](images/peter-griffin-venetian-blind-css.gif)
 
 CSS doesn't have to be horrible, though. 
 
@@ -208,7 +208,7 @@ and finally, add a `<link>` tag to the `<head>` of our layout page:
 
 Now, when we browse to one of our pages, we'll see something like this:
 
-![image-20230821131752952](/images/image-20230821131752952.png)
+![image-20230821131752952](images/image-20230821131752952.png)
 
 Dark mode FTW.
 

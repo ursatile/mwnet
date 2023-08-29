@@ -77,7 +77,7 @@ Finally, we'll plug in a **controller** with an **action** method which will pop
 
 Now, browsing to `/status` will show us a system status page:
 
-![image-20230817120650987](/images/image-20230817120650987.png)
+![image-20230817120650987](images/image-20230817120650987.png)
 
 
 
