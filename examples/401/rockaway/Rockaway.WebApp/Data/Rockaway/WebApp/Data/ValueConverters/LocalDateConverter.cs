@@ -22,6 +22,3 @@ public class NodaTimeConverters {
 				dateTime => LocalDate.FromDateTime(dateTime)) { }
 	}
 }
-
-
-

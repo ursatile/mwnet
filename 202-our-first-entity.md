@@ -11,7 +11,7 @@ previous: mwnet201
 complete: mwnet202
 ---
 
-Creating the Artist class
+## Creating the Artist class
 
 The first business object we're going to add to our data model is `Artist`.
 
@@ -72,7 +72,7 @@ Now, let's modify our Artists Razor page to return a list of artists from the da
 
 Browse to that page and...
 
-![image-20230818132735624](/images/image-20230818132735624.png)
+![image-20230818132735624](images/image-20230818132735624.png)
 
 Welcome, friends to something I call **error message driven development**.
 
@@ -94,7 +94,7 @@ public class Artist {
 
 Reload the page, and... 
 
-![image-20230818133001051](/images/image-20230818133001051.png)
+![image-20230818133001051](images/image-20230818133001051.png)
 
 Cool - a *different* error message!
 
@@ -311,7 +311,7 @@ dotnet ef database update
 
 Now, browse to `/artists`:
 
-![image-20230818154439111](/images/image-20230818154439111.png)
+![image-20230818154439111](images/image-20230818154439111.png)
 
 
 

@@ -143,15 +143,15 @@ namespace Rockaway.WebApp.Migrations
                         {
                             Id = "cccccccc-cccc-cccc-cccc-ccccccccccc1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "127273e7-97c3-405d-aef0-4934e68fa951",
+                            ConcurrencyStamp = "e9a8eef2-340a-497f-95e3-fe5f781b95dc",
                             Email = "admin@rockaway.dev",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ROCKAWAY.DEV",
                             NormalizedUserName = "ADMIN@ROCKAWAY.DEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHEyrn2rilT2YQzV1MBhRgNFA8QWIAdiWnzEp4mGXHnpUEzie9ZTgKNK5Y2QjQoKLQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIdEh/Tjes+um7V4geLo5d4BURJ/kvK8vDl0wBatPrGhqTe7AlZR6cNNynq4xC1mkg==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "308224a6-38ba-4a51-a185-4e764264fd9e",
+                            SecurityStamp = "c2c5ce8f-310c-47e1-9343-af35d12ee2e5",
                             TwoFactorEnabled = false,
                             UserName = "admin@rockaway.dev"
                         });
@@ -269,7 +269,7 @@ namespace Rockaway.WebApp.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Artists", (string)null);
+                    b.ToTable("Artists");
 
                     b.HasData(
                         new
@@ -463,6 +463,112 @@ namespace Rockaway.WebApp.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
+                {
+                    b.Property<Guid>("VenueId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("DoorsOpen")
+                        .HasColumnType("time");
+
+                    b.Property<Guid>("HeadlinerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("SalesBegin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("ShowBegins")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("ShowEnds")
+                        .HasColumnType("time");
+
+                    b.HasKey("VenueId", "Date");
+
+                    b.HasIndex("HeadlinerId");
+
+                    b.ToTable("Shows");
+
+                    b.HasData(
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"),
+                            Date = new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoorsOpen = new TimeSpan(0, 18, 0, 0, 0),
+                            HeadlinerId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa4"),
+                            SalesBegin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShowBegins = new TimeSpan(0, 19, 0, 0, 0),
+                            ShowEnds = new TimeSpan(0, 23, 0, 0, 0)
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"),
+                            Date = new DateTime(2023, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoorsOpen = new TimeSpan(0, 18, 0, 0, 0),
+                            HeadlinerId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa8"),
+                            SalesBegin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShowBegins = new TimeSpan(0, 19, 0, 0, 0),
+                            ShowEnds = new TimeSpan(0, 23, 0, 0, 0)
+                        });
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.SupportSlot", b =>
+                {
+                    b.Property<Guid>("ShowVenueId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ShowDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SlotNumber")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ArtistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ShowVenueId", "ShowDate", "SlotNumber");
+
+                    b.HasIndex("ArtistId");
+
+                    b.ToTable("SupportSlot");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Ticket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SalesLimit")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ShowDate1")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ShowVenueId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShowVenueId1", "ShowDate1");
+
+                    b.ToTable("Ticket");
+                });
+
             modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>
                 {
                     b.Property<Guid>("Id")
@@ -506,7 +612,7 @@ namespace Rockaway.WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Venues", (string)null);
+                    b.ToTable("Venues");
 
                     b.HasData(
                         new
@@ -657,6 +763,72 @@ namespace Rockaway.WebApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
+                {
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Artist", "Headliner")
+                        .WithMany("Shows")
+                        .HasForeignKey("HeadlinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Venue", "Venue")
+                        .WithMany("Shows")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Headliner");
+
+                    b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.SupportSlot", b =>
+                {
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Show", "Show")
+                        .WithMany("SupportActs")
+                        .HasForeignKey("ShowVenueId", "ShowDate")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artist");
+
+                    b.Navigation("Show");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Ticket", b =>
+                {
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Show", "Show")
+                        .WithMany("Tickets")
+                        .HasForeignKey("ShowVenueId1", "ShowDate1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Show");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Artist", b =>
+                {
+                    b.Navigation("Shows");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
+                {
+                    b.Navigation("SupportActs");
+
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>
+                {
+                    b.Navigation("Shows");
                 });
 #pragma warning restore 612, 618
         }

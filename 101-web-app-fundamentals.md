@@ -27,11 +27,11 @@ Either way, timeouts are bad.
 
 ### Structure of an HTTP Request
 
-[graphic here]
+![image-20230827122347473](images/image-20230827122347473.png)
 
 ### Structure of an HTTP Response
 
-[graphic here]
+![image-20230827122419914](images/image-20230827122419914.png)
 
 ### Getting started with ASP.NET Core Web Apps
 

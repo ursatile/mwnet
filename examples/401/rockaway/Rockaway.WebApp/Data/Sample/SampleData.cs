@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Rockaway.WebApp.Data.Sample;
 
-public class SampleData {
+public static partial class SampleData {
 
 	public static class Users {
 		static Users() {
@@ -39,9 +39,9 @@ public class SampleData {
 		public static Venue PubAnchor = new(TestGuid(8, 'b'), "Pub Anchor", "Sveavägen 90", "Stockholm", "SE", "113 59", "+46 8 15 20 00", "https://www.instagram.com/pubanchor/?hl=en");
 		public static Venue NewCrossInn = new(TestGuid(9, 'b'), "New Cross Inn", "323 New Cross Road", "London", "GB", "SE14 6AS", "+44 20 8469 4382", "https://www.newcrossinn.com/");
 
-		public static Venue[] AllVenues = {
+		public static IEnumerable<object> AllVenues = (new [] {
 			Astoria, Bataclan, Columbia, Gagarin, JohnDee, Stengade, Barracuda, PubAnchor, NewCrossInn
-		};
+		}).Select(v => v.ToSeedData());
 	}
 	public static class Artists {
 		public static Artist AlterColumn = new() {

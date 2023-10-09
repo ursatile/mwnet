@@ -1,7 +1,7 @@
 ---
 title: 4.1 Shows
 layout: module
-nav_order: 0303
+nav_order: 0401
 summary: >-
   In this module, we'll add shows to our data model, and find out how to deal with internationalization scenarios like timezones and currency formatting.
 typora-root-url: .
@@ -40,5 +40,53 @@ First, install NodaTime:
 dotnet add package NodaTime
 ```
 
-Next, create the classes which model shows, tickets, and show line-ups
+Next, create the classes which model shows, tickets, and show line-ups.
+
+**Rockaway.WebApp/Data/Entities/Show.cs:**
+
+```csharp
+{% include_relative {{ page.examples }}Rockaway.WebApp/Data/Entities/Show.cs %}
+```
+
+**Rockaway.WebApp/Data/Entities/SupportSlot.cs:**
+
+```csharp
+{% include_relative {{ page.examples }}Rockaway.WebApp/Data/Entities/SupportSlot.cs %}
+```
+
+### Seeding Test Data for Complex Entities
+
+One of the limitations of Entity Framework is that it can only seed test data from flat entities. Our SQL data structure for a `SupportSlot` looks like this:
+
+```
+ShowVenueId: uniqueidentifier
+ShowDate: date
+ArtistId: uniqueidentifier
+SlotNumber: int
+Comments: nvarchar(max)
+```
+
+It would be lovely if EF Core would create SupportSlot records automatically from a list of Shows... but it can't.
+
+We can use the same pattern we've used previously to set up our test data fixtures:
+
+**Rockaway.WebApp/Data/Sample/SampleData.Shows.cs:**
+
+```csharp
+{% include_relative {{ page.examples }}Rockaway.WebApp/Data/Sample/SampleData.Shows.cs %}
+```
+
+Instead, we need to project a set of anonymous objects which match the column names used in the database. We can do this using static extension methods:
+
+**Rockaway.WebApp/Data/Sample/SeedDataConverters.cs:**
+
+```csharp
+{% include_relative {{ page.examples }}Rockaway.WebApp/Data/Sample/SeedDataConverters.cs %}
+```
+
+
+
+
+
+
 

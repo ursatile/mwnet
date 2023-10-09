@@ -102,7 +102,7 @@ body {
 }
 ```
 
-![image-20230821144912710](/images/image-20230821144912710.png)
+![image-20230821144912710](images/image-20230821144912710.png)
 
 OK, the colour scheme isn't terribly tasteful -- but you get the idea :)
 
@@ -168,15 +168,15 @@ Now, see what happens to the page when we change the value of `$brand-color` to 
 
 **$brand-color: #036;**
 
-![image-20230821162935776](/images/image-20230821162935776.png)
+![image-20230821162935776](images/image-20230821162935776.png)
 
 **$brand-color: #906;**
 
-![image-20230821163026988](/images/image-20230821163026988.png)
+![image-20230821163026988](images/image-20230821163026988.png)
 
 **brand-color: #9c9;**
 
-![image-20230821163055645](/images/image-20230821163055645.png)
+![image-20230821163055645](images/image-20230821163055645.png)
 
 Try modifying the `$foreground-color` and `$background-color` variables as well:
 
@@ -215,7 +215,7 @@ body {
 
 
 
-![image-20230821165127162](/images/image-20230821165127162.png)
+![image-20230821165127162](images/image-20230821165127162.png)
 
 Nice.
 
@@ -268,7 +268,7 @@ and while we're here, we'll apply a flex layout and style the footer element as 
 }
 ```
 
-![image-20230821165455475](/images/image-20230821165455475.png)
+![image-20230821165455475](images/image-20230821165455475.png)
 
 ## Web Typography
 
@@ -292,7 +292,7 @@ html {
 
 Because we've used a CSS flex layout for our site header, if we open our site on a mobile device, it'll look a little weird.
 
-![image-20230821170231703](/images/image-20230821170231703.png)
+![image-20230821170231703](images/image-20230821170231703.png)
 
 The important thing to notice here is that **it still works**. All our navigation links are visible, and if we click on them, the right thing happens. However, we're wasting a lot of screen space here. Let's see how we can build a responsive drop-down navigation menu using only HTML and CSS -- no JavaScript required.
 
@@ -417,13 +417,17 @@ body {
 
 And there it is: we've created a responsive nav menu using only HTML and CSS:
 
-![image-20230821182626073](/images/image-20230821182626073.png)
+![image-20230821182626073](images/image-20230821182626073.png)
 
 ## FontAwesome
 
 One final thing left to tweak: the label at the moment says NAV. 
 
 I'd like that to be one of those three-row "hamburger menu" icons that's become an established convention for signifying mobile navigation.
+
+![image-20230827124104065](images/image-20230827124104065.png)
+
+<caption>"Click on the hamburger menu"</caption>
 
 We *could* build a pseudo-icon by styling up some `<span> tags or something, but instead we're going to take this opportunity to install a library called FontAwesome, which we'll be using throughout the rest of the workshop.
 
@@ -465,7 +469,7 @@ To check FontAwesome is working properly, try adding a snippet of markup like th
 
 If you get a little gallery of icons like this:
 
-![image-20230821221841365](/images/image-20230821221841365.png)
+![image-20230821221841365](images/image-20230821221841365.png)
 
 then it's working!
 
@@ -533,11 +537,11 @@ Download ngrok from [ngrok.com](https://ngrok.com/), and unzip **ngrok.exe** to 
 
 Start your web app, watch for port it's listening on:
 
-![image-20230821224012701](/images/image-20230821224012701.png)
+![image-20230821224012701](images/image-20230821224012701.png)
 
 and then in a separate window, run `ngrok http ` and specify the port number your app is using. Once it's connected, you'll have a real live internet address -- ` https://d81f67a722fd.ngrok.app` in this example -- which you can use to browse your app running on localhost:
 
-![image-20230821224348036](/images/image-20230821224348036.png)
+![image-20230821224348036](images/image-20230821224348036.png)
 
 One more tip - don't type that URL in! Copy & paste it into an online QR code generator, like [this one](https://ngrok-qr.alanwsmith.com/), and scan the code with your phone camera.
 

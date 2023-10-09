@@ -77,7 +77,7 @@ Finally, we'll plug in a **controller** with an **action** method which will pop
 
 Now, browsing to `/status` will show us a system status page:
 
-![image-20230817120650987](/images/image-20230817120650987.png)
+![image-20230817120650987](images/image-20230817120650987.png)
 
 
 
@@ -85,7 +85,14 @@ Now, browsing to `/status` will show us a system status page:
 
 ### Working with Model/View/Controller: Exercises:
 
-* 
+We want to add two more details to the status page.
+
+1. Add the host name of the server that's hosting the status page. .NET exposes this via `Environment.MachineName`
+2. Add the last modified date of the assembly containing your application.
+   1. Use the [`Assembly.GetExecutingAssembly()`](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assembly.getexecutingassembly?view=net-7.0) method to find the assembly information for the assembly containing your web app.
+   2. `Assembly.Location` will give you the path to that assembly file on disk.
+   3. Use the types in `System.IO` to get the last modification date of that file
+   4. Add this timestamp to your status page output.
 
 
 

@@ -185,7 +185,7 @@ We also need to add a line to our `_Layout.cshtml`, defining a section where the
 
 That'll give us registration and login pages that use our Rockaway look and feel:
 
-![image-20230822181450042](/images/image-20230822181450042.png)
+![image-20230822181450042](images/image-20230822181450042.png)
 
 Well, kinda.
 

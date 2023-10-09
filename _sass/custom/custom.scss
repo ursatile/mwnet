@@ -1,5 +1,10 @@
 @use '../fontawesome/css/all.min.css';
 
+a.site-title {
+  font-size: 14px !important;
+  font-weight: bold;
+}
+
 div.download-link {
   border-width: 2px 0;
   border-style: solid;
