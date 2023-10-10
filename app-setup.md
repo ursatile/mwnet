@@ -35,9 +35,14 @@ dotnet add Rockaway.WebApp.Tests reference Rockaway.WebApp
 
 This gives us a basic web app with Razor Pages support.
 
-Add Serilog
+Add the `.editorconfig`
+
+`dotnet format`
+
+Add Serilog:
 
 ```
+cd Rockaway.WebApp
 dotnet add package Serilog.AspNetCore
 ```
 
@@ -49,7 +54,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 ```
 
-Add the `.editorconfig`
+That's enough. Go live. Ship it.
+
+Set up the Azure app. It'll push the `yml` file to the Git repo
+
+Pull it.
+
+Fix the project path, add the unit tests
+
+Watch it go live.
+
+Turn on application insights
+
+
 
 How can we test it?
 
@@ -73,10 +90,10 @@ Hack the Rockaway.WebApp.csproj to add InternalsVisibleTo:
 
 Remove UnitTest1
 
-Add `PagesTests.cs`
+Add `PagesTests.cs`, in the `Pages` namespace:
 
 ```csharp
-namespace Rockaway.WebApp.Tests;
+namespace Rockaway.WebApp.Tests.Pages;
 
 public class PagesTests {
 	[Fact]
@@ -91,11 +108,17 @@ public class PagesTests {
 
 Add Shouldly and AngleSharp.
 
+```console
+dotnet add package AngleSharp
+dotnet add package Shouldly
+```
+
 Wire in a test that the `<title`> element of the home page says **Rockaway**
 
 ```csharp
 [Fact]
 public async Task Homepage_Title_Has_Correct_Content() {
+    var browsingContext = BrowsingContext.New(Configuration.Default);
     var factory = new WebApplicationFactory<Program>();
     var client = factory.CreateClient();
     var html = await client.GetStringAsync("/");
@@ -105,6 +128,8 @@ public async Task Homepage_Title_Has_Correct_Content() {
     title.InnerHtml.ShouldBe("Rockaway");
 }
 ```
+
+
 
 **Service registration and the status endpoint**
 
@@ -135,9 +160,10 @@ Exercises
 1. Create a Contact Us page at /contact
 2. The page title should be "Contact Us" - verify this with a test
 3. Create an uptime endpoint, which returns a JSON object showing how long it is since the application was last started or restarted.
-4. This 
 
-ASP.NET MVC and Entity Framework, DbContext, 
+## END OF PART ONE
+
+### Part 2: ASP.NET MVC and Entity Framework, DbContext, 
 
 Milestone: /artists - a list of artists
 
@@ -150,8 +176,6 @@ app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");	
 ```
-
-
 
 Plug in EF Core. We're going to install versions for both SQL Server and Sqlite:
 
@@ -174,6 +198,8 @@ public class Artist {
 
 	[MaxLength(100)]
 	[Unicode(false)]
+    [RegularExpression("^[a-z0-9-]{2,100}", 
+		ErrorMessage = "Slug must be 2-100 characters and contain only a-z, 0-9 and hyphen (-) characters")]
 	public string Slug { get; set; } = String.Empty;
 
 	public Artist() { }
@@ -183,218 +209,6 @@ public class Artist {
 		this.Name = name;
 		this.Description = description;
 		this.Slug = slug;
-	}
-}
-```
-
-Create our sample artist data:
-
-```csharp
-namespace Rockaway.WebApp.Data.Sample; 
-
-public partial class SampleData {
-
-	public static class Artists {
-
-		private static int seed = 1;
-		private static Guid NextId => TestGuid(seed++, 'A');
-		public static Artist AlterColumn = new(
-			NextId,
-			"Alter Column",
-			"Alter Column are South Africa's hottest math rock export. Founded in Cape Town in 2021, their debut album \"Drop Table Mountain\" was nominated for four Grammy awards.",
-			"alter-column"
-		);
-
-		public static Artist BodyBag = new(
-			NextId,
-			"<Body>Bag",
-			"Speed metal pioneers from San Francisco, <Body>Bag helped define the “web rock” sound in the early 2020s.",
-			"body-bag"
-		);
-
-		public static Artist Coda = new(
-			NextId,
-			"Coda",
-			"Hailing from a distant future, Coda is a time-traveling rock band known for their mind-bending melodies that transport audiences through different eras, merging past and future into a harmonious blend of sound.",
-			"coda"
-		);
-
-		public static Artist DevLeppard = new(
-			NextId,
-			"Dev Leppard",
-			"Rising from the ashes of adversity, Dev Leppard is a fiercely talented rock band that overcame obstacles with sheer determination, captivating fans worldwide with their electrifying performances and showcasing a bond that empowers their music.",
-			"dev-leppard"
-		);
-
-		public static Artist Elektronika = new(
-			NextId,
-			"Электроника",
-			"Merging the realms of art and emotion, Электроника is an introspective rock group, infusing their hauntingly beautiful lyrics with mesmerizing melodies that delve into the depths of human existence, leaving listeners immersed in profound reflections.",
-			"elektronika"
-		);
-
-		public static Artist ForEarTransform = new(
-			NextId,
-			"For Ear Transform",
-			"With an otherworldly allure, For Ear Transform is an ethereal rock ensemble, their music transcends reality, leading listeners on a dreamlike journey where celestial harmonies and ethereal instrumentation create a captivating and transformative experience.",
-			"for-ear-transform"
-		);
-
-		public static Artist GarbageCollectors = new(
-			NextId,
-			"Garbage Collectors",
-			"Rebel rockers with a cause, Garbage Collectors are raw, raucous and unapologetic, fearlessly tackling social issues and societal norms in their music, energizing crowds with their powerful anthems and unyielding spirit.",
-			"garbage-collectors"
-		);
-
-		public static Artist HaskellsAngels = new(
-			NextId,
-			"Haskell’s Angels",
-			"Virtuosos of rhythm and harmony, Haskell’s Angels radiate a divine aura, blending complex melodies and celestial harmonies that resonate deep within the soul.",
-			"haskells-angels"
-		);
-
-		public static Artist IronMedian = new(
-			NextId,
-			"Iron Median",
-			"A force to be reckoned with, Iron Median are known for their thunderous beats and adrenaline-pumping anthems, electrifying audiences with their commanding stage presence and unstoppable energy.",
-			"iron-median"
-		);
-
-		public static Artist JavasCrypt = new(
-			NextId,
-			"Java’s Crypt",
-			"Enigmatic and mysterious, Java’s Crypt are shrouded in secrecy, their enigmatic melodies and cryptic lyrics take listeners on a thrilling journey through the unknown realms of music.",
-			"javas-crypt"
-		);
-
-		public static Artist KillerBite = new(
-			NextId,
-			"Killer Bite",
-			"An electrifying whirlwind, Killer Bite unleash a torrent of energy through their performances, captivating audiences with their explosive riffs and heart-pounding rhythms.",
-			"killer-bite"
-		);
-
-		public static Artist LambdaOfGod = new(
-			NextId,
-			"Lambda of God",
-			"Pioneers of progressive rock, Lambda of God is an innovative band that pushes the boundaries of musical expression, combining intricate compositions and thought-provoking lyrics that resonate deeply with their dedicated fanbase.",
-			"lambda-of-god"
-		);
-
-		public static Artist NullTerminatedStringBand = new(
-			NextId,
-			"Null Terminated String Band",
-			"Quirky and witty, the Null Terminated String Band is a rock group that weaves clever humor and geeky references into their catchy tunes, bringing a smile to the faces of both tech enthusiasts and music lovers alike.",
-			"null-terminated-string-band"
-		);
-
-		public static Artist MottTheTuple = new(
-			NextId,
-			"Mott the Tuple",
-			"A charismatic ensemble, Mott the Tuple blends vintage charm with a modern edge, creating a unique sound that captivates audiences and takes them on a nostalgic journey through time.",
-			"mott-the-tuple"
-		);
-
-		public static Artist Overflow = new(
-			NextId,
-			"Överflow",
-			"Overflowing with passion and intensity, Överflow is a rock band that immerses listeners in a tsunami of sound, exploring emotions through powerful melodies and soul-stirring performances.",
-			"overflow"
-		);
-
-		public static Artist PascalsWager = new(
-			NextId,
-			"Pascal’s Wager",
-			"Philosophers of rock, Pascal’s Wager delves into existential themes with their intellectually charged songs, prompting listeners to ponder the profound questions of life and purpose.",
-			"pascals-wager"
-		);
-
-		public static Artist QuantumGate = new(
-			NextId,
-			"Qüantum Gäte",
-			"Futuristic and avant-garde, Qüantum Gäte defy conventions, using experimental sounds and innovative compositions to transport listeners to other dimensions of music.",
-			"quantum-gate"
-		);
-
-		public static Artist RunCmd = new(
-			NextId,
-			"Run CMD",
-			"High-energy and rebellious, Run CMD is a rock band that merges technology themes with headbanging-worthy tunes, igniting the stage with their electrifying presence and infectious enthusiasm.",
-			"run-cmd"
-		);
-
-		public static Artist ScriptKiddies = new(
-			NextId,
-			"<Script>Kiddies",
-			"Mischievous and bold, <Script>Kiddies subvert expectations with clever musical pranks, weaving clever wordplay and tongue-in-cheek humor into their audacious performances.",
-			"script-kiddies"
-		);
-
-		public static Artist Terrorform = new(
-			NextId,
-			"Terrorform",
-			"Masters of atmosphere, Terrorform’s dark and atmospheric rock ensembles conjure hauntingly beautiful soundscapes that captivate the senses and evoke a deep emotional response.",
-			"terrorform"
-		);
-
-		public static Artist Unicoder = new(
-			NextId,
-			"ᵾnɨȼøđɇɍ",
-			"ᵾnɨȼøđɇɍ harmonize complex equations and melodies, weaving a symphony of logic and emotion in their unique and captivating music.",
-			"unicoder"
-		);
-
-		public static Artist VirtualMachine = new(
-			NextId,
-			"Virtual Machine",
-			"Bridging reality and virtuality, Virtual Machine is a surreal rock group that blurs the lines between the tangible and the digital, creating mind-bending performances that leave audiences questioning the nature of existence.",
-			"virtual-machine"
-		);
-
-		public static Artist WebmasterOfPuppets = new(
-			NextId,
-			"Webmaster of Puppets",
-			"Technologically savvy and creatively ambitious, Webmaster of Puppets is a web-inspired rock band, crafting narratives of digital dominance and manipulation with their inventive music.",
-			"webmaster-of-puppets"
-		);
-
-		public static Artist Xslte = new(
-			NextId,
-			"XSLTE",
-			"Mesmerizing and genre-defying, XSLTE is an enchanting rock ensemble that fuses electronic and rock elements, creating a spellbinding sound that enthralls listeners and transports them to MakeArtist sonic landscapes.",
-			"xslte"
-		);
-
-		public static Artist Yamb = new(
-			NextId,
-			"YAMB",
-			"Youthful and exuberant, YAMB spreads positivity and infectious energy through their music, connecting with fans through their youthful spirit and heartwarming performances.",
-			"yamb"
-		);
-
-		public static Artist ZeroBasedIndex = new(
-			NextId,
-			"Zero Based Index",
-			"Innovative and exploratory, Zero Based Index starts from scratch, building powerful narratives through their dynamic sound, leaving audiences inspired and moved by their expressive and daring music.",
-			"zero-based-index"
-		);
-
-		public static Artist Ærbårn = new(
-			NextId,
-			"Ærbårn",
-			"Inspired by their Australian namesakes, Ærbårn are Scandinavia's #1 party rock band. Thundering drums, huge guitar riffs and enough energy to light up the Arctic Circle, their shows have had amazing reviews all over the world",
-			"aerbaarn"
-		);
-
-		public static IEnumerable<Artist> AllArtists = new[] {
-			AlterColumn, BodyBag, Coda, DevLeppard, Elektronika, ForEarTransform,
-			GarbageCollectors, HaskellsAngels, IronMedian, JavasCrypt, KillerBite,
-			LambdaOfGod, MottTheTuple, NullTerminatedStringBand, Overflow, PascalsWager,
-			QuantumGate, RunCmd, ScriptKiddies, Terrorform, Unicoder,
-			VirtualMachine, WebmasterOfPuppets, Xslte, Yamb, ZeroBasedIndex,
-			Ærbårn,
-		};
 	}
 }
 ```
@@ -418,11 +232,13 @@ public class RockawayDbContext : DbContext {
 		base.OnModelCreating(modelBuilder);
 		// Override EF Core's default table naming (which pluralizes entity names)
 		// and use the same names as the C# classes instead
-		foreach (var entity in modelBuilder.Model.GetEntityTypes().Where(e => e.ClrType.Namespace == nameof(Entities))) {
-			entity.SetTableName(entity.DisplayName());
-		}
-        
-		SampleData.Populate(modelBuilder);
+		// and use the same names as the C# classes instead
+		var rockawayEntities = modelBuilder.Model.GetEntityTypes().Where(e => e.ClrType.Namespace == typeof(Artist).Namespace);
+		foreach (var entity in rockawayEntities) entity.SetTableName(entity.DisplayName());
+
+		modelBuilder.Entity<Artist>(entity => {
+			entity.HasIndex(artist => artist.Slug).IsUnique();
+		});
 	}
 }
 ```
@@ -434,8 +250,6 @@ var sqlite = new SqliteConnection("Data Source=:memory:");
 sqlite.Open();
 builder.Services.AddDbContext<RockawayDbContext>(options => options.UseSqlite(sqlite));
 ```
-
-
 
 Add the code generator:
 
@@ -468,12 +282,82 @@ and this one:
 Scaffold the ArtistController
 
 ```dotnetcli
-dotnet aspnet-codegenerator controller -name ArtistsController -m Artist -dc RockawayDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --databaseProvider sqlite
+dotnet aspnet-codegenerator controller -name ArtistsController -m Artist -dc RockawayDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
 ```
+
+OK, run it.
+
+It'll look like garbage
 
 Move ViewStart and ViewImports into / so they apply to *everything*, not just pages.
 
-OK, run it.
+Sorted.
+
+### Sample Data
+
+Two problems:
+
+1. We don't have any data.
+2. Any data we *do* create will get deleted every time we restart the app.
+
+Solution: Sample Data
+
+* Add the `SampleData.Artist` class
+* Add the `SampleData` TestGuid int
+* add the HasData
+
+*At this point, we're seeding from the Artist entity directly.*
+
+## Exercise: Add Venues
+
+* Add the Venue.cs class
+
+* Scaffold the VenuesController
+
+* Add Venues to the RockawayDbContext:
+
+  * Make the Slug property unique
+
+  
+
+  
+
+### Going Live: Switching from Sqlite to SQL Server
+
+Wire up the switch of DB providers
+
+```
+dotnet run --environment Staging
+```
+
+
+
+Generate the migration
+
+INspect it
+
+Roll it back
+
+Fix the table naming convention
+
+```csharp
+// Override EF Core's default table naming (which pluralizes entity names)
+// and use the same names as the C# classes instead
+var rockawayEntities = modelBuilder.Model.GetEntityTypes().Where(e => e.ClrType.Namespace == typeof(Artist).Namespace);
+foreach (var entity in rockawayEntities) entity.SetTableName(entity.DisplayName());
+```
+
+Roll it forward
+
+Commit it
+
+
+
+
+
+
+
+
 
 **Exercise**
 
@@ -686,6 +570,7 @@ public partial class SampleData {
 		static Users() {
 			var hasher = new PasswordHasher<IdentityUser>();
 			Admin = new() {
+				Id = "rockaway-sample-admin-user",
 				Email = "admin@rockaway.dev",
 				NormalizedEmail = "admin@rockaway.dev".ToUpperInvariant(),
 				UserName = "admin@rockaway.dev",
@@ -795,7 +680,17 @@ CRUD operations for artists and venues
 
 What's next?
 
-Let's wire up the rest of our domain model
+Let's wire up the rest of our domain model:
+
+
+
+/snip
+
+OK, now we need to plug in the admin controller for editing shows.
+
+This is where it gets gnarly.
+
+
 
 
 
