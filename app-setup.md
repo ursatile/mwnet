@@ -330,11 +330,23 @@ Wire up the switch of DB providers
 dotnet run --environment Staging
 ```
 
+| Environment | Errors    | Database   |
+| ----------- | --------- | ---------- |
+| Development | Developer | Sqlite     |
+| Staging     | Developer | SQL Server |
+| Production  | Sanitised | SQL Server |
+| UnitTest*   | Sanitised | Sqlite     |
 
+*The UnitTest environment is used by the NCrunch test runner*
 
 Generate the migration
 
-INspect it
+```console
+dotnet ef migrations add InitialCreate -- --environment Staging
+dotnet format
+```
+
+Inspect it.
 
 Roll it back
 
@@ -343,13 +355,31 @@ Fix the table naming convention
 ```csharp
 // Override EF Core's default table naming (which pluralizes entity names)
 // and use the same names as the C# classes instead
-var rockawayEntities = modelBuilder.Model.GetEntityTypes().Where(e => e.ClrType.Namespace == typeof(Artist).Namespace);
-foreach (var entity in rockawayEntities) entity.SetTableName(entity.DisplayName());
+foreach (var entity in modelBuilder.Model.GetEntityTypes()) {
+    entity.SetTableName(entity.DisplayName());
+}
 ```
 
-Roll it forward
+Recreate it:
+
+```
+dotnet ef migrations add InitialCreate -- --environment Staging
+dotnet format
+```
+
+Apply it locally:
+
+```
+dotnet ef database update -- --environment Staging
+```
 
 Commit it
+
+Apply DB migrations via GitHub Actions
+
+1. Add the connection string as an Actions Secret
+   1. from the project repo, Settings, Secrets and Variables, 
+2. 
 
 
 
