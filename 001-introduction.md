@@ -38,3 +38,42 @@ However, very few breaking changes are anticipated between .NET 7 and .NET 8, so
 
 > There will be a handful of new features in .NET 8 which replace some of the patterns and techniques covered in this workshop; I'll highlight these as we go along, but the methods shown here will still work just fine; .NET 8 just offers a slightly easier way to achieve the same thing.
 
+## Client, Servers, Requests and Responses
+
+The web is the most successful distributed system ever built. Billions of servers running dozens of different operating systems, languages, databases, from hobby servers running on low-cost hardware like Raspberry Pis to serverless functions running in the cloud, all forming part of a giant global network of interconnected documents and services.
+
+Behind every single one of those sites and services is the same fundamental architecture: clients, servers, requests and responses.
+
+## Fundamental Principles of Web Applications
+
+### Servers don't do anything until they receive a request
+
+Think of a web server like a bartender, and the client as a customer ordering drinks. When a customer orders a gin & tonic -- the *request* -- the bartender springs into action and makes them a gin & tonic -- the *response*.
+
+What if there are no customers? Well, there's odd bits of housekeeping and maintenance to do, sure, but one of the key principles of web application architecture is that if there are no requests coming in, your server shouldn't be doing anything. 
+
+And if there are too many customers? The bartender can't keep up; customers have to wait longer for their drinks. And some of them get fed up of waiting -- we say their *request timed out*. Maybe they order again - "hey, where's my gin & tonic?" -- or maybe they go to another bar.
+
+Either way, timeouts are bad.
+
+### Structure of an HTTP Request
+
+![image-20230827122347473](D:\Projects\github\ursatile\mwnet\images\image-20230827122347473-1697208781995-1.png)
+
+### Structure of an HTTP Response
+
+![image-20230827122419914](D:\Projects\github\ursatile\mwnet\images\image-20230827122419914-1697208781996-2.png)
+
+### Getting started with ASP.NET Core Web Apps
+
+We're going to use ASP.NET Core to explore what we can do using HTTP requests and responses.
+
+First, make sure you've got the right version of .NET installed. We're using .NET 7 for these examples, so run:
+
+```
+D:\Projects> dotnet --version
+7.0.201
+```
+
+As long as it starts with a 7, you should be good to go. (If it starts with an 8, I'll assume you know what you're doing. 😉)
+

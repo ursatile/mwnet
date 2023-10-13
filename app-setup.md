@@ -322,6 +322,12 @@ Solution: Sample Data
 
   
 
+While we're here, let's add /Artists and /Venues to the site navigation menu in _Layout.cshtml
+
+
+
+
+
 ### Going Live: Switching from Sqlite to SQL Server
 
 Wire up the switch of DB providers
@@ -378,8 +384,550 @@ Commit it
 Apply DB migrations via GitHub Actions
 
 1. Add the connection string as an Actions Secret
-   1. from the project repo, Settings, Secrets and Variables, 
-2. 
+   1. from the project repo, Settings, Secrets and Variables, add a new secret AZURE_SQL_CONNECTIONSTRING
+2. Modify Program.cs to take a migration switch
+3. Add the chunk to the Github Action
+
+### NEXT
+
+**Adding identity support**
+
+Scaffolding Identity:
+
+[https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=netcore-cli](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=netcore-cli)
+
+```
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Identity.UI
+```
+
+To wire up identity, we actually need to do these things:
+
+1. Make RockawayDbContext inherit from `IdentityDbContext<IdentityUser>`
+2. Create `/Pages/Shared/_LoginPartial.cshtml`:
+
+```html
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    </li>
+    <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
+</ul>
+
+```
+
+Add LoginPartial to _Layout.cshtml
+
+```html
+	                </ul>
+	                <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+```
+
+
+
+Edit `_ViewImports.cshtml` and add:
+
+```
+@using Microsoft.AspNetCore.Identity
+```
+
+and finally, in Program.cs
+
+```csharp
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<RockawayDbContext>();
+
+```
+
+That's it. Now we have identity.
+
+### Add a sample user
+
+To add a sample user:
+
+```
+using Microsoft.AspNetCore.Identity;
+
+namespace Rockaway.WebApp.Data.Sample;
+
+public partial class SampleData {
+
+	public static class Users {
+		static Users() {
+			var hasher = new PasswordHasher<IdentityUser>();
+			Admin = new() {
+				Id = "rockaway-sample-admin-user",
+				Email = "admin@rockaway.dev",
+				NormalizedEmail = "admin@rockaway.dev".ToUpperInvariant(),
+				UserName = "admin@rockaway.dev",
+				NormalizedUserName = "admin@rockaway.dev".ToUpperInvariant(),
+				LockoutEnabled = true,
+				EmailConfirmed = true,
+				PhoneNumberConfirmed = true,
+				SecurityStamp = Guid.NewGuid().ToString()
+			};
+			Admin.PasswordHash = hasher.HashPassword(Admin, "p@ssw0rd");
+		}
+		public static IdentityUser Admin { get; }
+	}
+}
+```
+
+and
+
+```
+modelBuilder.Entity<IdentityUser>().HasData(Users.Admin);
+```
+
+Run it. Boom. It works.
+
+## DB Migrations for Identity
+
+Now, we need to create the migration:
+
+```console
+dotnet ef migrations add AddAspNetIdentity -- --environment Staging
+```
+
+Inspect it - erk. It's generated some PROPERLY weird table names.
+
+We need to tighten up our filter.
+
+Remove the migration:
+
+```console
+dotnet ef migrations remove -- --environment Staging
+```
+
+Modify the table name code:
+
+```csharp
+var rockawayEntityNamespace = typeof(Artist).Namespace;
+var rockawayEntities = modelBuilder.Model.GetEntityTypes()
+    .Where(e => e.ClrType.Namespace == rockawayEntityNamespace);
+foreach (var entity in rockawayEntities) {
+    entity.SetTableName(entity.DisplayName());
+}
+```
+
+Recreate and inspect the migration:
+
+```
+dotnet ef migrations add AddAspNetIdentity -- --environment Staging
+dotnet format
+```
+
+Sweet.
+
+Let's check the migration works when we run it locally:
+
+```
+dotnet ef database update -- --environment Staging
+```
+
+OK, and now when we deploy our code, the Github Action will apply the same migration.
+
+Boom!
+
+## Moving admin into a secure area
+
+Next up: move all the admin stuff into an `/admin` area and secure it.
+
+```
+dotnet aspnet-codegenerator area Admin
+```
+
+Move the controllers and views:
+
+```
+/Controllers
+	/ArtistsController.cs	--> /Areas/Admin/Controllers/ArtistsController.cs
+	/VenuesController.cs	--> /Areas/Admin/Controllers/VenuesControllers.cs
+/Views
+	/Artists/* 				--> move everything to /Areas/Admin/Views/Artists
+	/Venues/* 				--> move everything to /Areas/Admin/Views/Venues
+```
+
+(If you do this in an IDE, it'll probably fix the namespaces for you; if not, you'll need to fix them yourself)
+
+Add the attribute to the controllers:
+
+```csharp
+[Area("admin")]
+public class VenuesController : Controller {
+  //...
+}
+```
+
+Add a new route to program.cs which uses our admin area:
+
+```csharp
+app.MapAreaControllerRoute("admin", "Admin", "Admin/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
+```
+
+## Securing the admin area
+
+Add `.RequireAuthorization()` to the area route; this makes our admin area only accessible to users who are already signed in.
+
+## Isolating admin area layout
+
+Let's move the standard layouts with all the Bootstrap & scaffolding stuff into their own area, so we can keep all the advantages of rapid development for admin area code, but have total control of our customer-facing app.
+
+#### Move the login partial
+
+Move _LoginPartial to `/Areas/Admin/Views/Shared`
+
+Remove any reference to LoginPartial from `/Views/Shared/_Layout.cshtml`
+
+#### Create the admin layout
+
+```html
+@* /Areas/Admin/Views/Shared/_AdminLayout.cshtml *@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@(ViewData["Title"] ?? "Rockaway")</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Rockaway.WebApp.styles.css" asp-append-version="true" />
+	<style>
+		body { overflow-y: scroll; }
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container">
+				<a class="navbar-brand" asp-area="Admin" asp-page="/Index">Rockaway Admin</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="Admin" asp-action="Index" asp-controller="Artists">Artists</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="Admin" asp-action="Index" asp-controller="Venues">Venues</a>
+						</li>
+					</ul>
+					<partial name="~/Areas/Admin/Views/Shared/_LoginPartial.cshtml" />
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2023 - Rockaway.WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+```
+
+#### Set up _ViewStarts
+
+Create `/Areas/Admin/_ViewStart.cshtml` :
+
+```
+@{
+	Layout = "_AdminLayout";
+}
+```
+
+Create `/Areas/Identity/Pages/_ViewStart.cshtml` (which overrides the "invisible" page that's part of the UI assembly):
+
+```csharp
+@{
+    Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+```
+
+#### Create the admin home page:
+
+`Areas/Admin/Pages/Index.cshtml`
+
+```html
+@page
+Welcome to the Rockaway admin area.
+```
+
+Lock down the home page (and any other Razor Pages under `/admin/`)
+
+```csharp
+builder.Services.AddRazorPages(options => options.Conventions.AuthorizeAreaFolder("admin","/"));
+```
+
+DONE.
+
+## STYLING THE FRONTEND
+
+Drop in the Elements view. That'll give us all the bits we're talking about.
+
+Enabling SASS
+
+Grab the Bootstrap SASS source code, unzip it
+
+https://getbootstrap.com/docs/4.1/getting-started/download/
+
+https://github.com/twbs/bootstrap/archive/v4.1.3.zip
+
+**DO NOT USE THE NUGET PACKAGE IT IS MADE OUT OF LIES**
+
+Copy the `scss` folder from the download to `wwwroot/lib/bootstrap/dist/`
+
+Install the SASS compiler:
+
+https://github.com/koenvzeijl/AspNetCore.SassCompiler
+
+```
+dotnet add package AspNetCore.SassCompiler
+```
+
+Add the config to `appsettings.json`
+
+```
+"SassCompiler": {
+    "SourceFolder": "wwwroot/sass",
+    "TargetFolder": "wwwroot/css",
+    "Arguments": "--style=compressed",
+    // You can override specific options based on the build configuration
+    "Configurations": {
+        "Debug": { // These options apply only to Debug builds
+            "Arguments": "--style=expanded"
+        }
+    }
+}
+```
+
+Add the service to debug builds:
+
+```csharp
+#if DEBUG
+builder.Services.AddSassCompiler();
+#endif
+```
+
+Update `/Pages/Shared/_Layout.cshtml`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@(ViewData["Title"] ?? "Rockaway")</title>
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	@await RenderSectionAsync("Head", required: false)
+</head>
+<body class="container">
+	<header>
+		<a asp-area="Admin" asp-page="/Index">Rockaway</a>
+		<nav>
+			<ul>
+				<li>
+					<a asp-action="Index" asp-controller="Artists">Artists</a>
+				</li>
+				<li class="nav-item">
+					<a asp-action="Index" asp-controller="Venues">Venues</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		@RenderBody()
+	</main>
+	<footer>
+		&copy; 2023 - Rockaway.WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+```
+
+Create `wwwroot/sass/site.scss`:
+
+```scss
+@import '../lib/bootstrap/dist/scss/bootstrap-grid.scss';
+
+
+```
+
+STILL TO DO
+
+## Page layout, font and colour
+
+set up fancy-panel
+
+add PT Sans Narrow 
+
+```
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+
+$font-family: 'PT Sans Narrow', Arial, helvetica, sans-serif;
+```
+
+
+
+Responsive navigation
+
+Artists browser (with photos!)
+
+Venue browser (with country code helpers)
+
+Add shows
+
+* Admin area
+* NodaTime
+
+Browser checkout process
+
+Sending confirmation email
+
+Done
+
+
+
+
+
+
+
+
+
+
+
+
+
+Let's lock it down:
+
+```Authorization/AuthorizationPolicyExtensions.cs`
+
+```
+using Microsoft.AspNetCore.Authorization;
+namespace Rockaway.WebApp.Authorization;
+
+public static class AuthorizationPolicyExtensions {
+	private static AuthorizationPolicy BuildEmailDomainPolicy(string domain) => new AuthorizationPolicyBuilder()
+		.RequireAuthenticatedUser()
+		.RequireEmailDomain(domain)
+		.Build();
+
+	public static IServiceCollection BuildEmailDomainPolicy(this IServiceCollection services,
+		string policyName, string emailDomain) {
+		var policy = BuildEmailDomainPolicy("rockaway.dev");
+		services.AddAuthorization(options => options.AddPolicy(policyName, policy));
+		return services;
+	}
+
+	public static AuthorizationPolicyBuilder RequireEmailDomain(this AuthorizationPolicyBuilder builder, string domain) {
+		domain = domain.StartsWith("@") ? domain : $"@{domain}";
+		return builder.RequireAssertion(ctx => {
+			var email = ctx.User?.Identity?.Name ?? "";
+			return email.EndsWith(domain, StringComparison.InvariantCultureIgnoreCase);
+		});
+	}
+}
+```
+
+Wire up an admin homepage:
+
+```console
+dotnet aspnet-codegenerator controller -name Home -namespace Rockaway.WebApp.Areas.Admin.Controllers -outDir Areas/Admin/Controllers
+dotnet aspnet-codegenerator view Areas/Admin/Views/Home/Index Empty --useDefaultLayout
+```
+
+Add the Area attribute:
+
+```
+using Microsoft.AspNetCore.Mvc;
+
+namespace Rockaway.WebApp.Areas.Admin.Controllers; 
+
+[Area("admin")]
+public class HomeController : Controller {
+	public IActionResult Index() {
+		return View();
+	}
+}
+```
+
+Bingo. We have:
+
+a secure Admin area
+
+CRUD operations for artists and venues
+
+What's next?
+
+Let's wire up the rest of our domain model:
+
+
+
+/snip
+
+OK, now we need to plug in the admin controller for editing shows.
+
+This is where it gets gnarly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -507,242 +1055,4 @@ do a dotnet ef database update:
 
 and then build and deploy.
 
-NEXT
-
-We're going to scaffold **identity** and **admin area**
-
-Scaffolding Identity:
-
-[https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=netcore-cli](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-7.0&tabs=netcore-cli)
-
-```
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
-dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
-dotnet add package Microsoft.AspNetCore.Identity.UI
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-```
-
-To wire up identity, we actually need to do these things:
-
-1. Make RockawayDbContext inherit from `IdentityDbContext<IdentityUser>`
-2. Create `/Pages/Shared/_LoginPartial.cshtml`:
-
-```html
-@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
-
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
-
-```
-
-Add LoginPartial to _Layout.cshtml
-
-```html
-	                </ul>
-	                <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-```
-
-
-
-Edit `_ViewImports.cshtml` and add:
-
-```
-@using Microsoft.AspNetCore.Identity
-```
-
-and finally, in Program.cs
-
-```csharp
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<RockawayDbContext>();
-
-```
-
-That's it. Now we have identity.
-
-To add a sample user:
-
-```
-using Microsoft.AspNetCore.Identity;
-
-namespace Rockaway.WebApp.Data.Sample;
-
-public partial class SampleData {
-
-	public static class Users {
-		static Users() {
-			var hasher = new PasswordHasher<IdentityUser>();
-			Admin = new() {
-				Id = "rockaway-sample-admin-user",
-				Email = "admin@rockaway.dev",
-				NormalizedEmail = "admin@rockaway.dev".ToUpperInvariant(),
-				UserName = "admin@rockaway.dev",
-				NormalizedUserName = "admin@rockaway.dev".ToUpperInvariant(),
-				LockoutEnabled = true,
-				EmailConfirmed = true,
-				PhoneNumberConfirmed = true,
-				SecurityStamp = Guid.NewGuid().ToString()
-			};
-			Admin.PasswordHash = hasher.HashPassword(Admin, "p@ssw0rd");
-		}
-		public static IdentityUser Admin { get; }
-	}
-}
-```
-
-and
-
-```
-modelBuilder.Entity<IdentityUser>().HasData(Users.Admin);
-```
-
-Run it. Boom. It works.
-
-Now, we need to create the migration:
-
-```console
-dotnet ef migrations add AddAspNetIdentity
-```
-
-OK, done.
-
-Next up: move all the admin stuff into an `/admin` area and secure it.
-
-```
-dotnet aspnet-codegenerator area Admin
-```
-
-Move the controllers and views
-
-Add the attribute to the controllers:
-
-```
-[Area("admin")]
-public class VenuesController : Controller {
-
-```
-
-Let's lock it down:
-
-```Authorization/AuthorizationPolicyExtensions.cs`
-
-```
-using Microsoft.AspNetCore.Authorization;
-namespace Rockaway.WebApp.Authorization;
-
-public static class AuthorizationPolicyExtensions {
-	private static AuthorizationPolicy BuildEmailDomainPolicy(string domain) => new AuthorizationPolicyBuilder()
-		.RequireAuthenticatedUser()
-		.RequireEmailDomain(domain)
-		.Build();
-
-	public static IServiceCollection BuildEmailDomainPolicy(this IServiceCollection services,
-		string policyName, string emailDomain) {
-		var policy = BuildEmailDomainPolicy("rockaway.dev");
-		services.AddAuthorization(options => options.AddPolicy(policyName, policy));
-		return services;
-	}
-
-	public static AuthorizationPolicyBuilder RequireEmailDomain(this AuthorizationPolicyBuilder builder, string domain) {
-		domain = domain.StartsWith("@") ? domain : $"@{domain}";
-		return builder.RequireAssertion(ctx => {
-			var email = ctx.User?.Identity?.Name ?? "";
-			return email.EndsWith(domain, StringComparison.InvariantCultureIgnoreCase);
-		});
-	}
-}
-```
-
-Wire up an admin homepage:
-
-```console
-dotnet aspnet-codegenerator controller -name Home -namespace Rockaway.WebApp.Areas.Admin.Controllers -outDir Areas/Admin/Controllers
-dotnet aspnet-codegenerator view Areas/Admin/Views/Home/Index Empty --useDefaultLayout
-```
-
-Add the Area attribute:
-
-```
-using Microsoft.AspNetCore.Mvc;
-
-namespace Rockaway.WebApp.Areas.Admin.Controllers; 
-
-[Area("admin")]
-public class HomeController : Controller {
-	public IActionResult Index() {
-		return View();
-	}
-}
-```
-
-Bingo. We have:
-
-a secure Admin area
-
-CRUD operations for artists and venues
-
-What's next?
-
-Let's wire up the rest of our domain model:
-
-
-
-/snip
-
-OK, now we need to plug in the admin controller for editing shows.
-
-This is where it gets gnarly.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 

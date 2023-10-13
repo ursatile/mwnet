@@ -4,8 +4,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Rockaway.WebApp.Pages;
 
 public class IndexModel : PageModel {
+	private readonly ILogger<IndexModel> _logger;
 
-	public string Heading { get; set; } = "Hello World!";
+	public IndexModel(ILogger<IndexModel> logger) {
+		_logger = logger;
+	}
+
 	public void OnGet() {
+
 	}
 }

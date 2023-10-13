@@ -1,0 +1,31 @@
+﻿@page
+@model Rockaway.WebApp.Pages.RegisterModel
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+    <body>
+        @if(Model.Registered) {
+            <p>Thanks for registering!</p>
+            <p>Here's what we've got:</p>
+            <p>Email: @Model.Email</p>
+            <p>Interests: @Model.Interests</p>
+        } else {
+        <form method="post">
+            <p>Sign up for our newsletter!</p>
+            <label for="email-input">Email:</label>
+            <input type="email" name="email" id="email-input" />
+            <br />
+            <p>What do you want to hear about?</p>
+            @foreach(var interest in Model.AllInterests) {
+            <label>
+                <input type="checkbox" name="interests" value="@interest"/>
+                @interest
+            </label><br />
+            }
+            <input type="submit" value="Sign me up!" />
+        </form>
+        }
+    </body>
+</html>

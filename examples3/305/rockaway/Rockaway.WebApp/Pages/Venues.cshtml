@@ -1,0 +1,10 @@
+@page
+@model Rockaway.WebApp.Pages.VenuesModel
+
+<h1>Venues</h1>
+<dl>
+	@foreach (var venue in Model.Venues) {
+		<dt>@venue.Name</dt>
+		<dd>@venue.Address, @venue.City, @venue.CountryCode</dd>
+	}
+</dl>

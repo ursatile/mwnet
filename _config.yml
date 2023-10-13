@@ -46,3 +46,6 @@ exclude:
   - examples/**/.vs
   - examples/**/obj
   - examples/**/bin
+  - examples2/
+  - examples3/
+  
