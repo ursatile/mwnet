@@ -92,7 +92,7 @@ To find the right string, look in the Connection Strings area of the Web App Con
 
 Copy the value. Go to Github, find your repository, Settings, Secret and variables, Actions:
 
-![image-20231014001752288](/images/image-20231014001752288.png)
+![image-20231014001752288](images/image-20231014001752288.png)
 
 Add a new repository secret:
 

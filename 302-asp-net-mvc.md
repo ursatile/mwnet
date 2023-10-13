@@ -92,5 +92,5 @@ To fix this, we'll move `_ViewStart.cshtml` and `_ViewImports.cshtml` into the r
 
 Once that's done, our artists page should look like the rest of our app:
 
-![image-20231013230859451](/images/image-20231013230859451.png)
+![image-20231013230859451](images/image-20231013230859451.png)
 

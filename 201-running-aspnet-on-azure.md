@@ -20,17 +20,17 @@ OK, let's create a new app on Windows Azure, and set up a CI pipeline that'll us
 
 First, we'll create a new resource. From the Azure portal, click "Create a Resource", 
 
-![image-20231013175135911](/images/image-20231013175135911.png)
+![image-20231013175135911](images/image-20231013175135911.png)
 
 then search for "Web App + Database":
 
-![image-20231013175339725](/images/image-20231013175339725.png)
+![image-20231013175339725](images/image-20231013175339725.png)
 
 > When I'm creating things in Azure, I use a convention of `<project>-<resource-type>`, which makes it easier to keep track of what's where and, most important, when something isn't being used any more and can safely be deleted.
 
 * Create a new resource group - we'll use `rockaway-resource-group`
 
-![image-20231013175614828](/images/image-20231013175614828.png)
+![image-20231013175614828](images/image-20231013175614828.png)
 
 You'll need to choose a unique name for your apps and resources which nobody else is using. I've used `rockaway` as my project name here, but you'll need to choose something different because that's *mine*.
 
@@ -50,7 +50,7 @@ You'll need to choose a unique name for your apps and resources which nobody els
 
 You won't need to add any tags, so the next screen just skip to "Review and Create":
 
-![image-20231013180233240](/images/image-20231013180233240.png)
+![image-20231013180233240](images/image-20231013180233240.png)
 
 We're good to go! Click "Create"
 
@@ -62,11 +62,11 @@ To set up continuous deployment, we're going to add a Github Actions template th
 
 Once Azure has created your new resource group, find your new App Service and look for "Deployment Center":
 
-![image-20231013180856370](/images/image-20231013180856370.png)
+![image-20231013180856370](images/image-20231013180856370.png)
 
 Authenticate with GitHub, and choose the organisation, project repo, and branch that you want to deploy:
 
-![image-20231013181309091](/images/image-20231013181309091.png)
+![image-20231013181309091](images/image-20231013181309091.png)
 
 When you press Save, two things happen:
 
@@ -176,7 +176,7 @@ Accept all the defaults and "Apply":
 
 Now, browse to our app using the URL you'll find in your GitHub Actions deployment step:
 
-![image-20231013184242794](/images/image-20231013184242794.png)
+![image-20231013184242794](images/image-20231013184242794.png)
 
 and there is it. We're live, in the cloud; we can see our website, and if we wait a few moments for AppInsights to gather some data, we can see our app running in Application Insights as well.
 
