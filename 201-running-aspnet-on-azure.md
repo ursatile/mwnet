@@ -1,5 +1,5 @@
 ---
-title: "2.1 Running ASP.NET Core on Azure"
+title: "2.1 Running .NET on Azure"
 layout: module
 nav_order: 0201
 typora-root-url: ./

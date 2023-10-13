@@ -53,3 +53,17 @@ public async Task Page_Has_Correct_Title(string url, string title) {
 
 
 
+## Exercises
+
+#### Add a "Contact Us" page
+
+1. Create a "Contact Us" page as part of the Rockaway web application.
+2. Create a test that verifies that the Contact Us page URL returns a successful response
+3. Create a test that verifies that the Contact Us page has the correct page title
+
+#### Extra Credit
+
+How would you verify that the Contact Us page includes the correct email address and telephone number?
+
+
+
