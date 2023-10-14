@@ -15,3 +15,7 @@ ASP.NET Core ships with a full-featured identity provider which supports individ
 
 When it comes to adding identity to your application, you can use the UI that's provided as part of the Identity package, you can override individual pages, or you can get the ASP.NET tooling to generate local copies of the entire identity system which you can customise as required.
 
+In this workshop, we're going to use the built-in UI for all our identity and authentication.
+
+
+

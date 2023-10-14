@@ -1,9 +1,9 @@
 ---
-title: Introduction
+title: Dylan's Notes
 layout: home
-nav_order: 0000
+nav_order: 9999
 typora-copy-images-to: ./images
-summary: Introduction - why .NET, why C#, choosing a .NET version. The scenario.
+summary: Dylan's notes and scribblings from workshop prep
 ---
 
 Monday:
