@@ -54,7 +54,7 @@ jobs:
         with:
           app-name: 'rockaway'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SOME_RANDOM_IDENTIFIER }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_154CC634FC874326A3D71B1C03D73C80 }}
           package: .
 
       - name: Apply EF Core migrations
