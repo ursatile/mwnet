@@ -25,3 +25,5 @@ Next, modify `_Layout.cshtml`:
 {% include_relative examples/502/Rockaway/Rockaway.WebApp/Pages/Shared/_Layout.cshtml %}
 ```
 
+Now we're going to update our `frontend.scss` to target the new minimal page structure.
+
