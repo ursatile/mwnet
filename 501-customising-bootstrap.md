@@ -124,11 +124,9 @@ We're using **conditional compilation** here. The code between `#if` and `#endif
 
 There is a bootstrap.sass package on NuGet. **DO NOT USE IT.** It doesn't work and I have no idea why it even exists.
 
-Instead, get the the Bootstrap SASS source code from [Bootstrap's download page](https://getbootstrap.com/docs/5.2/getting-started/introduction/) and unzip it. 
+Instead, get the the Bootstrap SASS source code from [Bootstrap's download page](https://getbootstrap.com/docs/5.3/getting-started/download/) and unzip it. 
 
-https://getbootstrap.com/docs/5.2/getting-started/introduction/
-
-Direct download link: **[https://github.com/twbs/bootstrap/archive/v5.2.3.zip](https://github.com/twbs/bootstrap/archive/v5.2.3.zip)**
+Direct download link: [**https://github.com/twbs/bootstrap/archive/v5.3.2.zip**](https://github.com/twbs/bootstrap/archive/v5.3.2.zip)
 
 Open up the ZIP, and copy `scss/*` folder from the download to `wwwroot/lib/bootstrap/dist/scss/*` so you end up with this folder structure:
 
