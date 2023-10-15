@@ -2,19 +2,15 @@
 @import "../lib/bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-// $body-bg: #000;              // Body background color
-// $body-color:  #fff;          // Body text color
-// $primary:  #00ff00;          // Primary color for buttons, links, etc.
-// $font-size-base:  0.875rem;  // Base font size
-// $font-family-sans-serif: 'Comic Sans MS'; // Default font
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+$font-family-sans-serif: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
 
-// // Rounded corners
-// $border-radius:               0;
-// $border-radius-lg:            0;
-// $border-radius-sm:            0;
+$body-bg-dark: #000;
+$primary: #336699;
 
-// 3. Include remainder of required Bootstrap stylesheets
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/variables-dark";
 
 // 4. Include any default map overrides here
 
@@ -23,20 +19,10 @@
 @import "../lib/bootstrap/scss/mixins";
 @import "../lib/bootstrap/scss/root";
 
-//  6. Include the rest of Bootstrap
-@import '../lib/bootstrap/scss/bootstrap.scss';
-
-// Alternatively, include just the modules we want...
-//  @import "../lib/bootstrap/scss/utilities";
-//  @import "../lib/bootstrap/scss/reboot";
-//  @import "../lib/bootstrap/scss/type";
-//  @import "../lib/bootstrap/scss/images";
-//  @import "../lib/bootstrap/scss/containers";
-//  @import "../lib/bootstrap/scss/grid";
-//  @import "../lib/bootstrap/scss/helpers";
-//  @import "../lib/bootstrap/scss/buttons";
+// 6. Import the whole Bootstrap library:
+@import "../lib/bootstrap/scss/bootstrap.scss";
 
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
-// @import "../lib/bootstrap/scss/utilities/api";
+@import "../lib/bootstrap/scss/utilities/api";
 
 // 8. Add additional custom code here

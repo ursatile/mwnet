@@ -1,20 +1,21 @@
+@use "sass:color";
+
+// Customising Bootstrap via imports:
+// https://getbootstrap.com/docs/5.3/customize/sass/#importing
+
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "../lib/bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-// $body-bg: #000;              // Body background color
-// $body-color:  #fff;          // Body text color
-// $primary:  #00ff00;          // Primary color for buttons, links, etc.
-// $font-size-base:  0.875rem;  // Base font size
-// $font-family-sans-serif: 'Comic Sans MS'; // Default font
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+$font-family-sans-serif: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
 
-// // Rounded corners
-// $border-radius:               0;
-// $border-radius-lg:            0;
-// $border-radius-sm:            0;
+$body-bg-dark: #000;
+$primary: #336699;
 
-// 3. Include remainder of required Bootstrap stylesheets
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/variables-dark";
 
 // 4. Include any default map overrides here
 
@@ -23,20 +24,96 @@
 @import "../lib/bootstrap/scss/mixins";
 @import "../lib/bootstrap/scss/root";
 
-//  6. Include the rest of Bootstrap
-@import '../lib/bootstrap/scss/bootstrap.scss';
+// 6. Optionally include any other parts as needed
+// @import "../lib/bootstrap/scss/utilities";
+// @import "../lib/bootstrap/scss/reboot";
+// @import "../lib/bootstrap/scss/type";
+// @import "../lib/bootstrap/scss/images";
+// @import "../lib/bootstrap/scss/containers";
+// @import "../lib/bootstrap/scss/grid";
+// @import "../lib/bootstrap/scss/helpers";
 
-// Alternatively, include just the modules we want...
-//  @import "../lib/bootstrap/scss/utilities";
-//  @import "../lib/bootstrap/scss/reboot";
-//  @import "../lib/bootstrap/scss/type";
-//  @import "../lib/bootstrap/scss/images";
-//  @import "../lib/bootstrap/scss/containers";
-//  @import "../lib/bootstrap/scss/grid";
-//  @import "../lib/bootstrap/scss/helpers";
-//  @import "../lib/bootstrap/scss/buttons";
+// ...or import the whole Bootstrap library:
+@import "../lib/bootstrap/scss/bootstrap.scss";
 
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
-// @import "../lib/bootstrap/scss/utilities/api";
+@import "../lib/bootstrap/scss/utilities/api";
 
 // 8. Add additional custom code here
+
+@mixin fancy-panel($panel-color: color.scale($primary, $lightness: -75%)) {
+	margin: $grid-gutter-width 0;
+	border-radius: 2 * $border-radius;
+	padding: 2 * $border-radius;
+	background-color: $panel-color;
+	border: 1px solid $body-color;
+}
+
+html {
+	background: linear-gradient(150deg, color.scale($primary, $lightness: -70%) 0%, color.scale($primary, $lightness: -50%) 50%, color.scale($primary, $lightness: -80%) 100%);
+	background-attachment: fixed;
+}
+
+body {
+	background: none;
+
+	> main {
+		@include fancy-panel;
+	}
+
+	> header {
+		@include fancy-panel;
+		display: flex;
+		justify-content: space-between;
+
+		h1 {
+			margin: 0;
+			font-size: 0;
+			height: 38px;
+			width: 200px;
+			background: url(/img/rockaway-logotype.svg) left center no-repeat;
+			background-size: cover;
+		}
+
+		nav {
+			a {
+				background: $primary;
+				display: inline-block;
+				padding: 4px 16px;
+				color: $body-color;
+				font-size: 120%;
+				border-radius: $border-radius;
+				text-decoration: none;
+
+				&:hover {
+					color: $body-color;
+					background: color.scale($primary, $lightness: -50%);
+				}
+			}
+		}
+	}
+
+	> footer {
+		@include fancy-panel;
+		font-size: 80%;
+		display: flex;
+		justify-content: space-between;
+		nav {
+			a {
+				display: inline-block;
+				border-left: 1px solid #fff;
+				padding: 0 0.5em;
+				text-decoration: none;
+				color: $body-color;
+			}
+			a:first-child {
+				border: none;
+			}
+			a:hover {
+				color: $body-color;
+				text-decoration: underline;
+			}
+		}
+	}
+
+}
