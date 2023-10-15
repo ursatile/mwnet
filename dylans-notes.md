@@ -1055,4 +1055,9 @@ do a dotnet ef database update:
 
 and then build and deploy.
 
-### 
+**Script to deploy all the things:**
+
+```cmd
+for /d %1 in (C:\projects\github\ursatile\mwnet\examples\*) do xcopy /s /Y %~f1\Rockaway\ . & git add . & git commit -m "Module %~n1"
+```
+

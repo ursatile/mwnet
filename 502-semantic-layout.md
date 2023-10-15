@@ -1,12 +1,12 @@
 ---
-title: "5.2 Responsive Layouts"
+title: "5.2 Semantic Layout"
 layout: module
 nav_order: 0502
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "In this module, we'll look at how to create a responsive layout for our frontend web pages."
-previous: mwnet500
-complete: mwnet501
+summary: "In this module, we'll look at how to create a minimalist, meaningful layout for our frontend web pages."
+previous: mwnet501
+complete: mwnet502
 ---
 
 So far, we've looked at how to customise Bootstrap's colours, fonts and other built-in elements.
@@ -97,11 +97,12 @@ body {
 		display: flex;
 		justify-content: space-between;
         
-		h1 {
+		h1 a {
+			display: block;
 			font-size: 0;
 			height: 38px;
 			width: 200px;
-			background: url(/img/rockaway-logotype.svg) left center no-repeat;
+			background: url(/img/rockaway-logotype.svg) left center no-repeat;			
 		}
 	}	
 }
@@ -112,7 +113,7 @@ OK, let's style the site navigation menu:
 ```scss
 body {
 	> header {
-		nav {
+        nav {
 			a {
 				background: $primary;
 				display: inline-block;
@@ -142,6 +143,7 @@ and while we're here, we'll apply a flex layout and style the footer element as 
     justify-content: space-between;
     nav {
         a {
+            color: $body-color;
             display: inline-block;
             border-left: 1px solid #fff;
             padding: 0 0.5em;
@@ -158,7 +160,9 @@ and while we're here, we'll apply a flex layout and style the footer element as 
 }
 ```
 
+And there we have it.
 
+![image-20231015214829846](/images/image-20231015214829846.png)
 
 
 
