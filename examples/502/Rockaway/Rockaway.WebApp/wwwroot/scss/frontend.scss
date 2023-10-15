@@ -67,12 +67,14 @@ body {
 		justify-content: space-between;
 
 		h1 {
-			margin: 0;
-			font-size: 0;
-			height: 38px;
-			width: 200px;
-			background: url(/img/rockaway-logotype.svg) left center no-repeat;
-			background-size: cover;
+			a {
+				display: block;
+				font-size:0;
+				height: 38px;
+				width: 200px;
+				background: url(/img/rockaway-logotype.svg) left center no-repeat;
+				background-size: cover;
+			}
 		}
 
 		nav {
@@ -104,13 +106,13 @@ body {
 				border-left: 1px solid #fff;
 				padding: 0 0.5em;
 				text-decoration: none;
-				color: $body-color;
+				// color: $body-color-dark;
 			}
 			a:first-child {
 				border: none;
 			}
 			a:hover {
-				color: $body-color;
+				// color: $body-color;
 				text-decoration: underline;
 			}
 		}
