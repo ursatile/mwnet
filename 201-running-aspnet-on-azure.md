@@ -12,7 +12,7 @@ complete: mwnet201
 We've got a web app, it's got at least two pages, and we have some tests that prove our pages are working. Time to...
 
 <div style="text-align: center;">
-<img src="/images/image-20231013174253623.png" />
+<img src="images/image-20231013174253623.png" />
 <caption style="text-align: center; font-size: 0.8em:"><br />
 <a href="https://www.google.com/search?q=shipt+it+squirrel">"when a squirrel tells you to ship it, you ship it"</a></caption>
 </div>
