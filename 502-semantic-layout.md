@@ -162,7 +162,7 @@ and while we're here, we'll apply a flex layout and style the footer element as 
 
 And there we have it.
 
-![image-20231015214829846](/images/image-20231015214829846.png)
+![image-20231015214829846](images/image-20231015214829846.png)
 
 
 

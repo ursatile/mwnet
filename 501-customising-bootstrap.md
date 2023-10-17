@@ -21,7 +21,7 @@ We'll also need to add a directive to our layout, because our elements page inje
 
 Now, browse to `/elements` and you should see a page full of HTML elements:
 
-![image-20231014133211494](/images/image-20231014133211494.png)
+![image-20231014133211494](images/image-20231014133211494.png)
 
 ## Customising Bootstrap
 
