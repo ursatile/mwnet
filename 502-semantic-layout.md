@@ -78,9 +78,9 @@ Our site "logo" is currently an `<h1>` element inside the `<header>`. This is br
 
 It looks a bit cheap, though. Our designers have created a Rockaway company [logotype](https://99designs.com/blog/logo-branding/logotype-vs-logomark-vs-logo/), which they've sent us as an SVG file:
 
-[rockaway-logotype.svg](examples/502/rockaway/Rockaway.WebApp/wwwroot/img/rockaway-logotype.svg)
+[rockaway-logotype.svg](examples/502/Rockaway/Rockaway.WebApp/wwwroot/img/rockaway-logotype.svg)
 
-![Rockaway logotype](examples/502/rockaway/Rockaway.WebApp/wwwroot/img/rockaway-logotype.svg)
+![Rockaway logotype](examples/502/Rockaway/Rockaway.WebApp/wwwroot/img/rockaway-logotype.svg)
 
 We're going to replace that H1 with the site logotype, and we're going to do it using pure CSS. 
 

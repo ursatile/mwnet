@@ -4,7 +4,7 @@ layout: module
 nav_order: 9901
 summary: >-
   In this module we'll learn how to use Docker to host SQL Server in a lightweight virtual machine for development and testing.
-examples: examples/201/rockaway/
+examples: examples/201/Rockaway/
 typora-root-url: .
 typora-copy-images-to: ./images
 ---
