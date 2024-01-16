@@ -4,7 +4,7 @@ layout: home
 nav_order: 00
 ---
 
-This is the online handbook for Dylan Beattie's  workshop "Modern Web Development with C# and .NET"
+This is the online handbook for Dylan Beattie's  workshop "Modern Web Development with C# and .NET 8"
 
 <ul id="index-nav">
 {% assign contents = site.pages | where_exp:"item", "item.summary != nil" %}

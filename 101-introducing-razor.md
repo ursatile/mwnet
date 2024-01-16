@@ -1,5 +1,5 @@
 ---
-title: 1.1 Introducing Razor Pages
+title: 1.1 Our First ASP.NET Core Web App
 layout: module
 nav_order: 0101
 typora-root-url: ./
@@ -8,7 +8,7 @@ summary: "In this module, we'll create our first ASP.NET Core web application an
 complete: mwnet101
 ---
 
-## Creating our first ASP.NET Core web app
+## Our first ASP.NET Core web app
 
 You'll need the `dotnet` runtime installed. Check your version by typing:
 
@@ -16,7 +16,7 @@ You'll need the `dotnet` runtime installed. Check your version by typing:
 dotnet --version
 ```
 
-You'll need `dotnet` version 7 to run the examples in this workshop -- a few things won't work on .NET 6.
+You'll need `dotnet` version 8 to run the examples in this workshop -- all the principles and patterns here should work on any version of .NET since 5, but we're going to be using some C# language features like primary constructors which aren't supported on any versions below .NET 8.
 
 We're going to set up this project structure:
 
@@ -107,45 +107,44 @@ After adding the `.editorconfig` file, reformat all the files in your project to
 dotnet format
 ```
 
-### Adding Serilog
+### Configuration and Logging
 
-Next, we're going to install the `Serilog` library, which gives us support for structured logging.
+In this workshop, we're going to use the built-in logger that ships with ASP.NET Core, but by injecting instances of `ILogger<T>` into all your components and services, you'll be able to easily switch this for a different logging library later if you need to.
 
-> Read more about Serilog and structured logging at [https://serilog.net/](https://serilog.net/)
-
-First, install the `Serilog.AspNetCore` package into `Rockaway.WebApp`:
-
-```
-dotnet add Rockaway.WebApp package Serilog.AspNetCore
-```
-
-#### Configuring Serilog
-
-Open `Program.cs` and add the two lines to configure Serilog support:
+First, let's write some log messages so we've got something to look at. Add this code to `Program.cs`, just below the call to `builder.Build()`:
 
 ```csharp
-// Program.cs
-{% include_relative examples/101/Rockaway/Rockaway.WebApp/Program.cs %}
+app.Logger.LogTrace("This is a TRACE message.");
+app.Logger.LogDebug("This is a DEBUG message.");
+app.Logger.LogInformation("This is an INFORMATION message.");
+app.Logger.LogWarning("This is a WARNING message.");
+app.Logger.LogError("This is an ERROR message.");
+app.Logger.LogCritical("This is a CRITICAL message.");
 ```
 
-If you want to see the various log levels supported by Serilog and how they appear in your program output:
+Run the project, and watch what appears on the console... the Debug and Trace messages don't appear.
 
-```csharp
-Log.Information("Logging from Serilog: this is information");
-Log.Debug("Logging from Serilog: this is debug");
-Log.Warning("Logging from Serilog: this is warning");
-Log.Error("Logging from Serilog: this is error");
-Log.Fatal("Logging from Serilog: this is fatal");
+There's an implicit priority to each log level: Critical is the highest priority, and Trace is the lowest, and by default, ASP.NET only logs Information and above (Warning, Error and Critical). Let's see how to change that.
+
+### Environments and appsettings
+
+Configuration in ASP.NET Core is powerful, flexible -- and a little confusing until you get the hang of it.
+
+For now, all you need to know is that our project includes two JSON files:
+
+**`appsettings.json`**: applies regardless of what environment we're running in.
+
+**`appsettings.Development.json`** will override **`appsettings.json`** but only when we're running in the `Development` environment - so it's great for stuff you want to happen on *your* machine but which you don't want to happen when you deploy to production.
+
+Open `appsettings.Development.json` and edit it to look like this:
+
+```json
+{% include_relative examples/101/Rockaway/Rockaway.WebApp/appsettings.Development.json %}
 ```
 
-OK, we're done. In the next module, we'll add some tests to verify that our app is working, and then get it running on Azure.
+Now run the app again and you should see everything include your `Debug` and `Trace` messages.
 
 ## Resources and Further Reading
 
 * **Tutorial: Get Started with Razor Pages in ASP.NET Core**
   * [https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-7.0&tabs=visual-studio](https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-7.0&tabs=visual-studio)
-* Serilog project homepage
-  * [https://serilog.net/](https://serilog.net/)
-
-* Serilog.AspNetCore at GitHub:
-  * [https://github.com/serilog/serilog-aspnetcore](https://github.com/serilog/serilog-aspnetcore)
