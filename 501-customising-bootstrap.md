@@ -21,7 +21,7 @@ We'll also need to add a directive to our layout, because our elements page inje
 
 Now, browse to `/elements` and you should see a page full of HTML elements:
 
-![image-20231014133211494](/images/image-20231014133211494.png)
+![image-20231014133211494](images/image-20231014133211494.png)
 
 ## Customising Bootstrap
 
@@ -124,11 +124,9 @@ We're using **conditional compilation** here. The code between `#if` and `#endif
 
 There is a bootstrap.sass package on NuGet. **DO NOT USE IT.** It doesn't work and I have no idea why it even exists.
 
-Instead, get the the Bootstrap SASS source code from [Bootstrap's download page](https://getbootstrap.com/docs/5.2/getting-started/introduction/) and unzip it. 
+Instead, get the the Bootstrap SASS source code from [Bootstrap's download page](https://getbootstrap.com/docs/5.3/getting-started/download/) and unzip it. 
 
-https://getbootstrap.com/docs/5.2/getting-started/introduction/
-
-Direct download link: **[https://github.com/twbs/bootstrap/archive/v5.2.3.zip](https://github.com/twbs/bootstrap/archive/v5.2.3.zip)**
+Direct download link: [**https://github.com/twbs/bootstrap/archive/v5.3.2.zip**](https://github.com/twbs/bootstrap/archive/v5.3.2.zip)
 
 Open up the ZIP, and copy `scss/*` folder from the download to `wwwroot/lib/bootstrap/dist/scss/*` so you end up with this folder structure:
 
@@ -151,8 +149,41 @@ Rockaway.WebApp/
 Create a new file `wwwroot/scss/frontend.scss`
 
 ```scss
-{% include_relative examples/501/Rockaway/Rockaway.WebApp/wwwroot/scss/frontend.scss %}
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../lib/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "../lib/bootstrap/scss/maps";
+@import "../lib/bootstrap/scss/mixins";
+@import "../lib/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+// @import "../lib/bootstrap/scss/utilities";
+// @import "../lib/bootstrap/scss/reboot";
+// @import "../lib/bootstrap/scss/type";
+// @import "../lib/bootstrap/scss/images";
+// @import "../lib/bootstrap/scss/containers";
+// @import "../lib/bootstrap/scss/grid";
+// @import "../lib/bootstrap/scss/helpers";
+
+// ...or import the whole Bootstrap library:
+@import "../lib/bootstrap/scss/bootstrap.scss";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../lib/bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here
 ```
+
+> This is based on the "Customising Bootstrap" technique which is documented at [https://getbootstrap.com/docs/5.3/customize/sass/#importing](https://getbootstrap.com/docs/5.3/customize/sass/#importing) - but with the references to `node_modules` replaced with our `lib` folder structure.
 
 Now we're going to split our layout into a `_Base` layout, which imports CSS and JS files but doesn't add any visible elements to the page, and a `_Layout` which adds the common page header and footer elements.
 
@@ -174,9 +205,38 @@ There's also a Bootstrap "cheat sheet" page, which I've adapted to work with ASP
 
 You can find the code for`/Pages/BootstrapCheatsheet.cshtml` here: **[BootstrapCheatsheet.cshtml](examples/501/Rockaway/Rockaway.WebApp/Pages/BootstrapCheatsheet.cshtml)**
 
-### Make some changes
+### Change some stuff!
 
 Experiment with overriding the various defaults provided in the `frontend.scss` file. Check out [the Bootstrap documentation](https://getbootstrap.com/docs/5.2/customize/sass/#variable-defaults) to learn more about customising Bootstrap by overriding the default variables.
+
+### Using Google Fonts
+
+If you want to import a custom font, SCSS works quite happily with Google Fonts' CSS import syntax. Personally, I really like [PT Sans Narrow](https://fonts.google.com/specimen/PT+Sans+Narrow), so let's use that:
+
+```scss
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+
+$font-family-sans-serif: 'PT+Sans+Narrow', Arial, Helvetica, sans-serif;
+```
+
+I'm also going to override our site's colour scheme. 
+
+First, switch the whole site into 'dark mode' by adding `data-bs-theme="dark"` to the `<html>` element in `_Base.cshtml`
+
+Then, we're going to tweak the background color, because dark mode isn't *quite* dark enough, and set the primary colour:
+
+```scss
+$body-bg-dark: #000;
+$primary: #336699;
+```
+
+The final `frontend.scss` looks like this:
+
+```scss
+{% include_relative examples/501/Rockaway/Rockaway.WebApp/wwwroot/scss/frontend.scss %}
+```
+
+
 
 
 

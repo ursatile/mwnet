@@ -45,9 +45,9 @@ public async Task Page_Has_Correct_Title(string url, string title) {
     var client = factory.CreateClient();
     var html = await client.GetStringAsync(url);
     var dom = await browsingContext.OpenAsync(req => req.Content(html));
-    var title = dom.QuerySelector("title");
-    title.ShouldNotBeNull();
-    title.InnerHtml.ShouldBe(title);
+    var titleElement = dom.QuerySelector("title");
+    titleElement.ShouldNotBeNull();
+    titleElement.InnerHtml.ShouldBe(title);
 }
 ```
 

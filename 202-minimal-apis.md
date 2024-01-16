@@ -130,7 +130,7 @@ public async Task Status_Endpoint_Returns_Status() {
 We want to see how long it is since our application was last deployed or restarted.
 
 1. Add Uptime to the existing `/status` endpoint, as a human-readable string - e.g. `"142:28:46"` indicates 142 hours, 28 minutes and 46 seconds of uptime.
-2. Add a new API endpoint at `/uptime` which returns a single number, being the number of milliseconds since the app was last restarted - so in the scenario above, the endpoint will return `512926`
+2. Add a new API endpoint at `/uptime` which returns a single number, being the number of seconds since the app was last restarted - so in the scenario above, the endpoint will return `512926`
 
 Include endpoint tests for your uptime service.
 
