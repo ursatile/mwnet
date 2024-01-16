@@ -39,7 +39,7 @@ dotnet add Rockaway.WebApp.Tests package Microsoft.AspNetCore.Mvc.Testing
 
 Next, we'll need to modify our project so that we can make our web application's code visible to our testing project.
 
-Now we need to expose our **entry point** to the test project -- which is where it gets a bit gnarly. .NET 7 has a feature called **top level statements**:
+Now we need to expose our **entry point** to the test project -- which is where it gets a bit gnarly. .NET has a feature called **top level statements**:
 
 ```csharp
 // top level statements:
