@@ -51,30 +51,26 @@ Then there's the sample data for the `Artist` entity, which uses this pattern:
 ```csharp
 // Rockaway.WebApp/Data/Sample/SampleData.Artists.cs
 
+namespace Rockaway.WebApp.Data.Sample;
+
 public partial class SampleData {
 	public static class Artists {
+
 		private static int seed = 1;
 		private static Guid NextId => TestGuid(seed++, 'A');
-
 		public static Artist AlterColumn = new(
 			NextId,
 			"Alter Column",
-			"Alter Column are South Africa's hottest math rock export.",
+			"Alter Column are South Africa's hottest math rock export. Founded in Cape Town in 2021, their debut album \"Drop Table Mountain\" was nominated for four Grammy awards.",
 			"alter-column"
 		);
 
-        public static Artist BodyBag = new(
-            NextId,
-            "<Body>Bag",
-            "Speed metal pioneers from San Francisco, <Body>Bag defined the “web rock” sound in the early 2010s.",
-            "body-bag"
-        );
-        
-        public static IEnumerable<Artist> AllArtists = new[] {
-			AlterColumn, BodyBag
-		}
-	}
-}       
+		public static Artist BodyBag = new(
+			NextId,
+			"<Body>Bag",
+			"Speed metal pioneers from San Francisco, <Body>Bag helped define the “web rock” sound in the early 2020s.",
+			"body-bag"
+		);    
 ```
 
 You can download the full data set here: **[SampleData.Artists.cs](examples/301/Rockaway/Rockaway.WebApp/Data/Sample/SampleData.Artists.cs)**
@@ -133,7 +129,23 @@ Now, when we run our application and point a browser at `/artists`, we get this:
 
 ![image-20231013224407314](images/image-20231013224407314.png)
 
-Nice.
+### Testing Data-Driven Pages
+
+To check that our page is rendering the complete list of artists, we can retrieve the list of artists from our `DbContext` inside our test code, and compare what's in the database to what appears on the page:
+
+```csharp
+{% include_relative examples/301/Rockaway/Rockaway.WebApp.Tests/Pages/ArtistTests.cs %}
+```
+
+> Remember, HTML isn't plain text. A string like `<Script>Kiddies` will appear in your page output as `&lt;Script&gt;Kiddies`, so you'll need to run the HTML through something like `System.Net.WebUtility.HtmlDecode` to turn the HTML entities back into literal text.
+
+
+
+
+
+
+
+
 
 
 

@@ -5,6 +5,7 @@ using Rockaway.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<RockawayDbContext>(options => options.UseSqlite(sq
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
 	app.UseExceptionHandler("/Error");
 	app.UseHsts();
@@ -34,6 +36,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.MapGet("/status", (IStatusReporter reporter) => reporter.GetStatus());
+app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.Run();

@@ -59,6 +59,37 @@ Browse to /Artists and...
 
 OK - we have a database, but no tables. Let's create them.
 
+> You'll need the [CLI Tools for Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) installed for these steps.
+>
+> Install these using:
+>
+> `dotnet tool install --global dotnet-ef`
+>
+> or, if you've already got an earlier version of the tools installed, you can update them to .NET 8 using
+>
+> ```
+> dotnet tool update --global dotnet-ef
+> ```
+> Verify the installation by typing
+>
+> `dotnet ef`
+>
+> and if you get a cute little ASCII unicorn:
+>
+> ```
+>                      _/\__
+>                ---==/    \\
+>          ___  ___   |.    \|\
+>         | __|| __|  |  )   \\\
+>         | _| | _|   \_/ |  //|\\
+>         |___||_|       /   \\\/\\
+> 
+> Entity Framework Core .NET Command-line Tools 8.0.1
+> ```
+>
+> you're good to go.
+
+First, we'll create a **migration** which will populate an empty database with our entities and sample data:
 ```
 dotnet ef migrations add InitialCreate -- --environment Staging
 dotnet format

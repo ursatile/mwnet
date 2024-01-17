@@ -1,4 +1,19 @@
+using Microsoft.Extensions.DependencyInjection;
+using Rockaway.WebApp.Data;
+
 namespace Rockaway.WebApp.Tests.Pages;
+
+public class ArtistTests {
+	[Fact]
+	public async Task Artist_Page_Contains_All_Artists() {
+		await using var factory = new WebApplicationFactory<Program>();
+		var client = factory.CreateClient();
+		var html = await client.GetStringAsync("/artists");
+		var db = factory.Services.GetService<RockawayDbContext>()!;
+		var expected = db.Artists.ToList();
+		foreach (var artist in expected) html.ShouldContain(artist.Name);
+	}
+}
 
 public class PageTests {
 	[Fact]
