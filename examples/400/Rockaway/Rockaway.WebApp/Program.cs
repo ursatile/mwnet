@@ -6,6 +6,7 @@ using Rockaway.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
@@ -26,6 +27,7 @@ if (builder.Environment.UseSqlite()) {
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsProduction()) {
 	app.UseExceptionHandler("/Error");
 	app.UseHsts();

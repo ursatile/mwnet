@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Rockaway.WebApp.Data.Entities;
 using Rockaway.WebApp.Data.Sample;
 

@@ -9,12 +9,12 @@ namespace Rockaway.WebApp.Pages;
 public class ErrorModel : PageModel {
 	public string? RequestId { get; set; }
 
-	public bool ShowRequestId => !String.IsNullOrEmpty(RequestId);
+	public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-	private readonly ILogger<ErrorModel> logger;
+	private readonly ILogger<ErrorModel> _logger;
 
 	public ErrorModel(ILogger<ErrorModel> logger) {
-		this.logger = logger;
+		_logger = logger;
 	}
 
 	public void OnGet() {
