@@ -43,6 +43,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - node_modules/
+  - examples/_NCrunch_examples/
   - examples/**/.vs
   - examples/**/obj
   - examples/**/bin
