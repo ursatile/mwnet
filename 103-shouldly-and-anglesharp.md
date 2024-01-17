@@ -16,42 +16,19 @@ dotnet add Rockaway.WebApp.Tests package Shouldly
 dotnet add Rockaway.WebApp.Tests package AngleSharp
 ```
 
-Now, we're going to add a test which verifies that our homepage has the proper `<title>` element. We'll use the `WebApplicationFactory` to retrieve the page's HTML, and then use `AngleSharp` to extract the right element and `Shouldly` to assert that it has the right value.
+#### Scenario
+
+We need to modify the `<title>` element of our pages: 
+
+* Any page which does not set `ViewData["Title"]` should have the title **Rockaway**
+* Individual pages should be able to override this by setting `ViewData["Title"]`
+* If a page overrides the title, the layout page must use the exact title specified by the page - so if a page sets `ViewData["Title"] = "Tour Dates"`, the output should be `<title>Tour Dates</title>`
+
+We'll create a test which verifies that our homepage has the proper `<title>` element. We'll use the `WebApplicationFactory` to retrieve the page's HTML, and then use `AngleSharp` to extract the right element and `Shouldly` to assert that it has the right value. We can also use xUnit's `[InlineData]` attribute to apply the same test to multiple pages. Say we want to confirm that multiple pages on our site have the correct `<title>` tags.
 
 ```csharp
-[Fact]
-public async Task Homepage_Title_Has_Correct_Content() {
-    var browsingContext = BrowsingContext.New(Configuration.Default);
-    var factory = new WebApplicationFactory<Program>();
-    var client = factory.CreateClient();
-    var html = await client.GetStringAsync("/");
-    var dom = await browsingContext.OpenAsync(req => req.Content(html));
-    var title = dom.QuerySelector("title");
-    title.ShouldNotBeNull();
-    title.InnerHtml.ShouldBe("Rockaway");
-}
+{% include_relative examples/103/Rockaway/Rockaway.WebApp.Tests/Pages/PageTests.cs %}
 ```
-
-We can also use xUnit's `[InlineData]` attribute to apply the same test to multiple pages. Say we want to confirm that multiple pages on our site have the correct `<title>` tags:
-
-```csharp
-[Theory]
-[InlineData("/", "Rockaway")]
-[InlineData("/privacy", "Privacy Policy - Rockaway")]
-[InlineData("/contact", "Contact Us - Rockaway")]
-public async Task Page_Has_Correct_Title(string url, string title) {
-    var browsingContext = BrowsingContext.New(Configuration.Default);
-    var factory = new WebApplicationFactory<Program>();
-    var client = factory.CreateClient();
-    var html = await client.GetStringAsync(url);
-    var dom = await browsingContext.OpenAsync(req => req.Content(html));
-    var titleElement = dom.QuerySelector("title");
-    titleElement.ShouldNotBeNull();
-    titleElement.InnerHtml.ShouldBe(title);
-}
-```
-
-
 
 ## Exercises
 
@@ -59,7 +36,7 @@ public async Task Page_Has_Correct_Title(string url, string title) {
 
 1. Create a "Contact Us" page as part of the Rockaway web application.
 2. Create a test that verifies that the Contact Us page URL returns a successful response
-3. Create a test that verifies that the Contact Us page has the correct page title
+3. Create a test that verifies that the Contact Us page has the correct page title **Contact Us**
 
 #### Extra Credit
 

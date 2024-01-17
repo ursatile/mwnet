@@ -3,24 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using Rockaway.WebApp.Data;
 using Rockaway.WebApp.Hosting;
 using Rockaway.WebApp.Services;
-using Serilog;
 
-Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseSerilog();
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
 
-Log.Information("Rockaway running in {environment} environment", builder.Environment.EnvironmentName);
+var logger = CreateAdHocLogger<Program>();
+
+logger.LogInformation("Rockaway running in {environment} environment", builder.Environment.EnvironmentName);
 if (builder.Environment.UseSqlite()) {
-	Log.Information("Using Sqlite database");
+	logger.LogInformation("Using Sqlite database");
 	var sqliteConnection = new SqliteConnection("Data Source=:memory:");
 	sqliteConnection.Open();
 	builder.Services.AddDbContext<RockawayDbContext>(options => options.UseSqlite(sqliteConnection));
 } else {
-	Log.Information("Using SQL Server database");
+	logger.LogInformation("Using SQL Server database");
 	var connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
 	builder.Services.AddDbContext<RockawayDbContext>(options => options.UseSqlServer(connectionString));
 }
@@ -52,3 +51,12 @@ app.MapRazorPages();
 app.MapGet("/status", (IStatusReporter reporter) => reporter.GetStatus());
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.Run();
+
+ILogger<T> CreateAdHocLogger<T>() {
+	var config = new ConfigurationBuilder()
+		.AddJsonFile("appsettings.json", false, true)
+		.AddEnvironmentVariables()
+		.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true)
+		.Build();
+	return LoggerFactory.Create(lb => lb.AddConfiguration(config)).CreateLogger<T>();
+}

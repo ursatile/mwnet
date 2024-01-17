@@ -37,24 +37,18 @@ You'll need to choose a unique name for your apps and resources which nobody els
 * **Resource Group**: `rockaway-resource-group`
 * **Region:** whatever you like.
 * Web App Details:
-  * **Name**: something unique; your app will go live at `{name}.azurewebsites.net` so pick something nobody else is using.
-  * **Runtime stack**: .NET 7 (STS) *(STS is "standard term support", as distinct from "long term support)"*
+  * **Name**: something unique; your app will go live at `{name}.azurewebsites.net` so pick something nobody else is using. We'll use `rockaway-example` in these examples.
+  * **Runtime stack**: .NET 8 (LTS) *(LTS is "standard term support", as distinct from "long term support)"*
 * Database:
-  * Engine: SQLAzure
-  * **Server name:** `rockaway-server`
-  * **Database name:** `rockaway-database`
+  * **Engine:** SQLAzure
+  * **Server name:** `rockaway-example-server`
+  * **Database name:** `rockaway-example-database`
 * Azure Cache for Redis:
   * No
 * Hosting plan:
   * Basic *(for this workshop, anyway!)*
 
-You won't need to add any tags, so the next screen just skip to "Review and Create":
-
-![image-20231013180233240](images/image-20231013180233240.png)
-
-We're good to go! Click "Create"
-
-Now go make some coffee or something -- this bit takes about 10 minutes.
+You won't need to add any tags, so the next screen just skip to "Review and Create", and if there's no red warnings, we're good to go! Click "Create", and now go make some coffee or something -- this bit takes about 10 minutes.
 
 ## Deploying with GitHub Actions
 
@@ -86,7 +80,12 @@ Add a step to the `build:` task which will run all your tests:
   run: dotnet test
 ```
 
-We also need to change our publish step to specify the `Rockaway.WebApp` project name.
+We also need to change our publish step to specify the `Rockaway.WebApp` project name:
+
+```yaml
+- name: dotnet publish
+  run: dotnet publish Rockaway.WebApp -c Release -o ${{env.DOTNET_ROOT}}/myapp
+```
 
 > GitHub Actions steps are all relative to the root folder of the cloned repo, so if your solution file is in e.g. `src/Rockaway/Rockaway.sln`, you'll need to specify this folder in your build steps:
 >
@@ -113,12 +112,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x'
+          dotnet-version: '8.x'
+          include-prerelease: true
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -153,9 +153,8 @@ jobs:
         with:
           app-name: 'rockaway'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_154CC634FC874326A3D71B1C03D73C80 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SOME_RANDOM_IDENTIFIER }}
           package: .
-
 ```
 
 > The `publish-profile` there is a randomly-generated identifier that's used to look up the actual deployment credentials in GitHub's secrets.

@@ -1,22 +1,18 @@
-using AngleSharp;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Shouldly;
-
 namespace Rockaway.WebApp.Tests.Pages;
 
 public class PageTests {
 	[Fact]
 	public async Task Index_Page_Returns_Success() {
-		var factory = new WebApplicationFactory<Program>();
-		var client = factory.CreateClient();
-		var result = await client.GetAsync("/");
-		result.EnsureSuccessStatusCode();
+		await using var factory = new WebApplicationFactory<Program>();
+		using var client = factory.CreateClient();
+		using var response = await client.GetAsync("/");
+		response.EnsureSuccessStatusCode();
 	}
 
 	[Fact]
 	public async Task Homepage_Title_Has_Correct_Content() {
 		var browsingContext = BrowsingContext.New(Configuration.Default);
-		var factory = new WebApplicationFactory<Program>();
+		await using var factory = new WebApplicationFactory<Program>();
 		var client = factory.CreateClient();
 		var html = await client.GetStringAsync("/");
 		var dom = await browsingContext.OpenAsync(req => req.Content(html));
@@ -26,11 +22,17 @@ public class PageTests {
 	}
 
 	[Theory]
-	[InlineData("/privacy")]
-	public async Task Page_Returns_Success(string url) {
-		var factory = new WebApplicationFactory<Program>();
+	[InlineData("/", "Rockaway")]
+	[InlineData("/privacy", "Privacy Policy")]
+	[InlineData("/contact", "Contact Us")]
+	public async Task Page_Has_Correct_Title(string url, string title) {
+		var browsingContext = BrowsingContext.New(Configuration.Default);
+		await using var factory = new WebApplicationFactory<Program>();
 		var client = factory.CreateClient();
-		var result = await client.GetAsync(url);
-		result.EnsureSuccessStatusCode();
+		var html = await client.GetStringAsync(url);
+		var dom = await browsingContext.OpenAsync(req => req.Content(html));
+		var titleElement = dom.QuerySelector("title");
+		titleElement.ShouldNotBeNull();
+		titleElement.InnerHtml.ShouldBe(title);
 	}
 }

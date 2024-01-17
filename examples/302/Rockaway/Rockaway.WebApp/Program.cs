@@ -2,13 +2,8 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Rockaway.WebApp.Data;
 using Rockaway.WebApp.Services;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
-Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
-Log.Information("Serilog support enabled! Yeah!");
-builder.Host.UseSerilog();
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();

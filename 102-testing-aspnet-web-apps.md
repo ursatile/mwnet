@@ -71,7 +71,7 @@ There are two ways to get around this. One is to modify the `Rockaway.WebApp.csp
 > public partial class Program {}
 > ```
 
-Delete `UnitTest1.cs`, and create a new file:
+Delete `UnitTest1.cs`, and create a new file.
 
 ```csharp
 // Rockaway.WebApp.Tests/Pages/PageTests.cs
@@ -79,9 +79,11 @@ Delete `UnitTest1.cs`, and create a new file:
 {% include_relative examples/102/Rockaway/Rockaway.WebApp.Tests/Pages/PageTests.cs %}
 ```
 
-Now run our tests with `dotnet test` and verify they pass.
+> Notice that we're instantiating WebApplicationFactory with `await using`.
+>
+> `using` indicates we're constructing something that might need cleaning up, so the runtime will call `.Dispose()` on that object once it's no longer in use. `await using` means the clean-up can happen asynchronously, so the runtime will call `await DisposeAsync()` instead of `Dispose`.
 
-Cool.
+Now run our tests with `dotnet test` and verify they pass.
 
 
 
