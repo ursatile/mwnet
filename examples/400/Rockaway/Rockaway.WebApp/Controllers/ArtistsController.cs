@@ -1,30 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rockaway.WebApp.Data;
 using Rockaway.WebApp.Data.Entities;
 
 namespace Rockaway.WebApp.Controllers {
 	public class ArtistsController : Controller {
-		private readonly RockawayDbContext db;
+		private readonly RockawayDbContext _context;
 
-		public ArtistsController(RockawayDbContext db) {
-			this.db = db;
+		public ArtistsController(RockawayDbContext context) {
+			_context = context;
 		}
 
 		// GET: Artists
 		public async Task<IActionResult> Index() {
-			return db.Artists != null ?
-						View(await db.Artists.ToListAsync()) :
-						Problem("Entity set 'RockawayDbContext.Artists'  is null.");
+			return View(await _context.Artists.ToListAsync());
 		}
 
 		// GET: Artists/Details/5
 		public async Task<IActionResult> Details(Guid? id) {
-			if (id == null || db.Artists == null) {
+			if (id == null) {
 				return NotFound();
 			}
 
-			var artist = await db.Artists
+			var artist = await _context.Artists
 				.FirstOrDefaultAsync(m => m.Id == id);
 			if (artist == null) {
 				return NotFound();
@@ -46,8 +49,8 @@ namespace Rockaway.WebApp.Controllers {
 		public async Task<IActionResult> Create([Bind("Id,Name,Description,Slug")] Artist artist) {
 			if (ModelState.IsValid) {
 				artist.Id = Guid.NewGuid();
-				db.Add(artist);
-				await db.SaveChangesAsync();
+				_context.Add(artist);
+				await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(Index));
 			}
 			return View(artist);
@@ -55,11 +58,11 @@ namespace Rockaway.WebApp.Controllers {
 
 		// GET: Artists/Edit/5
 		public async Task<IActionResult> Edit(Guid? id) {
-			if (id == null || db.Artists == null) {
+			if (id == null) {
 				return NotFound();
 			}
 
-			var artist = await db.Artists.FindAsync(id);
+			var artist = await _context.Artists.FindAsync(id);
 			if (artist == null) {
 				return NotFound();
 			}
@@ -78,8 +81,8 @@ namespace Rockaway.WebApp.Controllers {
 
 			if (ModelState.IsValid) {
 				try {
-					db.Update(artist);
-					await db.SaveChangesAsync();
+					_context.Update(artist);
+					await _context.SaveChangesAsync();
 				}
 				catch (DbUpdateConcurrencyException) {
 					if (!ArtistExists(artist.Id)) {
@@ -95,11 +98,11 @@ namespace Rockaway.WebApp.Controllers {
 
 		// GET: Artists/Delete/5
 		public async Task<IActionResult> Delete(Guid? id) {
-			if (id == null || db.Artists == null) {
+			if (id == null) {
 				return NotFound();
 			}
 
-			var artist = await db.Artists
+			var artist = await _context.Artists
 				.FirstOrDefaultAsync(m => m.Id == id);
 			if (artist == null) {
 				return NotFound();
@@ -112,20 +115,17 @@ namespace Rockaway.WebApp.Controllers {
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(Guid id) {
-			if (db.Artists == null) {
-				return Problem("Entity set 'RockawayDbContext.Artists'  is null.");
-			}
-			var artist = await db.Artists.FindAsync(id);
+			var artist = await _context.Artists.FindAsync(id);
 			if (artist != null) {
-				db.Artists.Remove(artist);
+				_context.Artists.Remove(artist);
 			}
 
-			await db.SaveChangesAsync();
+			await _context.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 		}
 
 		private bool ArtistExists(Guid id) {
-			return (db.Artists?.Any(e => e.Id == id)).GetValueOrDefault();
+			return _context.Artists.Any(e => e.Id == id);
 		}
 	}
 }

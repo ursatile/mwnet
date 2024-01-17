@@ -12,7 +12,7 @@ using Rockaway.WebApp.Data;
 namespace Rockaway.WebApp.Migrations
 {
     [DbContext(typeof(RockawayDbContext))]
-    [Migration("20231013225701_InitialCreate")]
+    [Migration("20240117135930_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Rockaway.WebApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

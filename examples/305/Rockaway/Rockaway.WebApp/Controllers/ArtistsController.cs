@@ -18,14 +18,12 @@ namespace Rockaway.WebApp.Controllers {
 
 		// GET: Artists
 		public async Task<IActionResult> Index() {
-			return _context.Artists != null ?
-						View(await _context.Artists.ToListAsync()) :
-						Problem("Entity set 'RockawayDbContext.Artists'  is null.");
+			return View(await _context.Artists.ToListAsync());
 		}
 
 		// GET: Artists/Details/5
 		public async Task<IActionResult> Details(Guid? id) {
-			if (id == null || _context.Artists == null) {
+			if (id == null) {
 				return NotFound();
 			}
 
@@ -60,7 +58,7 @@ namespace Rockaway.WebApp.Controllers {
 
 		// GET: Artists/Edit/5
 		public async Task<IActionResult> Edit(Guid? id) {
-			if (id == null || _context.Artists == null) {
+			if (id == null) {
 				return NotFound();
 			}
 
@@ -100,7 +98,7 @@ namespace Rockaway.WebApp.Controllers {
 
 		// GET: Artists/Delete/5
 		public async Task<IActionResult> Delete(Guid? id) {
-			if (id == null || _context.Artists == null) {
+			if (id == null) {
 				return NotFound();
 			}
 
@@ -117,9 +115,6 @@ namespace Rockaway.WebApp.Controllers {
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(Guid id) {
-			if (_context.Artists == null) {
-				return Problem("Entity set 'RockawayDbContext.Artists'  is null.");
-			}
 			var artist = await _context.Artists.FindAsync(id);
 			if (artist != null) {
 				_context.Artists.Remove(artist);
@@ -130,7 +125,7 @@ namespace Rockaway.WebApp.Controllers {
 		}
 
 		private bool ArtistExists(Guid id) {
-			return (_context.Artists?.Any(e => e.Id == id)).GetValueOrDefault();
+			return _context.Artists.Any(e => e.Id == id);
 		}
 	}
 }
