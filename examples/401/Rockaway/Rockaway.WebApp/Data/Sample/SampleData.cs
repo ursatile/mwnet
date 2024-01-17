@@ -1,6 +1,3 @@
-// ReSharper disable StringLiteralTypo
-// ReSharper disable IdentifierTypo
-
 namespace Rockaway.WebApp.Data.Sample;
 
 public partial class SampleData {

@@ -17,7 +17,7 @@ namespace Rockaway.WebApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -143,15 +143,15 @@ namespace Rockaway.WebApp.Migrations
                         {
                             Id = "rockaway-sample-admin-user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d0f2a7ad-3131-45e5-840b-89f22ddd37f8",
+                            ConcurrencyStamp = "ec9d7c74-d3f3-4b0e-bac1-9c2a393cc55c",
                             Email = "admin@rockaway.dev",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ROCKAWAY.DEV",
                             NormalizedUserName = "ADMIN@ROCKAWAY.DEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH8Qdrz8IJEK9Jzq5s0pNT7gYLMHw6Q+zePH0b0TtPLAW8nSojAw+ViEfm7Bh6pLgw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELzmg82ZfBDgbYxzXE7Ew/hIVsDQ6kXEQE9TAJ3Kz12S/L5Ay9lHXAstreED/up5uw==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "8be1dcd9-5d2e-4a14-b541-64cf924103b5",
+                            SecurityStamp = "abe08569-b6f1-411d-aa87-fa529538a7c7",
                             TwoFactorEnabled = false,
                             UserName = "admin@rockaway.dev"
                         });
@@ -575,12 +575,12 @@ namespace Rockaway.WebApp.Migrations
                         new
                         {
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"),
-                            Address = "stengade-copenhagen",
+                            Address = "Stengade 18",
                             City = "Copenhagen",
                             CountryCode = "DK",
                             Name = "Stengade",
                             PostalCode = "2200",
-                            Slug = "Stengade 18",
+                            Slug = "stengade-copenhagen",
                             Telephone = "+45 35355069",
                             WebsiteUrl = "https://www.stengade.dk"
                         },

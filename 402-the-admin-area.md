@@ -13,7 +13,7 @@ complete: mwnet402
 
 > Areas are **an ASP.NET feature used to organize related functionality into a group as a separate namespace (for routing) and folder structure (for views)**. Using areas creates a hierarchy for the purpose of routing by adding another route parameter, area , to controller and action or a Razor Page page .
 >
->  	- [https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/areas?view=aspnetcore-7.0](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/areas?view=aspnetcore-7.0)
+> [https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/areas](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/areas)
 
 The controllers we've set up so far support Create, Read, Update, Delete operations - often known as "CRUD controllers". 
 
@@ -89,13 +89,15 @@ Create `/Areas/Admin/_ViewStart.cshtml` :
 }
 ```
 
-Create `/Areas/Identity/Pages/_ViewStart.cshtml` (which overrides the "invisible" page that's part of the UI assembly):
+Create `/Areas/Identity/Pages/_ViewStart.cshtml` - you'll probably need to create the `Areas/Identity` and `Areas/Identity/Pages` folders.
 
 ```csharp
 @{
     Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 ```
+
+> Because we're using the Microsoft Identity UI package, any requests to `/identity/` URLs will be handled by this package -- **unless the runtime finds one of our pages at the requested URL**. So by creating our own layout file, we override only this specific element of the identity UI.
 
 ### Create the admin home page:
 

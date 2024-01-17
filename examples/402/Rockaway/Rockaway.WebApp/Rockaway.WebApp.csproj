@@ -20,4 +20,7 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="Rockaway.WebApp.Tests" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Controllers\" />
+	</ItemGroup>
 </Project>

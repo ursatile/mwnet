@@ -27,48 +27,23 @@ dotnet add Rockaway.WebApp package Microsoft.AspNetCore.Identity.UI
 Next, we'll make `RockawayDbContext` inherit from `IdentityDbContext<IdentityUser>`, so that it inherits all the entities and collections used for identity management:
 
 ```csharp
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Rockaway.WebApp.Data.Entities;
 using Rockaway.WebApp.Data.Sample;
 
 namespace Rockaway.WebApp.Data;
 
-public class RockawayDbContext : IdentityDbContext<IdentityUser> {
-	// rest of our DbContext code stays here
-}
+// We must declare a constructor that takes a DbContextOptions<RockawayDbContext>
+// if we want to use ASP.NET to configure our database connection and provider.
+public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
+	: IdentityDbContext<IdentityUser>(options) {
 ```
 
 Create `/Pages/Shared/_LoginPartial.cshtml`:
 
 ```html
-@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
-
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User)) {
-	<li class="nav-item">
-		<a id="manage" class="nav-link text-dark" asp-area="Identity" 
-			asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-	</li>
-	<li class="nav-item">
-		<form id="logoutForm" class="form-inline" asp-area="Identity" 
-            asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-			<button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-		</form>
-	</li>
-} else {
-	<li class="nav-item">
-		<a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-	</li>
-}
-</ul>
+{% include_relative examples/401/Rockaway/Rockaway.WebApp/Pages/Shared/_LoginPartial.cshtml %}
 ```
 
 Add `_LoginPartial` to `_Layout.cshtml`, just after the `<ul>` inside the page navigation:
@@ -118,12 +93,12 @@ To add a sample user:
 and then at the end of `RockawayDbContext.OnModelBuilding`, add:
 
 ```
-modelBuilder.Entity<IdentityUser>().HasData(Users.Admin);
+modelBuilder.Entity<IdentityUser>().HasData(SampleData.Users.Admin);
 ```
 
 Now we can sign in as `admin@rockaway.dev` with the password `p@ssw0rd`.
 
-> **Remember to delete or disable this account when you deploy to a real production system!**
+> **Remember to delete or disable this account when you deploy to a real production system**
 
 ## DB Migrations for Identity
 
@@ -168,9 +143,7 @@ Next, replace our table naming code with this:
 // and use the same names as the C# classes instead
 var rockawayEntityNamespace = typeof(Artist).Namespace;
 var rockawayEntities = modelBuilder.Model.GetEntityTypes().Where(e => e.ClrType.Namespace == rockawayEntityNamespace);
-foreach (var entity in rockawayEntities) {
-    entity.SetTableName(entity.DisplayName());
-}
+foreach (var entity in rockawayEntities) entity.SetTableName(entity.DisplayName());
 ```
 
 Recreate and inspect the migration:
