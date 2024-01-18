@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rockaway.WebApp.Migrations {
 	/// <inheritdoc />
-	public partial class CreateVenue : Migration {
+	public partial class CreateVenues : Migration {
 		/// <inheritdoc />
 		protected override void Up(MigrationBuilder migrationBuilder) {
 			migrationBuilder.CreateTable(
@@ -37,7 +37,7 @@ namespace Rockaway.WebApp.Migrations {
 					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"), "Columbiadamm 9 - 11", "Berlin", "DE", "Columbia Theatre", "10965", "columbia-berlin", "+49 30 69817584", "https://columbia-theater.de/" },
 					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"), "Liosion 205", "Athens", "GR", "Gagarin 205", "104 45", "gagarin-athens", "+45 35 35 50 69", "" },
 					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"), "Torggata 16", "Oslo", "NO", "John Dee Live Club & Pub", "0181", "john-dee-oslo", "+47 22 20 32 32", "https://www.rockefeller.no/" },
-					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"), "stengade-copenhagen", "Copenhagen", "DK", "Stengade", "2200", "Stengade 18", "+45 35355069", "https://www.stengade.dk" },
+					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"), "Stengade 18", "Copenhagen", "DK", "Stengade", "2200", "stengade-copenhagen", "+45 35355069", "https://www.stengade.dk" },
 					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"), "R da Madeira 186", "Porto", "PT", "Barracuda", "4000-433", "barracuda-porto", null, null },
 					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"), "Sveavägen 90", "Stockholm", "SE", "Pub Anchor", "113 59", "pub-anchor-stockholm", "+46 8 15 20 00", "https://www.instagram.com/pubanchor/?hl=en" },
 					{ new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"), "323 New Cross Road", "London", "GB", "New Cross Inn", "SE14 6AS", "new-cross-inn-london", "+44 20 8469 4382", "https://www.newcrossinn.com/" }

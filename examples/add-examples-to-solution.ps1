@@ -9,7 +9,11 @@ foreach ($csproj in $projects) {
     if ($csproj -match '(\d+)') {
         $numericPart = $matches[1]
         # Add the project to the solution file with the -s flag
-        dotnet sln add $csproj -s $numericPart
+        dotnet sln examples.sln add $csproj -s $numericPart
+		if ($numericPart -ge 500) {
+			dotnet sln examples-500.sln add $csproj -s $numericPart
+			Write-Host $csproj
+		}
     }
 }
 

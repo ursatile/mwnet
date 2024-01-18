@@ -1,13 +1,6 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
 namespace Rockaway.WebApp.Pages;
 
-public class IndexModel : PageModel {
-	private readonly ILogger<IndexModel> logger;
-
-	public IndexModel(ILogger<IndexModel> logger) {
-		this.logger = logger;
-	}
+public class IndexModel(ILogger<IndexModel> logger) : PageModel {
 
 	public void OnGet() {
 
