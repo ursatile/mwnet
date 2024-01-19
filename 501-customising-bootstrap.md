@@ -120,6 +120,60 @@ builder.Services.AddSassCompiler();
 
 We're using **conditional compilation** here. The code between `#if` and `#endif` will only be compiled when we're running a build with the `DEBUG` symbol defined; when we do a release-mode build, that code disappears completely. This is great for things like the SASS watcher which are useful for developers, but shouldn't be running anywhere near our live systems.
 
+## SassCompiler vs Tests: Fun & Games
+
+After adding `builder.Services.AddSassCompiler();` to `Program.cs`, I started getting weird intermittent test failures.
+
+This... sucks. Tests need to be reliable otherwise there's no point having them. A bit of digging suggests that spinning up multiple instances of our web app in rapid succession - which happens when we use the `WebApplicationFactory` -- causes problems with the way `SassCompiler` hosts the `dart` executable that's used to actually compile our SASS.
+
+But... we don't need runtime SASS compilation in our tests, so we don't actually need to add the SASS compiler when we're using `WebApplicationFactory`. So, how do we turn it off?
+
+#### Run tests in release mode
+
+The easiest way is to run tests in release mode, which is what we're doing in our GitHub Actions deployment script:
+
+```
+dotnet test -c Release
+```
+
+#### Remove the SassCompilerHostedService
+
+The "proper" way to do this is to remove the service when we set up our `WebApplicationFactory`:
+
+```csharp
+await using var factory = new WebApplicationFactory<Program>()
+    .WithWebHostBuilder(builder => {
+        builder.ConfigureServices(services => services.Remove<SassCompilerHostedService>());
+    });
+```
+
+Problem is, the `SassCompilerHostedService` is part of the `AspNetCore.SassCompiler` package, and is marked`internal`, so we can't actually get to it at the point where we need to remove it. We can work around this in various ways, such as inspecting the service implementation type name to find the one we want to remove:
+
+```csharp
+await using var factory = new WebApplicationFactory<Program>()
+    .WithWebHostBuilder(builder => {
+        builder.ConfigureServices(services => {
+            var sassCompiler = services.FirstOrDefault(s => 
+            	(s.ImplementationType?.FullName ?? String.Empty).Contains("SassCompilerHostedService"));
+            if (sassCompiler != default) services.Remove(sassCompiler);
+        });
+    });
+```
+
+#### Use conditional compilation symbols
+
+We've already wrapped the offending line in a `#if DEBUG` check.
+
+I use [NCrunch](https://www.ncrunch.net/) as my test runner, and NCrunch sets a conditional compilation symbol called `NCRUNCH`, so in my particular scenario I can make sure I don't register the `SassCompilerHostedService` when NCrunch is running my tests:
+
+```csharp
+#if DEBUG && !NCRUNCH
+builder.Services.AddSassCompiler();
+#endif
+```
+
+That's good enough for me: I get reliable tests when debugging them in NCrunch, I get runtime compilation of my SASS files when running my app in debug mode, and I can stick to release mode for CI build, test and deployments.
+
 ## Customising Bootstrap
 
 There is a bootstrap.sass package on NuGet. **DO NOT USE IT.** It doesn't work and I have no idea why it even exists.

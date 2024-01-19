@@ -1,8 +1,5 @@
 @use "sass:color";
 
-// Customising Bootstrap via imports:
-// https://getbootstrap.com/docs/5.3/customize/sass/#importing
-
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "../lib/bootstrap/scss/functions";
 
@@ -10,8 +7,14 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
 $font-family-sans-serif: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
 
+$body-color-dark: #ddd;
 $body-bg-dark: #000;
-$primary: #336699;
+$primary: #39f;
+$border-radius: 0.25rem;
+$border-radius-sm: 0.5 * $border-radius;
+$border-radius-lg: 1.5 * $border-radius;
+$border-radius-xl: 3 * $border-radius;
+$border-radius-xxl: 6 * $border-radius;
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../lib/bootstrap/scss/variables";
@@ -24,16 +27,7 @@ $primary: #336699;
 @import "../lib/bootstrap/scss/mixins";
 @import "../lib/bootstrap/scss/root";
 
-// 6. Optionally include any other parts as needed
-// @import "../lib/bootstrap/scss/utilities";
-// @import "../lib/bootstrap/scss/reboot";
-// @import "../lib/bootstrap/scss/type";
-// @import "../lib/bootstrap/scss/images";
-// @import "../lib/bootstrap/scss/containers";
-// @import "../lib/bootstrap/scss/grid";
-// @import "../lib/bootstrap/scss/helpers";
-
-// ...or import the whole Bootstrap library:
+// 6. Import the whole Bootstrap library:
 @import "../lib/bootstrap/scss/bootstrap.scss";
 
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
@@ -53,7 +47,7 @@ $primary: #336699;
 @mixin fancy-panel($panel-color: color.scale($primary, $lightness: -75%)) {
 	margin: $grid-gutter-width 0;
 	border-radius: 2 * $border-radius;
-	padding: 2 * $border-radius;
+	padding: calc($grid-gutter-width/4) + $border-radius;
 	background-color: $panel-color;
 	border: 1px solid $body-color;
 
@@ -74,13 +68,14 @@ body {
 
 	@include smartphone {
 		padding: 0 !important;
+		font-size: max(1em, 20px);
 	}
 
-	>main {
+	> main {
 		@include fancy-panel;
 	}
 
-	>header {
+	> header {
 		@include fancy-panel;
 		display: flex;
 		justify-content: space-between;
@@ -98,52 +93,31 @@ body {
 
 		label#nav-toggle {
 			display: none;
-
 			@include smartphone {
+			font-size: 200%;
 				display: block;
 				position: absolute;
 				z-index: 2;
-				top: -4px;
-				right: 8px;
-				font-size: 200%;
+				top: calc($grid-gutter-width/4);
+				right: calc($grid-gutter-width/2);
 			}
 		}
 
 		input#nav-checkbox {
 			height: 0;
-
 			@include smartphone {
-				&:checked~nav {
+				&:checked ~ nav {
 					height: 300px;
 				}
 			}
 		}
 
 		nav {
-			@include smartphone {
-				position: absolute;
-				overflow-y: hidden;
-				display: block;
-				top: 0;
-				left: 0;
-				right: 0;
-				height: 0;
-				transition: height 0.2s ease;
-
-				a {
-					display: block;
-					width: 100%;
-					padding: 16px;
-					border-bottom: 2px solid $body-color-dark;
-					border-radius: 0 !important;
-				}
-			}
-
 			a {
 				background: $primary;
 				display: inline-block;
 				padding: 4px 16px;
-				color: $body-color-dark;
+				color: $body-color;
 				font-size: 120%;
 				border-radius: $border-radius;
 				text-decoration: none;
@@ -153,23 +127,32 @@ body {
 					background: color.scale($primary, $lightness: -50%);
 				}
 			}
+			@include smartphone {
+				position: absolute;
+				overflow-y: hidden;
+				display: block;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 0;
+				transition: height 0.2s ease;
+				a {
+					display: block;
+					width: 100%;
+					padding: 16px;
+					border-radius: 0;
+					border-bottom: 1px solid $body-color-dark;
+				}
+			}
 		}
 	}
 
-	>footer {
+	> footer {
 		@include fancy-panel;
 		font-size: 80%;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-
-		span {
-			flex-grow: 1;
-
-			@include smartphone {
-				text-align: center;
-			}
-		}
 
 		nav {
 			a {
@@ -186,18 +169,20 @@ body {
 			a:hover {
 				text-decoration: underline;
 			}
+		}
 
-			text-align: right;
-			flex-grow: 1;
+		@include smartphone {
+			margin-bottom: 0;
 
-			@include smartphone {
+			span, nav {
 				width: 100%;
 				text-align: center;
+				display: block;
+			}
 
-				a {
-					display: block;
-					border: 0;
-				}
+			nav a {
+				display: block;
+				border: 0;
 			}
 		}
 	}

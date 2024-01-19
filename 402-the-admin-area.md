@@ -137,6 +137,10 @@ The first one uses patterns we've already seen, with one key difference - we nee
 
 To test authenticated requests, we need something more complicated. We need to add a custom startup filter into our `WebApplicationFactory`, which will inject some fake middleware into our request pipeline that sets the `User.Identity` to a fake user, so that the application code then thinks we're signed in.
 
+> Read more about custom startup filters:
+>
+> [https://learn.microsoft.com/en-us/aspnet/core/fundamentals/startup](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/startup#extend-startup-with-startup-filters)
+
 The key to this is the `FakeAuthenticationFilter` class, which contains the `FakeAuthenticationMiddleware`, the `FakeAuthenticationOptions` class (which we use to specify the email address our fake user should be signed in with), and some static helper methods we can use to add this to our pipeline:
 
 ```csharp
@@ -162,6 +166,12 @@ Once we've added those to our project, we can write a test which uses them along
 ```
 
 This pattern -- creating a class that implements `IStartupFilter` and using it to inject custom middleware -- can be useful for testing all kinds of scenarios where you need to bypass a "real" security system. What makes it particularly powerful is that it doesn't require any changes to your application code; there's no "back doors" deployed to production, no secret "test account" credentials, so the only place where you're compromising security for the sake of testability is in your test code itself.
+
+## Reinstating /artists and /venues
+
+Finally, we'll resurrect the old Razor Pages code we used earlier, to create the public-facing pages at `/artists` and `/venues`
+
+
 
 
 

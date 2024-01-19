@@ -10,7 +10,7 @@ builder.Services.AddRazorPages(options => options.Conventions.AuthorizeAreaFolde
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
 
-#if DEBUG
+#if DEBUG && !NCRUNCH
 builder.Services.AddSassCompiler();
 #endif
 

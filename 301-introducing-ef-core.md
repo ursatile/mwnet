@@ -119,6 +119,8 @@ Here's a sample page that'll list all the artists in our database, just so we ca
 {% include_relative examples/301/Rockaway/Rockaway.WebApp/Pages/Artists.cshtml %}
 ```
 
+and the accompanying C# "code-behind" file:
+
 ```csharp
 // Rockaway.WebApp/Pages/Artists.cshtml.cs
 

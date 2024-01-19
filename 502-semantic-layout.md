@@ -140,6 +140,7 @@ and while we're here, we'll apply a flex layout and style the footer element as 
     @include fancy-panel;		
     font-size: 80%;
     display: flex;
+	flex-flow: row wrap;
     justify-content: space-between;
     nav {
         a {

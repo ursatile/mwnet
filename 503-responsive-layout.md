@@ -1,5 +1,5 @@
 ---
-title: "5.2 Responsive Layout"
+title: "5.3 Responsive Layout"
 layout: module
 nav_order: 0503
 typora-root-url: ./
@@ -9,7 +9,7 @@ previous: mwnet502
 complete: mwnet503
 ---
 
-In the final part of this workshop, we're going to use CSS media queries and a few frontend design tricks to create a layout that responds smoothly to different device profiles -- without repeating ourselves or using JavaScript.
+In this module, we're going to use CSS media queries and a few frontend design tricks to create a layout that responds smoothly to different device profiles -- without repeating ourselves or using JavaScript.
 
 First, let's add a mixin that'll make it easy to declare rules which only apply to small screens. There's a set of breakpoints and device sizes already built in to Bootstrap, but we're going to create a new one just to see how they work:
 
@@ -27,7 +27,7 @@ Now, we can inject that new `smartphone` mixin into our existing `fancy-panel` m
 @mixin fancy-panel($panel-color: color.scale($primary, $lightness: -75%)) {
 	margin: $grid-gutter-width 0;
 	border-radius: 2 * $border-radius;
-	padding: 2 * $border-radius;
+	padding: calc($grid-gutter-width/4) + $border-radius;
 	background-color: $panel-color;
 	border: 1px solid $body-color;
 
@@ -53,64 +53,48 @@ Now refresh the site, resize the window, and see how the layout behaves at diffe
 
 ![image-20231015220519776](images/image-20231015220519776.png)
 
-### Responsive Layouts: Page Footer
+### Responsive Page Footer
 
 Let's use our mixin to give the page footer a different layout at very small display sizes.
 
 ```scss
-footer nav {
-	@include smartphone {
-    	width: 100%;
-	    text-align: center;
-	    a {
-	        display: block;
-	        border: 0;
-	    }
-	}
-}
-```
-
-
-
-Now, we'll use that mixin to hide our `<nav>` if we're viewing our page on a smartphone:
-
-```
-nav {
+footer {
     @include smartphone {
-        display: none;
-    }
-    a {
-        background: $brand-color;
-        display: inline-block;
-        padding: 4px 16px;
-        color: #fff;
-        font-size: 120%;
-        border-radius: $border-radius/2;
+        margin-bottom: 0;
 
-        &:hover {
-            background: color.scale($brand-color, $lightness: +20%);
+        span, nav {
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+
+        nav a {
+            display: block;
+            border: 0;
         }
     }
 }
 ```
 
-Next, we'll add a label to our `<header>`, and an associated `<input type="checkbox" />`
+#### Responsive Header Nav
+
+Now we'll use a bit of CSS wizardry so that our existing menu will render as a pop-up dynamic menu when we're viewing the site on a mobile device. This is done entirely in CSS, so the HTML markup for our page is exactly the same regardless of what device is being used.
+
+Open up `_Layout.cshtml` and a label to the `<header>` with an associated `<input type="checkbox" />`:
 
 ```html
-	<header>
-		<a href="/">
-			<h1>
-				Rockaway
-			</h1>
-		</a>
-		<label id="nav-toggle" for="nav-checkbox">NAV</label>
-		<input type="checkbox" id="nav-checkbox" />
-		<nav>
-			<a href="/">home</a>
-			<a asp-page="/artists">artists</a>
-			<a asp-page="/venues">venues</a>
-		</nav>
-	</header>
+<header>
+	<h1>
+		<a asp-area="" asp-page="/Index" asp-page="/Index">Rockaway</a>
+	</h1>
+	<label id="nav-toggle" for="nav-checkbox">NAV</label>
+	<input type="checkbox" id="nav-checkbox" />
+	<nav>
+		<a href="/">home</a>
+		<a asp-page="/artists">artists</a>
+		<a asp-page="/venues">venues</a>
+	</nav>
+</header>
 ```
 
 and CSS rules which use the `smartphone` mixin to control display of these elements:
@@ -121,11 +105,12 @@ body {
 		label#nav-toggle {
 			display: none;
 			@include smartphone {
+			font-size: 200%;
 				display: block;
 				position: absolute;
 				z-index: 2;
-				top: $gutter;
-				right: $gutter;
+				top: calc($grid-gutter-width/4);
+				right: calc($grid-gutter-width/2);
 			}
 		}
 
@@ -137,7 +122,6 @@ body {
 				}
 			}
 		}
-
     }
 }    
 ```
@@ -149,23 +133,23 @@ body {
     > header {
 	    nav {
             /* existing styles omitted */
-            @include smartphone {
-                position: absolute;
-                overflow-y: hidden;
-                display: block;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 0;
-                transition: height 0.2s ease;
-                a {
-                    display: block;
-                    width: 100%;
-                    padding: 16px;
-                    border-radius: 0;
-                    border-top: 1px solid $foreground-color;
+			@include smartphone {
+				position: absolute;
+				overflow-y: hidden;
+				display: block;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 0;
+				transition: height 0.2s ease;
+				a {
+					display: block;
+					width: 100%;
+					padding: 16px;
+					border-radius: 0;
+					border-bottom: 1px solid $body-color-dark;
                 }
-			}
+            }
 		}
 	}
 }
@@ -195,10 +179,10 @@ First, we'll install FontAwesome into our project, based on the docs at :
 
 Instead, we're going to download the "Free For Web" bundle from [https://fontawesome.com/download](https://fontawesome.com/download)
 
-1. Download [fontawesome-free-6.4.2-web.zip](https://use.fontawesome.com/releases/v6.4.2/fontawesome-free-6.4.2-web.zip)
+1. Download [fontawesome-free-6.5.1-web.zip](https://use.fontawesome.com/releases/v6.5.1/fontawesome-free-6.5.1-web.zip)
 2. Open up the ZIP file and copy:
-   1. Everything from `/font-awesome-free-6.4.2-web/scss/` into a **new folder** `Rockaway.WebApp/wwwroot/lib/fontawesome/scss/`
-   2. Everything from `/font-awesome-free-6.4.2-web/webfonts/` into a **new folder** `Rockaway.WebApp/wwwroot/webfonts/`
+   1. Everything from `/font-awesome-free-6.5.1-web/scss/` into a **new folder** `Rockaway.WebApp/wwwroot/lib/fontawesome/scss/`
+   2. Everything from `/font-awesome-free-6.5.1-web/webfonts/` into a **new folder** `Rockaway.WebApp/wwwroot/webfonts/`
 
 Now, open up `frontend.scss` and add these lines at the top of our custom code section:
 
@@ -214,14 +198,23 @@ To check FontAwesome is working properly, try adding a snippet of markup like th
 ```html
 <h2>FontAwesome examples:</h2>
 <p>
-    <i class="fa-solid fa-hand-spock"></i>
-    <i class="fa-solid fa-compact-disc"></i>
-    <i class="fa-solid fa-guitar"></i>
-    <i class="fa-solid fa-otter"></i>
-    <i class="fa-solid fa-jedi"></i>
-    <i class="fa-solid fa-stroopwafel"></i>
-    <i class="fa-solid fa-user-astronaut"></i>
+	<i class="fa-solid fa-hand-spock"></i>
+	<i class="fa-solid fa-compact-disc"></i>
+	<i class="fa-solid fa-guitar"></i>
+	<i class="fa-solid fa-otter"></i>
+	<i class="fa-solid fa-jedi"></i>
+	<i class="fa-solid fa-stroopwafel"></i>
+	<i class="fa-solid fa-user-astronaut"></i>
 </p>
+<h1>
+	<i class="fa-solid fa-hand-spock"></i>
+	<i class="fa-solid fa-compact-disc"></i>
+	<i class="fa-solid fa-guitar"></i>
+	<i class="fa-solid fa-otter"></i>
+	<i class="fa-solid fa-jedi"></i>
+	<i class="fa-solid fa-stroopwafel"></i>
+	<i class="fa-solid fa-user-astronaut"></i>
+</h1>
 ```
 
 If you get a little gallery of icons like this:

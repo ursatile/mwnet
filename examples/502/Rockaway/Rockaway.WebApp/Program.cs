@@ -10,6 +10,10 @@ builder.Services.AddRazorPages(options => options.Conventions.AuthorizeAreaFolde
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
 
+#if DEBUG && !NCRUNCH
+builder.Services.AddSassCompiler();
+#endif
+
 var logger = CreateAdHocLogger<Program>();
 
 logger.LogInformation("Rockaway running in {environment} environment", builder.Environment.EnvironmentName);
@@ -28,11 +32,6 @@ if (HostBuilderExtensions.UseSqlite(builder.Environment)) {
 }
 
 builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<RockawayDbContext>();
-
-#if DEBUG
-logger.LogInformation("Running in DEBUG mode - enabling runtime SASS compiler");
-builder.Services.AddSassCompiler();
-#endif
 
 var app = builder.Build();
 
