@@ -5,35 +5,32 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "500", "500", "{85943DC0-071F-468A-AB50-CE877C7AB962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "500\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{0EA8EF82-12F1-42F2-B3E6-DE926148D487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "500\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{0EA8EF82-12F1-42F2-B3E6-DE926148D487}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "500\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{B5A18CD4-A071-48A8-878C-38036C4AA2F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "500\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{B5A18CD4-A071-48A8-878C-38036C4AA2F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "501", "501", "{054B8D13-A155-4532-8C18-E551B42454A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "501\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{693AB636-B57F-481A-A289-E7F8436223B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "501\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{693AB636-B57F-481A-A289-E7F8436223B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "501\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{1DB28A94-75E2-4649-912D-7C916A06E72E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "501\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{1DB28A94-75E2-4649-912D-7C916A06E72E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "502", "502", "{D285320C-7750-472E-B65F-81AA3F371820}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "502\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{41923120-A252-4B2F-958D-74413F9D1287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "502\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{41923120-A252-4B2F-958D-74413F9D1287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "502\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{113BD376-0AC2-4B81-8EE5-0EB1F88186D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "502\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{113BD376-0AC2-4B81-8EE5-0EB1F88186D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "503", "503", "{C9BF1598-56B4-43B0-BDCF-09283857DF10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "503\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{08BAB5EA-9F03-40C5-8BFF-07BBA430960D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "503\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{08BAB5EA-9F03-40C5-8BFF-07BBA430960D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "503\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{99B38C6B-8565-4BE4-BFAC-2FF3115A21BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "503\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{99B38C6B-8565-4BE4-BFAC-2FF3115A21BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0EA8EF82-12F1-42F2-B3E6-DE926148D487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -69,6 +66,9 @@ Global
 		{99B38C6B-8565-4BE4-BFAC-2FF3115A21BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B38C6B-8565-4BE4-BFAC-2FF3115A21BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0EA8EF82-12F1-42F2-B3E6-DE926148D487} = {85943DC0-071F-468A-AB50-CE877C7AB962}
 		{B5A18CD4-A071-48A8-878C-38036C4AA2F6} = {85943DC0-071F-468A-AB50-CE877C7AB962}
@@ -78,5 +78,8 @@ Global
 		{113BD376-0AC2-4B81-8EE5-0EB1F88186D3} = {D285320C-7750-472E-B65F-81AA3F371820}
 		{08BAB5EA-9F03-40C5-8BFF-07BBA430960D} = {C9BF1598-56B4-43B0-BDCF-09283857DF10}
 		{99B38C6B-8565-4BE4-BFAC-2FF3115A21BE} = {C9BF1598-56B4-43B0-BDCF-09283857DF10}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DD7A67F-C0E8-44A5-878D-3F23BB1A6402}
 	EndGlobalSection
 EndGlobal

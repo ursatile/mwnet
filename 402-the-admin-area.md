@@ -119,3 +119,51 @@ And we're done:
 * We've locked down this area so that controllers and pages inside this area are only accessible to authenticated users.
   * Note how we've had to authorise controllers and pages separately; the URLs look the same but we're dealing with two completely separate parts of the ASP.NET routing system so we need to authorise each of them separately.
 * We've created a separate layout for our admin area and our frontend area
+
+### Testing the Admin Area
+
+Since we now have a secure area of our website, we'd like to test two specific scenarios:
+
+1. Requests to `/admin` that aren't signed in will be redirected to the login page
+2. Authenticated (signed in) requests to `/admin` succeed.
+
+The first one uses patterns we've already seen, with one key difference - we need to specify that our test HTTP client should **not follow redirects** (otherwise we'll ask for `/admin` and get back the `200 OK` from the login page we're redirected to.)
+
+```csharp
+// Rockaway.WebApp.Tests/Areas/Admin/SecurityTests.cs
+
+{% include_relative examples/402/Rockaway/Rockaway.WebApp.Tests/Areas/Admin/SecurityTests.cs %}
+```
+
+To test authenticated requests, we need something more complicated. We need to add a custom startup filter into our `WebApplicationFactory`, which will inject some fake middleware into our request pipeline that sets the `User.Identity` to a fake user, so that the application code then thinks we're signed in.
+
+The key to this is the `FakeAuthenticationFilter` class, which contains the `FakeAuthenticationMiddleware`, the `FakeAuthenticationOptions` class (which we use to specify the email address our fake user should be signed in with), and some static helper methods we can use to add this to our pipeline:
+
+```csharp
+// Rockaway.WebApp.Tests/FakeAuthenticationFilter.cs
+
+{% include_relative examples/402/Rockaway/Rockaway.WebApp.Tests/FakeAuthenticationFilter.cs %}
+```
+
+There's also a static class containing the `AddFakeAuthentication` extension method:
+
+```csharp
+// Rockaway.WebApp.Tests/FakeAuthenticationMiddlewareExtensions.cs
+
+{% include_relative examples/402/Rockaway/Rockaway.WebApp.Tests/FakeAuthenticationMiddlewareExtensions.cs %}
+```
+
+Once we've added those to our project, we can write a test which uses them along with the `WebApplicationFactory` and AngleSharp. We're going to make a request to `/admin` and verify that the returned page includes the `<a id="manage">` element, with the `InnerHTML` set to `"Hello <emailAddress>!"`
+
+```csharp
+// Rockaway.WebApp.Tests/Areas/Admin/PageTests.cs
+
+{% include_relative examples/402/Rockaway/Rockaway.WebApp.Tests/Areas/Admin/PageTests.cs %}
+```
+
+This pattern -- creating a class that implements `IStartupFilter` and using it to inject custom middleware -- can be useful for testing all kinds of scenarios where you need to bypass a "real" security system. What makes it particularly powerful is that it doesn't require any changes to your application code; there's no "back doors" deployed to production, no secret "test account" credentials, so the only place where you're compromising security for the sake of testability is in your test code itself.
+
+
+
+
+

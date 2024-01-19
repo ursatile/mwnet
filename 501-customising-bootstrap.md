@@ -187,6 +187,12 @@ Create a new file `wwwroot/scss/frontend.scss`
 
 Now we're going to split our layout into a `_Base` layout, which imports CSS and JS files but doesn't add any visible elements to the page, and a `_Layout` which adds the common page header and footer elements.
 
+> Note that our Base page adds the `data-bs-theme="dark"` attribute to the `<html>` element:
+>
+> <html lang="en" data-bs-theme="dark">
+>
+> That'll switch Bootstrap into dark mode. If you want to allow your users to toggle dark mode, you'll need to write some custom code to add/remove this attribute from the HTML element, and make sure all your styles and colors are tested in both light mode and dark mode.
+
 The code for **Rockaway/Rockaway.WebApp/Pages/Shared/_Base.cshtml**:
 
 ```html
@@ -200,6 +206,10 @@ The code for **Rockaway/Rockaway.WebApp/Pages/Shared/_Layout.cshtml**:
 ```
 
 Now, rebuilt the site, open the /Elements page, and you should see basically the same layout as we had before.
+
+#### Watch out for scoped CSS!
+
+ASP.NET Core allows you to add stylesheets which only affect specific parts of your website. The default project template includes `_Layout.cshtml.css`, which defines a set of styles that will **only be applied to pages which use `_Layout.cshtml`**; the runtime does this by
 
 There's also a Bootstrap "cheat sheet" page, which I've adapted to work with ASP.NET Core so you can see how your customisations affect various components and widgets that are provided by Bootstrap.
 
@@ -215,7 +225,6 @@ If you want to import a custom font, SCSS works quite happily with Google Fonts'
 
 ```scss
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
-
 $font-family-sans-serif: 'PT+Sans+Narrow', Arial, Helvetica, sans-serif;
 ```
 

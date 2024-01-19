@@ -27,6 +27,8 @@ if (HostBuilderExtensions.UseSqlite(builder.Environment)) {
 	builder.Services.AddDbContext<RockawayDbContext>(options => options.UseSqlServer(connectionString));
 }
 
+
+
 builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<RockawayDbContext>();
 
 var app = builder.Build();

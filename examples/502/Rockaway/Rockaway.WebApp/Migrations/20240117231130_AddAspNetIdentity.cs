@@ -142,7 +142,7 @@ namespace Rockaway.WebApp.Migrations {
 			migrationBuilder.InsertData(
 				table: "AspNetUsers",
 				columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-				values: new object[] { "rockaway-sample-admin-user", 0, "d0f2a7ad-3131-45e5-840b-89f22ddd37f8", "admin@rockaway.dev", true, true, null, "ADMIN@ROCKAWAY.DEV", "ADMIN@ROCKAWAY.DEV", "AQAAAAIAAYagAAAAEH8Qdrz8IJEK9Jzq5s0pNT7gYLMHw6Q+zePH0b0TtPLAW8nSojAw+ViEfm7Bh6pLgw==", null, true, "8be1dcd9-5d2e-4a14-b541-64cf924103b5", false, "admin@rockaway.dev" });
+				values: new object[] { "rockaway-sample-admin-user", 0, "ec9d7c74-d3f3-4b0e-bac1-9c2a393cc55c", "admin@rockaway.dev", true, true, null, "ADMIN@ROCKAWAY.DEV", "ADMIN@ROCKAWAY.DEV", "AQAAAAIAAYagAAAAELzmg82ZfBDgbYxzXE7Ew/hIVsDQ6kXEQE9TAJ3Kz12S/L5Ay9lHXAstreED/up5uw==", null, true, "abe08569-b6f1-411d-aa87-fa529538a7c7", false, "admin@rockaway.dev" });
 
 			migrationBuilder.CreateIndex(
 				name: "IX_AspNetRoleClaims_RoleId",
