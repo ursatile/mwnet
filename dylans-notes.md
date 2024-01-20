@@ -6,6 +6,62 @@ typora-copy-images-to: ./images
 summary: Dylan's notes and scribblings from workshop prep
 ---
 
+#### Commit Logs from NDC Porto
+
+```
+Mon 09:23:02 Initial commit
+Mon 09:30:40 dotnet new razor -o Rockaway.WebApp
+Mon 09:37:47 dotnet new xunit; new solution.
+Mon 09:45:26 editorconfig, serilog, and our solution structure
+Mon 10:10:04 Page testing using Shouldly and AngleSharp
+Mon 10:56:02 Fixed all the tests!
+Mon 11:20:55 Add or update the Azure App Service build and deployment workflow config
+Mon 11:30:26 Fix project paths in GitHub Actions YML file
+Mon 11:37:07 Update step versions in YAML so we don't get NodeJS warnings
+Mon 11:48:36 Add StatusReporter service and endpoint
+Mon 12:09:38 FakeStatusReporter in test project
+
+Mon 14:24:09 Sqlite, EF Core, Artists, and RockawayDbContext
+Mon 14:30:30 Change YML from ubuntu-latest to ubuntu-2004 because that might fix a thing...
+Mon 14:36:52 Commit before running dotnet aspnet-codegenerator for ArtistsController
+Mon 14:52:44 Push before doing Venues exercise
+Mon 15:42:36 Scaffoled VenuesController and entity
+Mon 16:08:23 Setup for connecting to SQL database in Staging mode
+Mon 16:22:41 Migrations for Artist and Venue
+Mon 16:27:17 Deployment step for Azure workflow
+Mon 16:35:22 Deployment step for Azure workflow, except actually for real this time.
+Mon 16:52:27 Identity migration and admin user
+Mon 17:04:37 Secured the admin area
+
+Tue 09:12:54 Remove _LoginPartial reference from frontend layout page
+Tue 09:18:33 Change package from false to . in build YAML
+Tue 09:44:44 Split layout into layout and base
+Tue 09:45:34 Oops.
+Tue 09:53:36 Stripped down page layout to minimal semantic HTML
+Tue 09:56:35 Add head section to layout page
+Tue 10:12:01 Bootstrap and SASS compilation steps
+Tue 10:14:48 Added elements and bootstrap cheat sheet to _layout footer nav
+Tue 10:27:04 Remove scoped CSS and _Layout.cshtml.css - we're not using scoping in this workshop :)
+Tue 11:13:24 start using mixins to apply styling to semantic layout
+Tue 11:30:26 Rockaway page layout works on my machine... ;)
+Tue 12:03:43 WebHacks demo for responsive nav
+Tue 12:24:46 Added responsive nav for mobile
+Tue 12:36:45 Responsive footer layout so we get dynamic design on smartphones
+
+Tue 13:59:14 Elements
+Tue 14:34:49 The tests pass! It must all be fine!
+Tue 14:44:32 Artist views works!
+Tue 15:02:05 Tour dates are working! Yay!
+Tue 16:03:24 Finally got tag helper for country code working! Yay!
+Tue 16:05:42 Country code working with helper attributes! Yay!
+Tue 16:23:21 Add TicketTypes and sample data
+Tue 16:39:40 Localised ticket prices!
+Tue 16:43:06 DB migration for shows and ticket types
+Tue 16:48:08 DB migration for shows and ticket types
+```
+
+
+
 Monday:
 
 09:00-10:30 Razor Pages, minimal APIs, service registration, testing. **Start the Azure deployment before the coffee break!**
