@@ -12,12 +12,13 @@ examples: examples/506/Rockaway
 
 So far, our application's data model is pretty simple - artists and venues, and a bunch of string properties describing each one.
 
-Here's what we're going to add:
+Here's what we're going to add in the next few modules.
 
 1. Tour dates. A way to advertise the fact that a particular band will be performing at a certain venue, on a certain date.
-2. Tickets. What kinds of ticket are available for each show, how much do they cost, and how many of that type of ticket are available?
-3. Checkout process. A customer can add tickets to an order and submit the order.
-4. Email: when a customer submits an order, we'll send them an email confirming it.
+2. Support slots. Which other artists will be appearing at the show, besides the headline act?
+3. Tickets. What kinds of ticket are available for each show, how much do they cost, and how many of that type of ticket are available?
+4. Checkout process. A customer can add tickets to an order and submit the order.
+5. Email: when a customer submits an order, we'll send them an email confirming it.
 
 ### Shows
 
@@ -79,6 +80,28 @@ and for `TicketType`:
 {% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Entities/TicketType.cs %}
 ```
 
+We'll also add a new property to `Artist`:
+
+```csharp
+public List<Show> HeadlineShows { get; set; } = [];
+```
+
+and to `Venue`, along with a utility method that'll help us set up sample data:
+
+```csharp
+public List<Show> Shows { get; set; } = [];
+
+public Show BookShow(Artist artist, LocalDate date) {
+    var show = new Show {
+        Venue = this,
+        HeadlineArtist = artist,
+        Date = date,
+    };
+    Shows.Add(show);
+    return show;
+}
+```
+
 ### Mapping Composite Keys with EF Core
 
 Some of our entities - `Artist`, `Venue`, `TicketType` -- use a GUID as a key. This is a completely meaningless identifier, sometimes known as a **synthetic key** -- all that matters is that it's unique.
@@ -137,7 +160,7 @@ This is some pretty gnarly code == if you've not worked with `Expression` types 
 {% include_relative {{ page.examples}}/Rockaway.WebApp/Data/EntityTypeBuilderExtensions.cs %}
 ```
 
-### Using EF Core with Type Converters
+### Extending EF Core with Type Converters
 
 We also have some types in our model now which EF Core has never seen before, specifically the NodaTime `LocalDate` used for the show date property.
 
@@ -149,41 +172,6 @@ There's a NuGet package [NodaTime.EntityFrameworkCore.Conversions](https://www.n
 {% include_relative {{ page.examples }}/Rockaway.WebApp/Data/NodaTimeConverters.cs %}
 ```
 
-We can apply type converters to individual properties, or we can use conventions to apply them to all properties of a particular type, which is what we'll do here:
-
-```csharp
-// Add this to RockawayDbContext.cs:
-
-protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder) {
-	base.ConfigureConventions(configurationBuilder);
-	configurationBuilder.AddNodaTimeConverters();
-}
-```
-
-Once that's wired in, we can add our new types to `RockawayDbContext`:
-
-```csharp
-modelBuilder.Entity<Show>(entity => {
-    entity.HasKey(show => show.Venue.Id, show => show.Date);
-    entity.HasMany(show => show.SupportSlots)
-        .WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
-    entity.HasMany(show => show.TicketTypes)
-        .WithOne(tt => tt.Show).OnDelete(DeleteBehavior.Cascade);
-});
-
-modelBuilder.Entity<SupportSlot>(entity => {
-    entity.HasKey(
-        slot => slot.Show.Venue.Id,
-        slot => slot.Show.Date,
-        slot => slot.SlotNumber
-    );
-});
-
-modelBuilder.Entity<TicketType>(entity => {
-    entity.Property(tt => tt.Price).HasColumnType("money");
-});
-```
-
 ### Sample Data for Complex Types
 
 Another limitation of EF Core is that the `HasData()` method expects a simple flat object with property names matching the column names on the target table. This worked fine for `Artist` and `Venue`, because we weren't relying on any complex navigation properties, but if we pass a `SupportSlot` to `HasData`, it's gonna try to find `SupportSlot.ShowVenueId`-- and when it can't, it'll throw an exception.
@@ -191,7 +179,7 @@ Another limitation of EF Core is that the `HasData()` method expects a simple fl
 First, we're going to add ticket types and shows to the sample venue data:
 
 ```csharp
-{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SampleData.Venues.cs %}
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SampleData.Shows.cs %}
 ```
 
 So we need to map our complex model types into flat "seed data" objects to be able to use them with `HasData`:
@@ -200,13 +188,45 @@ So we need to map our complex model types into flat "seed data" objects to be ab
 {% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SeedData.cs %}
 ```
 
-Then, in `RockawayDbContext`, we need to replace our `HasData` calls to use the new `ToSeedData` methods:
+Now we can update `RockawayDbContext`:
+
+1. Use `override ConfigureConventions` to add our NodaTime type converters
+2. Add property mappings for `Venue.Shows` and `Artist.HeadlineShows`
+3. Add entity mappings for `Show`, `SupportSlot` and `TicketType`
+4. Update the `HasData` calls to use `SeedData.For()`
 
 ```csharp
-modelBuilder.Entity<Artist>().HasData(SampleData.Artists.AllArtists.Select(a => a.ToSeedData()));
-modelBuilder.Entity<Venue>().HasData(SampleData.Venues.AllVenues.Select(v => v.ToSeedData()));
-modelBuilder.Entity<Show>().HasData(SampleData.Shows.AllShows.Select(s => s.ToSeedData()));
-modelBuilder.Entity<TicketType>().HasData(SampleData.Shows.AllTicketTypes.Select(tt => tt.ToSeedData()));
-modelBuilder.Entity<SupportSlot>().HasData(SampleData.Shows.AllSupportSlots.Select(ss => ss.ToSeedData()));
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/RockawayDbContext.cs %}
 ```
+
+Create `Models/ShowViewData.cs`:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Models/ShowViewData.cs %}
+```
+
+and update `ArtistViewData` to include show dates:
+
+```csharp
+public IEnumerable<ShowViewData> Shows => artist.HeadlineShows
+	.OrderBy(show => show.Date).Select(show => new ShowViewData(show));
+```
+
+Update the codebehind in `Artist.cshtml.cs`:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Pages/Artist.cshtml.cs %}
+```
+
+and the Razor page code:
+
+```html
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Pages/Artist.cshtml %}
+```
+
+
+
+
+
+
 

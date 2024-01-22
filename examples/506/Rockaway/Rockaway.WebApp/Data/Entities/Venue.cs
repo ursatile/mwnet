@@ -6,14 +6,14 @@ public class Venue {
 
 	public Venue() { }
 
-	public Venue(Guid id, string name, string slug, string address, string city, string cultureName, string? postalCode, string? telephone,
+	public Venue(Guid id, string name, string slug, string address, string city, string countryCode, string? postalCode, string? telephone,
 		string? websiteUrl) {
 		Id = id;
 		Name = name;
 		Slug = slug;
 		Address = address;
 		City = city;
-		CultureName = cultureName;
+		CountryCode = countryCode;
 		PostalCode = postalCode;
 		Telephone = telephone;
 		WebsiteUrl = websiteUrl;
@@ -35,9 +35,9 @@ public class Venue {
 
 	public string City { get; set; } = String.Empty;
 
-	public string CultureName { get; set; } = String.Empty;
-
-	public string CountryCode => CultureName.Split("-").Last();
+	[Unicode(false)]
+	[MaxLength(2)]
+	public string CountryCode { get; set; } = String.Empty;
 
 	public string? PostalCode { get; set; }
 
