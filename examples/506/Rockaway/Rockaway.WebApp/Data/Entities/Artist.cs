@@ -19,4 +19,6 @@ public class Artist {
 		this.Description = description;
 		this.Slug = slug;
 	}
+
+	public List<Show> HeadlineShows { get; set; } = [];
 }

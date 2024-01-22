@@ -1,11 +1,29 @@
 @page "/artist/{slug}"
 @model ArtistModel
 <article class="row">
-	<section class="col-12 col-sm-4">
+	<section class="col-12 col-md-4">
 		@Html.DisplayFor(model => model.Artist)
 	</section>
-	<section class="col-12 col-sm-8">
+	<section class="col-12 col-md-8">
 		<h2>@Model.Artist.Name On Tour</h2>
-		<p><em>TODO: List tour dates here</em></p>
+		@if (Model.Artist.Shows.Any()) {
+			foreach (var show in Model.Artist.Shows) {
+				<hr/>
+				<div class="row">
+					<div class="col-12">
+						@show.ShowDate
+					</div>
+					<div class="col-12 col-md-10">
+						<country-flag iso-code="@show.CountryCode"></country-flag>
+						@show.VenueName, @show.VenueAddress
+					</div>
+					<div class="col-12 text-end col-md-2">
+						<a href="javascript:alert('TODO!');">tickets</a>
+					</div>
+				</div>
+			}
+		} else {
+			<p>No tour dates scheduled.</p>
+		}
 	</section>
-</article>
+	</article>

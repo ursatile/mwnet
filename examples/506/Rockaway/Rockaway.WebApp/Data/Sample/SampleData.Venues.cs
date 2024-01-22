@@ -38,8 +38,5 @@ public partial class SampleData {
 		public static Venue[] AllVenues = {
 			Electric, Bataclan, Columbia, Gagarin, JohnDee, Stengade, Barracuda, PubAnchor, NewCrossInn
 		};
-
-		public static IEnumerable<object> SeedData
-			=> AllVenues.Select(show => show.ToSeedData());
 	}
 }

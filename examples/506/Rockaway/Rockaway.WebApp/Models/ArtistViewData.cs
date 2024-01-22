@@ -17,4 +17,7 @@ public class ArtistViewData(Artist artist) {
 		=> String.Format(CLOUDINARY_URL_TEMPLATE, width, height, Slug);
 	
 	public string CssClass => (Name.Length > 20 ? "long-name" : "");
+
+	public IEnumerable<ShowViewData> Shows => artist.HeadlineShows
+		.OrderBy(show => show.Date).Select(show => new ShowViewData(show));
 }

@@ -143,15 +143,15 @@ namespace Rockaway.WebApp.Migrations
                         {
                             Id = "rockaway-sample-admin-user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c3dd557-5697-4d01-889f-7aff849a1406",
+                            ConcurrencyStamp = "ec9d7c74-d3f3-4b0e-bac1-9c2a393cc55c",
                             Email = "admin@rockaway.dev",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ROCKAWAY.DEV",
                             NormalizedUserName = "ADMIN@ROCKAWAY.DEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAELbT4lwOtSThY+FvORiWbzGz/D58Fq+2w2GcWIX8qQIrCuIOX9fWYZBjFpmc4owBwg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELzmg82ZfBDgbYxzXE7Ew/hIVsDQ6kXEQE9TAJ3Kz12S/L5Ay9lHXAstreED/up5uw==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "7aa2dd18-c158-4629-90a9-3d6780854d57",
+                            SecurityStamp = "abe08569-b6f1-411d-aa87-fa529538a7c7",
                             TwoFactorEnabled = false,
                             UserName = "admin@rockaway.dev"
                         });
@@ -269,7 +269,7 @@ namespace Rockaway.WebApp.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Artist");
+                    b.ToTable("Artist", (string)null);
 
                     b.HasData(
                         new
@@ -460,227 +460,6 @@ namespace Rockaway.WebApp.Migrations
                             Description = "Inspired by their Australian namesakes, Ærbårn are Scandinavia's #1 party rock band. Thundering drums, huge guitar riffs and enough energy to light up the Arctic Circle, their shows have had amazing reviews all over the world",
                             Name = "Ærbårn",
                             Slug = "aerbaarn"
-                        },
-                        new
-                        {
-                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa28"),
-                            Description = "dot-dot-dot to their friends (and fans), ... are a Canadian drone jazz combo formed in Vancouver in 1998, known for their thunderous horn section and innovative visuals.",
-                            Name = "...",
-                            Slug = "dot-dot-dot"
-                        },
-                        new
-                        {
-                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa29"),
-                            Description = "Known as the \"Silver Mountain Strings\" if you're into the whole brevity thing, Kentucky's answer to the Leningrad Cowboys has gone from strength to strength, from the Superbowl half time show to their sold-out Vegas residency in 2023.",
-                            Name = "The Most Excellent Incredible Electric Silver Mountain String Band featuring Timber J. MacCorkindale and the Kentucky Mountain Hornswogglers",
-                            Slug = "silver-mountain-string-band"
-                        });
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
-                {
-                    b.Property<Guid>("VenueId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("HeadlineArtistId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("VenueId", "Date");
-
-                    b.HasIndex("HeadlineArtistId");
-
-                    b.ToTable("Show");
-
-                    b.HasData(
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
-                            Date = new DateOnly(2024, 5, 17),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        },
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
-                            Date = new DateOnly(2024, 5, 18),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        },
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
-                            Date = new DateOnly(2024, 5, 19),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        },
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"),
-                            Date = new DateOnly(2024, 5, 20),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        },
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"),
-                            Date = new DateOnly(2024, 5, 22),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        },
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"),
-                            Date = new DateOnly(2024, 5, 23),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        },
-                        new
-                        {
-                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
-                            Date = new DateOnly(2024, 5, 25),
-                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
-                        });
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.SupportSlot", b =>
-                {
-                    b.Property<Guid>("ShowVenueId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateOnly>("ShowDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("SlotNumber")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ArtistId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ShowVenueId", "ShowDate", "SlotNumber");
-
-                    b.HasIndex("ArtistId");
-
-                    b.ToTable("SupportSlot");
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.TicketType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateOnly>("ShowDate")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("ShowVenueId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShowVenueId", "ShowDate");
-
-                    b.ToTable("TicketType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0064541a-d96c-40c4-b7b6-2d1ec363d151"),
-                            Name = "General Admission",
-                            Price = 25m,
-                            ShowDate = new DateOnly(2024, 5, 17),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7")
-                        },
-                        new
-                        {
-                            Id = new Guid("b13def9c-8f6c-4c00-ac7c-64fbef6bdda6"),
-                            Name = "General Admission",
-                            Price = 35m,
-                            ShowDate = new DateOnly(2024, 5, 18),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3")
-                        },
-                        new
-                        {
-                            Id = new Guid("4a30cae6-5a19-4dfc-9566-0bb12c0ac74b"),
-                            Name = "VIP Meet & Greet",
-                            Price = 75m,
-                            ShowDate = new DateOnly(2024, 5, 18),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3")
-                        },
-                        new
-                        {
-                            Id = new Guid("ea188990-fa4d-46ca-9fbb-372fcbc8981c"),
-                            Name = "General Admission",
-                            Price = 35m,
-                            ShowDate = new DateOnly(2024, 5, 19),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2")
-                        },
-                        new
-                        {
-                            Id = new Guid("7f04da2e-2fa1-4812-b773-c60bdb25e259"),
-                            Name = "VIP Meet & Greet",
-                            Price = 75m,
-                            ShowDate = new DateOnly(2024, 5, 19),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2")
-                        },
-                        new
-                        {
-                            Id = new Guid("c84009a8-d003-432f-9dbf-4dc044458557"),
-                            Name = "General Admission",
-                            Price = 25m,
-                            ShowDate = new DateOnly(2024, 5, 20),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9")
-                        },
-                        new
-                        {
-                            Id = new Guid("c86bc60a-f910-4ba9-b196-b09b837ff602"),
-                            Name = "VIP Meet & Greet",
-                            Price = 55m,
-                            ShowDate = new DateOnly(2024, 5, 20),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9")
-                        },
-                        new
-                        {
-                            Id = new Guid("76f6cf40-0386-431c-935a-aca0b3fe7c88"),
-                            Name = "General Admission",
-                            Price = 350m,
-                            ShowDate = new DateOnly(2024, 5, 22),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5")
-                        },
-                        new
-                        {
-                            Id = new Guid("5b2e8663-b943-4fda-b977-cb8543647d77"),
-                            Name = "VIP Meet & Greet",
-                            Price = 750m,
-                            ShowDate = new DateOnly(2024, 5, 22),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5")
-                        },
-                        new
-                        {
-                            Id = new Guid("3f899279-10b7-4778-bb6e-67be90ca9322"),
-                            Name = "General Admission",
-                            Price = 300m,
-                            ShowDate = new DateOnly(2024, 5, 23),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8")
-                        },
-                        new
-                        {
-                            Id = new Guid("7124be0d-2faa-441d-a119-ba344d4b8580"),
-                            Name = "VIP Meet & Greet",
-                            Price = 720m,
-                            ShowDate = new DateOnly(2024, 5, 23),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8")
-                        },
-                        new
-                        {
-                            Id = new Guid("1fc2a9e0-6b89-4577-9fec-d5f3fe807601"),
-                            Name = "General Admission",
-                            Price = 25m,
-                            ShowDate = new DateOnly(2024, 5, 25),
-                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4")
                         });
                 });
 
@@ -699,9 +478,11 @@ namespace Rockaway.WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CultureName")
+                    b.Property<string>("CountryCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -728,7 +509,7 @@ namespace Rockaway.WebApp.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Venue");
+                    b.ToTable("Venue", (string)null);
 
                     b.HasData(
                         new
@@ -736,7 +517,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"),
                             Address = "Town Hall Parade",
                             City = "London",
-                            CultureName = "en-GB",
+                            CountryCode = "GB",
                             Name = "Electric Brixton",
                             PostalCode = "SW2 1RJ",
                             Slug = "electric-brixton",
@@ -748,7 +529,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
                             Address = "50 Boulevard Voltaire",
                             City = "Paris",
-                            CultureName = "fr-FR",
+                            CountryCode = "FR",
                             Name = "Bataclan",
                             PostalCode = "75011",
                             Slug = "bataclan-paris",
@@ -760,7 +541,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
                             Address = "Columbiadamm 9 - 11",
                             City = "Berlin",
-                            CultureName = "de-DE",
+                            CountryCode = "DE",
                             Name = "Columbia Theatre",
                             PostalCode = "10965",
                             Slug = "columbia-berlin",
@@ -772,7 +553,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
                             Address = "Liosion 205",
                             City = "Athens",
-                            CultureName = "el-GR",
+                            CountryCode = "GR",
                             Name = "Gagarin 205",
                             PostalCode = "104 45",
                             Slug = "gagarin-athens",
@@ -784,7 +565,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"),
                             Address = "Torggata 16",
                             City = "Oslo",
-                            CultureName = "nn-NO",
+                            CountryCode = "NO",
                             Name = "John Dee Live Club & Pub",
                             PostalCode = "0181",
                             Slug = "john-dee-oslo",
@@ -796,7 +577,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"),
                             Address = "Stengade 18",
                             City = "Copenhagen",
-                            CultureName = "dk-DK",
+                            CountryCode = "DK",
                             Name = "Stengade",
                             PostalCode = "2200",
                             Slug = "stengade-copenhagen",
@@ -808,7 +589,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
                             Address = "R da Madeira 186",
                             City = "Porto",
-                            CultureName = "pt-PT",
+                            CountryCode = "PT",
                             Name = "Barracuda",
                             PostalCode = "4000-433",
                             Slug = "barracuda-porto"
@@ -818,7 +599,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"),
                             Address = "Sveavägen 90",
                             City = "Stockholm",
-                            CultureName = "sv-SE",
+                            CountryCode = "SE",
                             Name = "Pub Anchor",
                             PostalCode = "113 59",
                             Slug = "pub-anchor-stockholm",
@@ -830,7 +611,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"),
                             Address = "323 New Cross Road",
                             City = "London",
-                            CultureName = "en-GB",
+                            CountryCode = "GB",
                             Name = "New Cross Inn",
                             PostalCode = "SE14 6AS",
                             Slug = "new-cross-inn-london",
@@ -888,67 +669,6 @@ namespace Rockaway.WebApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
-                {
-                    b.HasOne("Rockaway.WebApp.Data.Entities.Artist", "HeadlineArtist")
-                        .WithMany()
-                        .HasForeignKey("HeadlineArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Rockaway.WebApp.Data.Entities.Venue", "Venue")
-                        .WithMany("Shows")
-                        .HasForeignKey("VenueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HeadlineArtist");
-
-                    b.Navigation("Venue");
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.SupportSlot", b =>
-                {
-                    b.HasOne("Rockaway.WebApp.Data.Entities.Artist", "Artist")
-                        .WithMany()
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Rockaway.WebApp.Data.Entities.Show", "Show")
-                        .WithMany("SupportSlots")
-                        .HasForeignKey("ShowVenueId", "ShowDate")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Artist");
-
-                    b.Navigation("Show");
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.TicketType", b =>
-                {
-                    b.HasOne("Rockaway.WebApp.Data.Entities.Show", "Show")
-                        .WithMany("TicketTypes")
-                        .HasForeignKey("ShowVenueId", "ShowDate")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Show");
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
-                {
-                    b.Navigation("SupportSlots");
-
-                    b.Navigation("TicketTypes");
-                });
-
-            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>
-                {
-                    b.Navigation("Shows");
                 });
 #pragma warning restore 612, 618
         }

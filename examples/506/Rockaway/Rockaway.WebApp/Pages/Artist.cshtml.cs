@@ -7,7 +7,10 @@ public class ArtistModel(RockawayDbContext db, ILogger<IndexModel> logger) : Pag
 	public ArtistViewData Artist = default!;
 
 	public IActionResult OnGet(string slug) {
-		var artist = db.Artists.FirstOrDefault(a => a.Slug == slug);
+		var artist = db.Artists
+			.Include(a => a.HeadlineShows)
+			.ThenInclude(show => show.Venue)
+			.FirstOrDefault(a => a.Slug == slug);
 		if (artist == default) return NotFound();
 		Artist = new(artist);
 		return Page();

@@ -18,9 +18,17 @@ public class Show {
 		return this;
 	}
 
-	public static Action<EntityTypeBuilder<Show>> EntityModel => show => {
-		show.HasMany(s => s.SupportSlots).WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
-		show.HasMany(s => s.TicketTypes).WithOne(tt => tt.Show).OnDelete(DeleteBehavior.Cascade);
-		show.HasKey(nameof(Venue) + nameof(Venue.Id), nameof(Date));
-	};
+	private int NextSlotNumber
+		=> (this.SupportSlots.Count > 0 ? this.SupportSlots.Max(s => s.SlotNumber) : 0) + 1;
+
+	public Show WithSupportActs(params Artist[] artists) {
+		foreach (var artist in artists) {
+			this.SupportSlots.Add(new() {
+				Show = this,
+				Artist = artist,
+				SlotNumber = NextSlotNumber
+			});
+		}
+		return this;
+	}
 }

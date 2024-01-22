@@ -218,8 +218,5 @@ public partial class SampleData {
 			VirtualMachine, WebmasterOfPuppets, Xslte, Yamb, ZeroBasedIndex,
 			Ærbårn, DotDotDot, SilverMountainStringBand
 		};
-
-		public static IEnumerable<object> SeedData
-			=> AllArtists.Select(show => show.ToSeedData());
 	}
 }

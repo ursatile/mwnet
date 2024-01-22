@@ -7,7 +7,7 @@ typora-copy-images-to: ./images
 summary: "Let's send our artists on tour - time to add shows to our application."
 previous: mwnet505
 complete: mwnet506
-examples: examples/506/Rockaway/
+examples: examples/506/Rockaway
 ---
 
 So far, our application's data model is pretty simple - artists and venues, and a bunch of string properties describing each one.
@@ -32,13 +32,17 @@ A show has one or more **ticket types**: each ticket type has a **name**, a **pr
 
 ### Dates, Times and DateTimes, Oh My!
 
-Let's start with the easy part: venues don't move, and so if we know where a venue *is*, we can work out what time zone it's in, and that's not going to change. Probably.
+If a show's on March 25th, in Los Angeles, and the doors open at 7pm, it's already March 26th for most of the rest of the world. So what date is that concert actually happening?
 
-If a show's on March 25th, in Los Angeles, and the doors open at 7pm, it's already March 26th for most of the rest of the world.
+The correct answer is, of course, "March 25th, don't be an idiot..." - [relevant XKCD](https://xkcd.com/2867/)
+
+![XKCD DateTime](/images/506-shows-and-tour-dates/datetime.png)
+
+But timezones are tricky.
 
 One common strategy for dealing with this kind of scenario is to insist that all date/time data is stored in the database as UTC, and the convert it to/from local time whenever you're displaying it. This can work well, but it does introduce an element of risk -- if somebody forgets to implement the conversion when adding a new UI feature, we could end up with shows on the wrong day.
 
-What we really want is a **local date**; a way of saying "look, this event has a location, and it happens when the date **in that location** is March 25th".
+Since all our events take place at a venue, and a venue is a physical location that doesn't move, what we really want is a **local date**; a way of saying "look, this event has a location, and it happens when the date **in that location** is March 25th".
 
 .NET's DateTime classes have never provided great support for this kind of scenario: a .NET `DateTime` has a `Kind` property, which can be `Local`, `Utc` or `Unspecified`, but it's still way too easy to get the conversions wrong.
 
@@ -60,24 +64,149 @@ NodaTime gives us access to a whole bunch of new classes, including one called `
 Here's the code for a `Show`, including the `LocalDate` storing the show date:
 
 ```csharp
-{% include_relative {{ page.examples }}Rockaway.WebApp/Data/Entities/Show.cs %}
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Entities/Show.cs %}
 ```
 
+We're also going to add classes for `SupportSlot`:
 
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Entities/SupportSlot.cs %}
+```
 
+and for `TicketType`:
 
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Entities/TicketType.cs %}
+```
 
+### Mapping Composite Keys with EF Core
 
+Some of our entities - `Artist`, `Venue`, `TicketType` -- use a GUID as a key. This is a completely meaningless identifier, sometimes known as a **synthetic key** -- all that matters is that it's unique.
 
+> If you've read on the internet that GUIDs make bad keys because they're slow to insert: yes, that's technically correct. Sometimes. 
+>
+> If you're working on the kind of applications where you're inserting so many records so fast that GUIDs vs integers actually makes a difference, you should be benchmarking different key strategies on your own platform to identify the solution that works for you. 
+>
+> If you're not? Chill. GUIDs are just fine. Relax.
+>
+> *Remember the first rule of software architecture: **it depends**.*
 
+Shows don't use a GUID id. A show is identified by a combination of the **date** and the **venue** - known as a **composite key**.
 
+In database terms, this means every show is related to a venue, identified by a venue ID, and every show has a date, and that combination of `(venueId, date)` forms a unique key. EF Core can handle composite keys just fine, but out of the box there's a limitation I don't like.
 
+For simple keys, we can say:
 
+```csharp
+// define key using an expression
+modelBuilder.Entity<Customer>().HasKey(customer => customer.AccountNumber)); 
+```
 
+OR we can provide a string column name:
 
+```csharp
+// define key using a string column name
+modelBuilder.Entity<Customer>().HasKey("AccountNumber")); 
+```
 
+Expressions are a much nicer way to refer to other parts of our code, because they're strongly typed - if we make a mistake, our code won't build. If we make a typo in a string property, the code will build just fine and then fail when we run it.
 
+For composite keys, EF Core allows you to define your key using expressions:
 
+```
+modelBuilder.Entity<Show>().HasKey(entity => { entity.Property1, entity.Property2 });
+```
 
+but this only works for simple properties.
 
+In our model, a `SupportSlot` is identified by a unique combination of `(Show, SlotNumber)`, but the `Show` in turn is identified by `(Venue,Date)` -- so in the database, the primary key for the `SupportSlot` table will be `(ShowVenueId, ShowDate, SlotNumber)`, and EF Core doesn't have expression-based support for declaring `SupportSlot.Show.Venue.Id` as a key property.
+
+We could do this using strings:
+
+```csharp
+modelBuilder.Entity<SupportSlot>().HasKey("ShowVenueId", "ShowDate", "SlotNumber");
+```
+
+However, using C# extension methods, we can extend EF Core to support expressions for defining composite keys.
+
+This is some pretty gnarly code == if you've not worked with `Expression` types in .NET before, it may take a moment to figure out what it's doing.
+
+```csharp
+// Rockaway.WebApp/Data/EntityTypeBuilderExtensions.cs
+
+{% include_relative {{ page.examples}}/Rockaway.WebApp/Data/EntityTypeBuilderExtensions.cs %}
+```
+
+### Using EF Core with Type Converters
+
+We also have some types in our model now which EF Core has never seen before, specifically the NodaTime `LocalDate` used for the show date property.
+
+To use these types with EF Core, we need to provide **type converters**, which can translate our custom types into types which EF Core knows about.
+
+There's a NuGet package [NodaTime.EntityFrameworkCore.Conversions](https://www.nuget.org/packages/NodaTime.EntityFrameworkCore.Conversions), which provides type converters for NodaTime, but it's simple enough to implement them directly:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/NodaTimeConverters.cs %}
+```
+
+We can apply type converters to individual properties, or we can use conventions to apply them to all properties of a particular type, which is what we'll do here:
+
+```csharp
+// Add this to RockawayDbContext.cs:
+
+protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder) {
+	base.ConfigureConventions(configurationBuilder);
+	configurationBuilder.AddNodaTimeConverters();
+}
+```
+
+Once that's wired in, we can add our new types to `RockawayDbContext`:
+
+```csharp
+modelBuilder.Entity<Show>(entity => {
+    entity.HasKey(show => show.Venue.Id, show => show.Date);
+    entity.HasMany(show => show.SupportSlots)
+        .WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
+    entity.HasMany(show => show.TicketTypes)
+        .WithOne(tt => tt.Show).OnDelete(DeleteBehavior.Cascade);
+});
+
+modelBuilder.Entity<SupportSlot>(entity => {
+    entity.HasKey(
+        slot => slot.Show.Venue.Id,
+        slot => slot.Show.Date,
+        slot => slot.SlotNumber
+    );
+});
+
+modelBuilder.Entity<TicketType>(entity => {
+    entity.Property(tt => tt.Price).HasColumnType("money");
+});
+```
+
+### Sample Data for Complex Types
+
+Another limitation of EF Core is that the `HasData()` method expects a simple flat object with property names matching the column names on the target table. This worked fine for `Artist` and `Venue`, because we weren't relying on any complex navigation properties, but if we pass a `SupportSlot` to `HasData`, it's gonna try to find `SupportSlot.ShowVenueId`-- and when it can't, it'll throw an exception.
+
+First, we're going to add ticket types and shows to the sample venue data:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SampleData.Venues.cs %}
+```
+
+So we need to map our complex model types into flat "seed data" objects to be able to use them with `HasData`:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SeedData.cs %}
+```
+
+Then, in `RockawayDbContext`, we need to replace our `HasData` calls to use the new `ToSeedData` methods:
+
+```csharp
+modelBuilder.Entity<Artist>().HasData(SampleData.Artists.AllArtists.Select(a => a.ToSeedData()));
+modelBuilder.Entity<Venue>().HasData(SampleData.Venues.AllVenues.Select(v => v.ToSeedData()));
+modelBuilder.Entity<Show>().HasData(SampleData.Shows.AllShows.Select(s => s.ToSeedData()));
+modelBuilder.Entity<TicketType>().HasData(SampleData.Shows.AllTicketTypes.Select(tt => tt.ToSeedData()));
+modelBuilder.Entity<SupportSlot>().HasData(SampleData.Shows.AllSupportSlots.Select(ss => ss.ToSeedData()));
+```
 

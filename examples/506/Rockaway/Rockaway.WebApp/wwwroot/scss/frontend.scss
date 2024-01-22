@@ -9,7 +9,7 @@ $font-family-sans-serif: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
 
 $body-color-dark: #ddd;
 $body-bg-dark: #000;
-$primary: #ae00ff;
+$primary: #b0ddff;
 $border-radius: 0.25rem;
 $border-radius-sm: 0.5 * $border-radius;
 $border-radius-lg: 1.5 * $border-radius;
@@ -230,6 +230,7 @@ div.artist-card {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
+	margin-bottom: calc($container-padding-x / 2);
 
 	&.long-name h4 {
 		font-size: 1.2em;

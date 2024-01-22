@@ -47,6 +47,7 @@ exclude:
   - examples/**/.vs
   - examples/**/obj
   - examples/**/bin
+  - examples/**/_NCrunch*/
   - examples2/
   - examples3/
   
