@@ -29,8 +29,6 @@ A show is defined by an **artist** performing at a **venue** on a specific **dat
 
 A show has a **doors time** (what time does the venue start admitting ticket holders), a **stage time** (what time does the show start), and a **curfew** (what time does the venue close).
 
-A show has one or more **ticket types**: each ticket type has a **name**, a **price** and a **sales limit**. If the sales limit is `null`, it means there's no limit.
-
 ### Dates, Times and DateTimes, Oh My!
 
 If a show's on March 25th, in Los Angeles, and the doors open at 7pm, it's already March 26th for most of the rest of the world. So what date is that concert actually happening?
@@ -74,12 +72,6 @@ We're also going to add classes for `SupportSlot`:
 {% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Entities/SupportSlot.cs %}
 ```
 
-and for `TicketType`:
-
-```csharp
-{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Entities/TicketType.cs %}
-```
-
 We'll also add a new property to `Artist`:
 
 ```csharp
@@ -104,7 +96,7 @@ public Show BookShow(Artist artist, LocalDate date) {
 
 ### Mapping Composite Keys with EF Core
 
-Some of our entities - `Artist`, `Venue`, `TicketType` -- use a GUID as a key. This is a completely meaningless identifier, sometimes known as a **synthetic key** -- all that matters is that it's unique.
+Some of our entities - `Artist`, `Venue` -- use a GUID as a key. This is a completely meaningless identifier, sometimes known as a **synthetic key** -- all that matters is that it's unique.
 
 > If you've read on the internet that GUIDs make bad keys because they're slow to insert: yes, that's technically correct. Sometimes. 
 >

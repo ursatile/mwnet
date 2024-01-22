@@ -10,6 +10,9 @@ public class ArtistModel(RockawayDbContext db, ILogger<IndexModel> logger) : Pag
 		var artist = db.Artists
 			.Include(a => a.HeadlineShows)
 			.ThenInclude(show => show.Venue)
+			.Include(a => a.HeadlineShows)
+			.ThenInclude(show => show.SupportSlots)
+			.ThenInclude(slot => slot.Artist)
 			.FirstOrDefault(a => a.Slug == slug);
 		if (artist == default) return NotFound();
 		Artist = new(artist);

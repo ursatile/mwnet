@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Razor.Language;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace Rockaway.WebApp.Data.Entities;
 
 public class SupportSlot {

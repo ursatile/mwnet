@@ -44,8 +44,6 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 			entity.HasKey(show => show.Venue.Id, show => show.Date);
 			entity.HasMany(show => show.SupportSlots)
 				.WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
-			entity.HasMany(show => show.TicketTypes)
-				.WithOne(tt => tt.Show).OnDelete(DeleteBehavior.Cascade);
 		});
 
 		modelBuilder.Entity<SupportSlot>(entity => {
@@ -56,18 +54,12 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 			);
 		});
 
-		modelBuilder.Entity<TicketType>(entity => {
-			entity.Property(tt => tt.Price).HasColumnType("money");
-		});
-
 		modelBuilder.Entity<Artist>()
 			.HasData(SeedData.For(SampleData.Artists.AllArtists));
 		modelBuilder.Entity<Venue>()
 			.HasData(SeedData.For(SampleData.Venues.AllVenues));
 		modelBuilder.Entity<Show>()
 			.HasData(SeedData.For(SampleData.Shows.AllShows));
-		modelBuilder.Entity<TicketType>()
-			.HasData(SeedData.For(SampleData.Shows.AllTicketTypes));
 		modelBuilder.Entity<SupportSlot>()
 			.HasData(SeedData.For(SampleData.Shows.AllSupportSlots));
 

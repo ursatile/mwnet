@@ -11,13 +11,6 @@ public class Show {
 
 	public List<SupportSlot> SupportSlots { get; set; } = [];
 
-	public List<TicketType> TicketTypes { get; set; } = [];
-
-	public Show WithTicketType(string name, decimal price) {
-		this.TicketTypes.Add(new(this, name, price));
-		return this;
-	}
-
 	private int NextSlotNumber
 		=> (this.SupportSlots.Count > 0 ? this.SupportSlots.Max(s => s.SlotNumber) : 0) + 1;
 
