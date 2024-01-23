@@ -1,7 +1,7 @@
 ---
 title: "3.5 Adding Venues"
 layout: module
-nav_order: 0305
+nav_order: 10305
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this exercise, you'll add the Venue entity to our model, scaffold the controllers, create sample data, and set up the database migrations for it."

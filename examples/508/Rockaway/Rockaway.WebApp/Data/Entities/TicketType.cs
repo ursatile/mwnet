@@ -8,6 +8,9 @@ public class TicketType(Show show, string name, decimal price, int? limit = null
 	public decimal Price { get; set; } = price;
 	public int? Limit { get; set; } = limit;
 
+	public string FormattedPrice
+		=> this.Show.Venue.FormatPrice(this.Price);
+
 	// Private constructor required by EF Core
 	private TicketType() : this(default!, default!, default) {
 		Id = Guid.Empty;

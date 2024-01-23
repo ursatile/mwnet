@@ -57,9 +57,9 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 			);
 		});
 
-		//		modelBuilder.Entity<TicketType>(entity => {
-		//			entity.Property(tt => tt.Price).HasColumnType("money");
-		//		});
+		modelBuilder.Entity<TicketType>(entity => {
+			entity.Property(tt => tt.Price).HasColumnType("money");
+		});
 
 		modelBuilder.Entity<Artist>()
 			.HasData(SeedData.For(SampleData.Artists.AllArtists));

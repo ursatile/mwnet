@@ -1119,26 +1119,3 @@ for /d %1 in (C:\projects\github\ursatile\mwnet\examples\*) do xcopy /s /Y %~f1\
 
 
 
-### Country > Culture
-
-We also need to edit the `Venue` class, because to be able to work with timezones, we need to know the **culture** associated with the venue, not just the **country**.
-
-The `CultureInfo` class in .NET is the basis of almost all localization - timezones, currency, date formatting. A `CultureInfo` is defined by the combination of a language and a region:
-
-* `en-US` English, United States
-* `en-GB` English, Great Britain
-* `pt-BR` Portuguese, Brazil
-* `pt-PT` Portuguese, Portugal
-* `en-CA` English, Canada
-* `fr-CA` French, Canada
-
-The good news is: if we know the culture name, we can extract the country code, so we can replace the `CountryCode` property with `CultureName`, and then use a read-only property to get the country code back. This gives us what we need to be able to localize timezones and currencies, but won't break any of the work we did in the last module to render country flags on the venue list.
-
-```csharp
-// replace Venue.CountryCode with this:
-
-public string CultureName { get; set; } = String.Empty;
-
-public string CountryCode => CultureName.Split("-").Last();
-```
-

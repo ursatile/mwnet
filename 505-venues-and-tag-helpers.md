@@ -1,7 +1,7 @@
 ---
 title: "5.5 Venues, Countries, and Tag Helpers"
 layout: module
-nav_order: 0505
+nav_order: 10505
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "Let's spice up the venue listing page by using ASP.NET TagHelpers to draw country flags for each venue."

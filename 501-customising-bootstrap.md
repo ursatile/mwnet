@@ -1,7 +1,7 @@
 ---
 title: "5.1 Customising Bootstrap"
 layout: module
-nav_order: 0501
+nav_order: 10501
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll look at how to override Bootstrap to give us more control over our website's look and feel."

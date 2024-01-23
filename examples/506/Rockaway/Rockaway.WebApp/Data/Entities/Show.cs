@@ -1,5 +1,3 @@
-using NodaTime;
-
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Show {
@@ -24,4 +22,9 @@ public class Show {
 		}
 		return this;
 	}
+
+	public Dictionary<string, string> RouteData => new() {
+		{ "venue", this.Venue.Slug },
+		{ "date", this.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) }
+	};
 }

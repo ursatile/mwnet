@@ -1,7 +1,7 @@
 ---
 title: "3.4 Deploying EF Migrations"
 layout: module
-nav_order: 0304
+nav_order: 10304
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll learn how to deploy EF Migrations during our GitHub Actions deployment"

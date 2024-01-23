@@ -1,4 +1,3 @@
-using System.Collections;
 using Rockaway.WebApp.Data.Entities;
 
 namespace Rockaway.WebApp.Data.Sample;
@@ -12,9 +11,6 @@ public static class SeedData {
 
 	public static IEnumerable<object> For(IEnumerable<Show> shows)
 		=> shows.Select(ToSeedData);
-
-	public static IEnumerable<object> For(IEnumerable<TicketType> ticketTypes)
-		=> ticketTypes.Select(ToSeedData);
 
 	public static IEnumerable<object> For(IEnumerable<SupportSlot> supportSlots)
 		=> supportSlots.Select(ToSeedData);
@@ -50,6 +46,9 @@ public static class SeedData {
 		slot.SlotNumber,
 		ArtistId = slot.Artist.Id
 	};
+
+	public static IEnumerable<object> For(IEnumerable<TicketType> ticketTypes)
+		=> ticketTypes.Select(ToSeedData);
 
 	static object ToSeedData(TicketType tt) => new {
 		tt.Id,

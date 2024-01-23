@@ -15,7 +15,7 @@ namespace Rockaway.WebApp.Migrations {
 			{ "GR", "el-GR" }, // Greek (Greece)
 			{ "NO", "nn-NO" }, // Norwegian (Norway)
 			{ "SE", "sv-SE" }, // Swedish (Sweden)
-			{ "DK", "dk-DK" }
+			{ "DK", "da-DK" }
 		};
 
 
@@ -87,7 +87,7 @@ namespace Rockaway.WebApp.Migrations {
 				keyColumn: "Id",
 				keyValue: new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"),
 				column: "CultureName",
-				value: "dk-DK");
+				value: "da-DK");
 
 			migrationBuilder.UpdateData(
 				table: "Venue",

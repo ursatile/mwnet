@@ -1,7 +1,7 @@
 ---
 title: "5.6 Shows and Tour Dates"
 layout: module
-nav_order: 0506
+nav_order: 10506
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "Let's send our artists on tour - time to add shows to our application."
@@ -25,15 +25,17 @@ Here's what we're going to add in the next few modules.
 A show is defined by an **artist** performing at a **venue** on a specific **date**. The featured artist is known as the **headliner**.
 
 * The same venue cannot host two different shows on the same date, so we can use the combination of `(venue, date)` as a unique identifier for a show. This is known as a **composite key**.
-* A show might feature additional artists (known as **support acts**). Each support act is assigned a numbered **support slot**. By convention, these are in reverse running order: if there are three support acts, the band who are "fourth on the bill" will play first, then the band who are in slot #3, then the band in slot #2, and then the headliner. 
+* A show might feature additional artists (known as **support acts**). Each support act is assigned a numbered **support slot**. By convention, these are in reverse running order: if there are three support acts, the band who are "fourth on the bill" will play first, then the band who are in slot #3, then the band in slot #2, and then the headliner.
 
-A show has a **doors time** (what time does the venue start admitting ticket holders), a **stage time** (what time does the show start), and a **curfew** (what time does the venue close).
+The data schema for shows looks like this:
+
+![data schema diagram showing Venue, Show, Artist and SupportSlot](/images/image-20240122212658197.png)
 
 ### Dates, Times and DateTimes, Oh My!
 
 If a show's on March 25th, in Los Angeles, and the doors open at 7pm, it's already March 26th for most of the rest of the world. So what date is that concert actually happening?
 
-The correct answer is, of course, "March 25th, don't be an idiot..." - [relevant XKCD](https://xkcd.com/2867/)
+The correct answer is, of course, "March 25th, don't be an idiot." (see also [relevant XKCD](https://xkcd.com/2867/))
 
 ![XKCD DateTime](/images/506-shows-and-tour-dates/datetime.png)
 
@@ -215,6 +217,18 @@ and the Razor page code:
 ```html
 {% include_relative {{ page.examples }}/Rockaway.WebApp/Pages/Artist.cshtml %}
 ```
+
+### ...and don't forget the SQL migration
+
+```dotnetcli
+dotnet ef migrations add ShowsAndSupportSlots -- --environment Staging
+dotnet format
+dotnet ef database update -- --environment Staging
+```
+
+
+
+
 
 
 

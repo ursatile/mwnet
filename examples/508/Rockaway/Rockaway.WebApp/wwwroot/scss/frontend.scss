@@ -248,3 +248,9 @@ div.artist-card {
 		}
 	}
 }
+
+.ticket-selector {
+	.row {
+		margin-bottom: calc($container-padding-x / 2);
+	}
+}

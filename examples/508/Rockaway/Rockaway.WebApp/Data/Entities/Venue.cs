@@ -1,5 +1,3 @@
-using NodaTime;
-
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Venue {
@@ -60,4 +58,15 @@ public class Venue {
 		Shows.Add(show);
 		return show;
 	}
+
+	public CultureInfo Culture
+		=> CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+			   .FirstOrDefault(ci => ci.Name == CultureName)
+		   ??
+		   CultureInfo.InvariantCulture;
+
+	public string FormatPrice(decimal price) => price.ToString("C", Culture);
+
+	public string FullAddress => String.Join(", ", [Address, City, PostalCode]);
+
 }

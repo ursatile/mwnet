@@ -1,5 +1,3 @@
-using NodaTime;
-
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Venue {
@@ -58,4 +56,6 @@ public class Venue {
 		Shows.Add(show);
 		return show;
 	}
+	public string FullAddress => String.Join(", ", [Address, City, PostalCode]);
+
 }

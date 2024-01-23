@@ -1,7 +1,7 @@
 ---
 title: 1.2 Testing ASP.NET Web Apps
 layout: module
-nav_order: 0102
+nav_order: 10102
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll meet the WebApplicationFactory and learn how to write automated tests for ASP.NET Core web applications"

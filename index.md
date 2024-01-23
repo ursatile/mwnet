@@ -1,7 +1,7 @@
 ---
 title: Home
 layout: home
-nav_order: 00
+nav_order: 100
 ---
 
 This is the online handbook for Dylan Beattie's  workshop "Modern Web Development with C# and .NET 8"

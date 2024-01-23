@@ -1,7 +1,7 @@
 ---
 title: Introduction
 layout: home
-nav_order: 0000
+nav_order: 10000
 typora-copy-images-to: ./images
 summary: "Introduction - why .NET, why C#, choosing a .NET version. The scenario: selling tickets for rock concerts."
 ---

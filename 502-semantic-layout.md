@@ -1,7 +1,7 @@
 ---
 title: "5.2 Semantic Layout"
 layout: module
-nav_order: 0502
+nav_order: 10502
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll look at how to create a minimalist, meaningful layout for our frontend web pages."

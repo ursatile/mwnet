@@ -1,7 +1,7 @@
 ---
 title: "4.2 The Admin Area"
 layout: module
-nav_order: 0402
+nav_order: 10402
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll move our CRUD controllers into a dedicated area called Admin, and secure this area so it's only available to authenticated users."

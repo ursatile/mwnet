@@ -763,7 +763,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"),
                             Address = "Stengade 18",
                             City = "Copenhagen",
-                            CultureName = "dk-DK",
+                            CultureName = "da-DK",
                             Name = "Stengade",
                             PostalCode = "2200",
                             Slug = "stengade-copenhagen",

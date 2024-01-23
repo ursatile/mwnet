@@ -1,7 +1,7 @@
 ---
 title: "3.3 EF Migrations"
 layout: module
-nav_order: 0303
+nav_order: 10303
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll learn how to manage our app's database schema using EF Migrations"

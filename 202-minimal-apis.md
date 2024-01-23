@@ -1,7 +1,7 @@
 ---
 title: "2.2 Using Minimal APIs"
 layout: module
-nav_order: 0202
+nav_order: 10202
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll use ASP.NET's Minimal APIs feature to add a status endpoint to our application"

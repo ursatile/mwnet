@@ -1,7 +1,7 @@
 ---
 title: "5.4 The Artist Gallery"
 layout: module
-nav_order: 0504
+nav_order: 10504
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "Let's add some photographs, and turn our artists page into something that might inspire customers to actually buy a ticket."

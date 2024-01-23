@@ -1,7 +1,7 @@
 ---
 title: "3.2 ASP.NET MVC"
 layout: module
-nav_order: 0302
+nav_order: 10302
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll add model, view and controller support to our app"

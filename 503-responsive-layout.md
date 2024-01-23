@@ -1,7 +1,7 @@
 ---
 title: "5.3 Responsive Layout"
 layout: module
-nav_order: 0503
+nav_order: 10503
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll look at how to adapt our page layout to work across different devices and screen sizes"

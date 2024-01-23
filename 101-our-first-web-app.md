@@ -1,7 +1,7 @@
 ---
 title: 1.1 Our First ASP.NET Core Web App
 layout: module
-nav_order: 0101
+nav_order: 10101
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll create our first ASP.NET Core web application and meet the Razor view engine"

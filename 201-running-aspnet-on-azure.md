@@ -1,7 +1,7 @@
 ---
 title: "2.1 Running .NET on Azure"
 layout: module
-nav_order: 0201
+nav_order: 10201
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll deploy our ASP.NET Core web application to Microsoft Azure using GitHub Actions"

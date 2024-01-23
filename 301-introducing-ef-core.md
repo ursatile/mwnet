@@ -1,7 +1,7 @@
 ---
 title: "3.1 Introducing EF Core"
 layout: module
-nav_order: 0301
+nav_order: 10301
 typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this module, we'll add Entity Framework (EF) Core to our project and create our first entity."
