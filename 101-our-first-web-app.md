@@ -142,7 +142,17 @@ Open `appsettings.Development.json` and edit it to look like this:
 {% include_relative examples/101/Rockaway/Rockaway.WebApp/appsettings.Development.json %}
 ```
 
-Now run the app again and you should see everything include your `Debug` and `Trace` messages.
+Now run the app again and you should see everything include your `Debug` and `Trace` messages
+
+Lowercase URLs
+
+One more thing I like to change right at the start of a project: I don't like mixed-case URLs, and by default, ASP.NET Core will generate links and action URLs that match the names of the classes and methods in our code.
+
+Let's override that. Right before `var app = builder.Build();`, add this line:
+
+```chsarp
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+```
 
 ## Resources and Further Reading
 

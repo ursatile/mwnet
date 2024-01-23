@@ -143,15 +143,15 @@ namespace Rockaway.WebApp.Migrations
                         {
                             Id = "rockaway-sample-admin-user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e7dd6d8-1ab6-47c0-99c1-eb92f9fd8c2b",
+                            ConcurrencyStamp = "12fc68df-895b-4b0f-8ed5-267cb5025ddf",
                             Email = "admin@rockaway.dev",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ROCKAWAY.DEV",
                             NormalizedUserName = "ADMIN@ROCKAWAY.DEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL6pXWpBCqEip/BNAfLsU2ybnkbkc7M9uU4PSIi3mkzH5U89bX+fa/2XL1JwlH+2yw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOXs6BkR3fturyCz71tJvH84Hv2oqOpmiztTntqNeTaITRrn6pyX3W006kOV6VdVaw==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "3fdeb9f6-2b48-4307-bbff-50083306f913",
+                            SecurityStamp = "11d3521e-d2bd-4589-a226-5ad3b423293b",
                             TwoFactorEnabled = false,
                             UserName = "admin@rockaway.dev"
                         });
@@ -646,6 +646,149 @@ namespace Rockaway.WebApp.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.TicketType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Limit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
+
+                    b.Property<DateOnly>("ShowDate")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("ShowVenueId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShowVenueId", "ShowDate");
+
+                    b.ToTable("TicketType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0ddd32c6-43d5-492d-8069-967b0d0665f2"),
+                            Name = "Upstairs unallocated seating",
+                            Price = 25m,
+                            ShowDate = new DateOnly(2024, 5, 17),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7")
+                        },
+                        new
+                        {
+                            Id = new Guid("b328f089-e465-4d0b-befa-61d3b472a9d7"),
+                            Name = "Downstairs standing",
+                            Price = 25m,
+                            ShowDate = new DateOnly(2024, 5, 17),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7")
+                        },
+                        new
+                        {
+                            Id = new Guid("1c539681-db0c-4d30-b5ae-a87980250719"),
+                            Name = "Cabaret table (4 people)",
+                            Price = 120m,
+                            ShowDate = new DateOnly(2024, 5, 17),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7")
+                        },
+                        new
+                        {
+                            Id = new Guid("f7225ae7-7ed1-44d7-80f6-ad913595f565"),
+                            Name = "General Admission",
+                            Price = 35m,
+                            ShowDate = new DateOnly(2024, 5, 18),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3")
+                        },
+                        new
+                        {
+                            Id = new Guid("07247117-d897-47ed-a957-c6b3210ee1fc"),
+                            Name = "VIP Meet & Greet",
+                            Price = 75m,
+                            ShowDate = new DateOnly(2024, 5, 18),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3")
+                        },
+                        new
+                        {
+                            Id = new Guid("47d2ed52-e0ba-424f-9284-a7ed60cc8124"),
+                            Name = "General Admission",
+                            Price = 35m,
+                            ShowDate = new DateOnly(2024, 5, 19),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2")
+                        },
+                        new
+                        {
+                            Id = new Guid("55a4491c-0574-4595-b63f-c0cd466125dd"),
+                            Name = "VIP Meet & Greet",
+                            Price = 75m,
+                            ShowDate = new DateOnly(2024, 5, 19),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2")
+                        },
+                        new
+                        {
+                            Id = new Guid("c398bc43-0181-4bdd-8820-adcf59a17828"),
+                            Name = "General Admission",
+                            Price = 25m,
+                            ShowDate = new DateOnly(2024, 5, 20),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9")
+                        },
+                        new
+                        {
+                            Id = new Guid("7763c787-c721-421f-80f8-a4bfe1c41314"),
+                            Name = "VIP Meet & Greet",
+                            Price = 55m,
+                            ShowDate = new DateOnly(2024, 5, 20),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9")
+                        },
+                        new
+                        {
+                            Id = new Guid("ed8cd99e-e4c2-4aa3-ab2d-4a8cb6605b66"),
+                            Name = "General Admission",
+                            Price = 350m,
+                            ShowDate = new DateOnly(2024, 5, 22),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5")
+                        },
+                        new
+                        {
+                            Id = new Guid("feaa8b63-8d17-4215-bea3-11f043b25f67"),
+                            Name = "VIP Meet & Greet",
+                            Price = 750m,
+                            ShowDate = new DateOnly(2024, 5, 22),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5")
+                        },
+                        new
+                        {
+                            Id = new Guid("334cc0ff-f1f9-4a6b-827c-c8ca75a849dc"),
+                            Name = "General Admission",
+                            Price = 300m,
+                            ShowDate = new DateOnly(2024, 5, 23),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8")
+                        },
+                        new
+                        {
+                            Id = new Guid("fb5e2d51-8511-41d2-98c1-4e7d6eb7bf63"),
+                            Name = "VIP Meet & Greet",
+                            Price = 720m,
+                            ShowDate = new DateOnly(2024, 5, 23),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8")
+                        },
+                        new
+                        {
+                            Id = new Guid("9900cff2-89be-43d2-8f92-25f0f48967d9"),
+                            Name = "General Admission",
+                            Price = 25m,
+                            ShowDate = new DateOnly(2024, 5, 25),
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4")
+                        });
+                });
+
             modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>
                 {
                     b.Property<Guid>("Id")
@@ -892,6 +1035,17 @@ namespace Rockaway.WebApp.Migrations
                     b.Navigation("Show");
                 });
 
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.TicketType", b =>
+                {
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Show", "Show")
+                        .WithMany("TicketTypes")
+                        .HasForeignKey("ShowVenueId", "ShowDate")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Show");
+                });
+
             modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Artist", b =>
                 {
                     b.Navigation("HeadlineShows");
@@ -900,6 +1054,8 @@ namespace Rockaway.WebApp.Migrations
             modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
                 {
                     b.Navigation("SupportSlots");
+
+                    b.Navigation("TicketTypes");
                 });
 
             modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>

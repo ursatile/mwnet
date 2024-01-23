@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Rockaway.WebApp.Data.Sample;
 
-public partial class SampleData {
+public static partial class SampleData {
 	public static class Users {
 		static Users() {
 			var hasher = new PasswordHasher<IdentityUser>();

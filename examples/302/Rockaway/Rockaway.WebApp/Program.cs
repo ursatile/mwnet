@@ -14,6 +14,7 @@ var sqliteConnection = new SqliteConnection("Data Source=:memory:");
 sqliteConnection.Open();
 builder.Services.AddDbContext<RockawayDbContext>(options => options.UseSqlite(sqliteConnection));
 
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

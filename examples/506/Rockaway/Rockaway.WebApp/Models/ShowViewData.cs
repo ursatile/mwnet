@@ -10,8 +10,6 @@ public class ShowViewData(Show show) {
 
 	public string VenueAddress { get; } = show.Venue.FullAddress;
 
-	public string HeadlineArtistName { get; } = show.HeadlineArtist.Name;
-
 	public string CountryCode { get; } = show.Venue.CountryCode;
 
 	public List<string> SupportActs { get; } = show.SupportSlots

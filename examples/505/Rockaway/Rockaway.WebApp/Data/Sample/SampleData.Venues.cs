@@ -2,7 +2,7 @@ using Rockaway.WebApp.Data.Entities;
 
 namespace Rockaway.WebApp.Data.Sample;
 
-public partial class SampleData {
+public static partial class SampleData {
 
 	public static class Venues {
 		private static int seed = 1;
@@ -35,8 +35,8 @@ public partial class SampleData {
 		public static Venue NewCrossInn = new(NextId, "New Cross Inn", "new-cross-inn-london", "323 New Cross Road", "London", "GB", "SE14 6AS",
 			"+44 20 8469 4382", "https://www.newcrossinn.com/");
 
-		public static Venue[] AllVenues = {
+		public static Venue[] AllVenues => [
 			Electric, Bataclan, Columbia, Gagarin, JohnDee, Stengade, Barracuda, PubAnchor, NewCrossInn
-		};
+		];
 	}
 }

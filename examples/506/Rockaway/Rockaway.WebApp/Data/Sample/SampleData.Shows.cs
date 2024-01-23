@@ -3,8 +3,16 @@ using Rockaway.WebApp.Data.Entities;
 
 namespace Rockaway.WebApp.Data.Sample;
 
-public partial class SampleData {
+public static partial class SampleData {
 
+	public static Show WithSupportActs(this Show show, params Artist[] artists) {
+		show.SupportSlots.AddRange(artists.Select(artist => new SupportSlot() {
+			Show = show,
+			Artist = artist,
+			SlotNumber = show.NextSupportSlotNumber
+		}));
+		return show;
+	}
 	public static class Shows {
 		public static readonly Show Coda_Barracuda_20240517 = Venues.Barracuda
 			.BookShow(Artists.Coda, new(2024, 5, 17))
@@ -36,9 +44,12 @@ public partial class SampleData {
 			.WithSupportActs(Artists.JavasCrypt, Artists.SilverMountainStringBand);
 
 		public static IEnumerable<Show> AllShows = [
-			Coda_Barracuda_20240517, Coda_Columbia_20240518,
-			Coda_Bataclan_20240519, Coda_NewCrossInn_20240520,
-			Coda_JohnDee_20240522, Coda_PubAnchor_20240523,
+			Coda_Barracuda_20240517,
+			Coda_Columbia_20240518,
+			Coda_Bataclan_20240519,
+			Coda_NewCrossInn_20240520,
+			Coda_JohnDee_20240522,
+			Coda_PubAnchor_20240523,
 			Coda_Gagarin_20240525
 		];
 

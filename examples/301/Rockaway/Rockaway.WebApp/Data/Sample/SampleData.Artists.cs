@@ -2,7 +2,7 @@ using Rockaway.WebApp.Data.Entities;
 
 namespace Rockaway.WebApp.Data.Sample;
 
-public partial class SampleData {
+public static partial class SampleData {
 	public static class Artists {
 
 		private static int seed = 1;

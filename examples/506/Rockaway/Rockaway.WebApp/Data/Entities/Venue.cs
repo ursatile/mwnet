@@ -56,6 +56,7 @@ public class Venue {
 		Shows.Add(show);
 		return show;
 	}
+	
 	public string FullAddress => String.Join(", ", [Address, City, PostalCode]);
 
 }
