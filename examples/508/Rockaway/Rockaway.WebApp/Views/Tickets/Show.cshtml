@@ -1,0 +1,8 @@
+@model Rockaway.WebApp.Data.Entities.Show
+
+<h2>@Model.HeadlineArtist.Name</h2>
+@foreach (var tt in Model.TicketTypes) {
+	@tt.Name
+	@tt.Price
+}
+
