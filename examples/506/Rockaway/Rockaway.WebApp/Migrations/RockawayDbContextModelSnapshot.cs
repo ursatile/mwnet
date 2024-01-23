@@ -143,15 +143,15 @@ namespace Rockaway.WebApp.Migrations
                         {
                             Id = "rockaway-sample-admin-user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ec9d7c74-d3f3-4b0e-bac1-9c2a393cc55c",
+                            ConcurrencyStamp = "fdee0023-b7b2-4bc2-821f-4a33a918ad20",
                             Email = "admin@rockaway.dev",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ROCKAWAY.DEV",
                             NormalizedUserName = "ADMIN@ROCKAWAY.DEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAELzmg82ZfBDgbYxzXE7Ew/hIVsDQ6kXEQE9TAJ3Kz12S/L5Ay9lHXAstreED/up5uw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJy162WBBVFf6WWsYVLxm1cssO/2mphuAvMszK8qMpVSNkp35mQxSTzXa7CyTtcoOQ==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "abe08569-b6f1-411d-aa87-fa529538a7c7",
+                            SecurityStamp = "f6108175-432a-48c5-b0dc-f23d5a2ea489",
                             TwoFactorEnabled = false,
                             UserName = "admin@rockaway.dev"
                         });
@@ -269,7 +269,7 @@ namespace Rockaway.WebApp.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Artist", (string)null);
+                    b.ToTable("Artist");
 
                     b.HasData(
                         new
@@ -460,6 +460,189 @@ namespace Rockaway.WebApp.Migrations
                             Description = "Inspired by their Australian namesakes, Ærbårn are Scandinavia's #1 party rock band. Thundering drums, huge guitar riffs and enough energy to light up the Arctic Circle, their shows have had amazing reviews all over the world",
                             Name = "Ærbårn",
                             Slug = "aerbaarn"
+                        },
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa28"),
+                            Description = "dot-dot-dot to their friends (and fans), ... are a Canadian drone jazz combo formed in Vancouver in 1998, known for their thunderous horn section and innovative visuals.",
+                            Name = "...",
+                            Slug = "dot-dot-dot"
+                        },
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa29"),
+                            Description = "Known as the \"Silver Mountain Strings\" if you're into the whole brevity thing, Kentucky's answer to the Leningrad Cowboys has gone from strength to strength, from the Superbowl half time show to their sold-out Vegas residency in 2023.",
+                            Name = "The Silver Mountain String Band featuring Timber J. MacCorkindale and the Hill Valley Hornswogglers",
+                            Slug = "silver-mountain-string-band"
+                        });
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
+                {
+                    b.Property<Guid>("VenueId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("HeadlineArtistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("VenueId", "Date");
+
+                    b.HasIndex("HeadlineArtistId");
+
+                    b.ToTable("Show");
+
+                    b.HasData(
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
+                            Date = new DateOnly(2024, 5, 17),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
+                            Date = new DateOnly(2024, 5, 18),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
+                            Date = new DateOnly(2024, 5, 19),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"),
+                            Date = new DateOnly(2024, 5, 20),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"),
+                            Date = new DateOnly(2024, 5, 22),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"),
+                            Date = new DateOnly(2024, 5, 23),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        },
+                        new
+                        {
+                            VenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
+                            Date = new DateOnly(2024, 5, 25),
+                            HeadlineArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3")
+                        });
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.SupportSlot", b =>
+                {
+                    b.Property<Guid>("ShowVenueId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("ShowDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("SlotNumber")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ArtistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ShowVenueId", "ShowDate", "SlotNumber");
+
+                    b.HasIndex("ArtistId");
+
+                    b.ToTable("SupportSlot");
+
+                    b.HasData(
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
+                            ShowDate = new DateOnly(2024, 5, 17),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa11")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
+                            ShowDate = new DateOnly(2024, 5, 17),
+                            SlotNumber = 2,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa15")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
+                            ShowDate = new DateOnly(2024, 5, 18),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa11")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
+                            ShowDate = new DateOnly(2024, 5, 18),
+                            SlotNumber = 2,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa15")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
+                            ShowDate = new DateOnly(2024, 5, 19),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa11")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
+                            ShowDate = new DateOnly(2024, 5, 19),
+                            SlotNumber = 2,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa15")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
+                            ShowDate = new DateOnly(2024, 5, 19),
+                            SlotNumber = 3,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa10")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"),
+                            ShowDate = new DateOnly(2024, 5, 20),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa10")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"),
+                            ShowDate = new DateOnly(2024, 5, 22),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa10")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"),
+                            ShowDate = new DateOnly(2024, 5, 23),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa10")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
+                            ShowDate = new DateOnly(2024, 5, 25),
+                            SlotNumber = 1,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa10")
+                        },
+                        new
+                        {
+                            ShowVenueId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
+                            ShowDate = new DateOnly(2024, 5, 25),
+                            SlotNumber = 2,
+                            ArtistId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaa29")
                         });
                 });
 
@@ -509,7 +692,7 @@ namespace Rockaway.WebApp.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Venue", (string)null);
+                    b.ToTable("Venue");
 
                     b.HasData(
                         new
@@ -669,6 +852,59 @@ namespace Rockaway.WebApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
+                {
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Artist", "HeadlineArtist")
+                        .WithMany("HeadlineShows")
+                        .HasForeignKey("HeadlineArtistId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Venue", "Venue")
+                        .WithMany("Shows")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("HeadlineArtist");
+
+                    b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.SupportSlot", b =>
+                {
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Rockaway.WebApp.Data.Entities.Show", "Show")
+                        .WithMany("SupportSlots")
+                        .HasForeignKey("ShowVenueId", "ShowDate")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artist");
+
+                    b.Navigation("Show");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Artist", b =>
+                {
+                    b.Navigation("HeadlineShows");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Show", b =>
+                {
+                    b.Navigation("SupportSlots");
+                });
+
+            modelBuilder.Entity("Rockaway.WebApp.Data.Entities.Venue", b =>
+                {
+                    b.Navigation("Shows");
                 });
 #pragma warning restore 612, 618
         }

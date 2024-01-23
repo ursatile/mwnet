@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rockaway.WebApp.Data;
 
@@ -11,9 +12,11 @@ using Rockaway.WebApp.Data;
 namespace Rockaway.WebApp.Migrations
 {
     [DbContext(typeof(RockawayDbContext))]
-    partial class RockawayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122200530_ShowsAndSupportSlots")]
+    partial class ShowsAndSupportSlots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,15 +146,15 @@ namespace Rockaway.WebApp.Migrations
                         {
                             Id = "rockaway-sample-admin-user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e7dd6d8-1ab6-47c0-99c1-eb92f9fd8c2b",
+                            ConcurrencyStamp = "fdee0023-b7b2-4bc2-821f-4a33a918ad20",
                             Email = "admin@rockaway.dev",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ROCKAWAY.DEV",
                             NormalizedUserName = "ADMIN@ROCKAWAY.DEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL6pXWpBCqEip/BNAfLsU2ybnkbkc7M9uU4PSIi3mkzH5U89bX+fa/2XL1JwlH+2yw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJy162WBBVFf6WWsYVLxm1cssO/2mphuAvMszK8qMpVSNkp35mQxSTzXa7CyTtcoOQ==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "3fdeb9f6-2b48-4307-bbff-50083306f913",
+                            SecurityStamp = "f6108175-432a-48c5-b0dc-f23d5a2ea489",
                             TwoFactorEnabled = false,
                             UserName = "admin@rockaway.dev"
                         });
@@ -661,11 +664,11 @@ namespace Rockaway.WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CultureName")
+                    b.Property<string>("CountryCode")
                         .IsRequired()
-                        .HasMaxLength(16)
+                        .HasMaxLength(2)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -700,7 +703,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"),
                             Address = "Town Hall Parade",
                             City = "London",
-                            CultureName = "en-GB",
+                            CountryCode = "GB",
                             Name = "Electric Brixton",
                             PostalCode = "SW2 1RJ",
                             Slug = "electric-brixton",
@@ -712,7 +715,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb2"),
                             Address = "50 Boulevard Voltaire",
                             City = "Paris",
-                            CultureName = "fr-FR",
+                            CountryCode = "FR",
                             Name = "Bataclan",
                             PostalCode = "75011",
                             Slug = "bataclan-paris",
@@ -724,7 +727,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb3"),
                             Address = "Columbiadamm 9 - 11",
                             City = "Berlin",
-                            CultureName = "de-DE",
+                            CountryCode = "DE",
                             Name = "Columbia Theatre",
                             PostalCode = "10965",
                             Slug = "columbia-berlin",
@@ -736,7 +739,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb4"),
                             Address = "Liosion 205",
                             City = "Athens",
-                            CultureName = "el-GR",
+                            CountryCode = "GR",
                             Name = "Gagarin 205",
                             PostalCode = "104 45",
                             Slug = "gagarin-athens",
@@ -748,7 +751,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb5"),
                             Address = "Torggata 16",
                             City = "Oslo",
-                            CultureName = "nn-NO",
+                            CountryCode = "NO",
                             Name = "John Dee Live Club & Pub",
                             PostalCode = "0181",
                             Slug = "john-dee-oslo",
@@ -760,7 +763,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb6"),
                             Address = "Stengade 18",
                             City = "Copenhagen",
-                            CultureName = "dk-DK",
+                            CountryCode = "DK",
                             Name = "Stengade",
                             PostalCode = "2200",
                             Slug = "stengade-copenhagen",
@@ -772,7 +775,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb7"),
                             Address = "R da Madeira 186",
                             City = "Porto",
-                            CultureName = "pt-PT",
+                            CountryCode = "PT",
                             Name = "Barracuda",
                             PostalCode = "4000-433",
                             Slug = "barracuda-porto"
@@ -782,7 +785,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb8"),
                             Address = "Sveavägen 90",
                             City = "Stockholm",
-                            CultureName = "sv-SE",
+                            CountryCode = "SE",
                             Name = "Pub Anchor",
                             PostalCode = "113 59",
                             Slug = "pub-anchor-stockholm",
@@ -794,7 +797,7 @@ namespace Rockaway.WebApp.Migrations
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb9"),
                             Address = "323 New Cross Road",
                             City = "London",
-                            CultureName = "en-GB",
+                            CountryCode = "GB",
                             Name = "New Cross Inn",
                             PostalCode = "SE14 6AS",
                             Slug = "new-cross-inn-london",

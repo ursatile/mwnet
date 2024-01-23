@@ -205,7 +205,7 @@ public partial class SampleData {
 
 		public static Artist SilverMountainStringBand = new(
 			NextId,
-			"The Most Excellent Incredible Electric Silver Mountain String Band featuring Timber J. MacCorkindale and the Kentucky Mountain Hornswogglers",
+			"The Silver Mountain String Band featuring Timber J. MacCorkindale and the Hill Valley Hornswogglers",
 			"Known as the \"Silver Mountain Strings\" if you're into the whole brevity thing, Kentucky's answer to the Leningrad Cowboys has gone from strength to strength, from the Superbowl half time show to their sold-out Vegas residency in 2023.",
 			"silver-mountain-string-band"
 		);

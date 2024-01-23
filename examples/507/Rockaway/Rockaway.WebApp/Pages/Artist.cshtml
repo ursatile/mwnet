@@ -10,17 +10,22 @@
 			foreach (var show in Model.Artist.Shows) {
 				<hr />
 				<div class="row">
-					<div class="col-12">
-						@show.ShowDate
-					</div>
-					<div class="col-12 col-md-10">
+					<div class="col-9">
+						<strong>@show.ShowDate</strong><br />
 						<country-flag iso-code="@show.CountryCode"></country-flag>
 						@show.VenueName, @show.VenueAddress
 					</div>
-					<div class="col-12 text-end col-md-2">
-						<a href="javascript:alert('TODO!');">tickets</a>
+					<div class="col-3 text-end">
+						<a class="btn btn-primary" href="javascript:alert('TODO!');">tickets</a>
 					</div>
 				</div>
+				<div>
+				</div>
+				@if (show.SupportActs.Any()) {
+					<div>
+						<strong>Support</strong>: @String.Join(", ", show.SupportActs)
+					</div>
+				}
 			}
 		} else {
 			<p>No tour dates scheduled.</p>
