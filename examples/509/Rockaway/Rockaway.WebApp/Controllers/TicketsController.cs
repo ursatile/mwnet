@@ -30,6 +30,7 @@ public class TicketsController(
 		var ticketOrder = show.CreateOrder(tickets);
 		db.TicketOrders.Add(ticketOrder);
 		await db.SaveChangesAsync();
-		return RedirectToAction("Details", "Checkout", new { id = ticketOrder.Id });
+		//TODO: create orders, add to database, and redirect to checkout
+		return Ok(tickets);
 	}
 }

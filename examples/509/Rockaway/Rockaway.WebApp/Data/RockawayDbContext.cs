@@ -48,6 +48,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 				.WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
 			entity.HasMany(show => show.TicketTypes)
 				.WithOne(tt => tt.Show).OnDelete(DeleteBehavior.Cascade);
+			entity.HasMany(show => show.TicketOrders)
+				.WithOne(to => to.Show).OnDelete(DeleteBehavior.Restrict);
 		});
 
 		modelBuilder.Entity<SupportSlot>(entity => {
@@ -60,8 +62,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 
 		modelBuilder.Entity<TicketOrderItem>(entity => {
 			entity.HasKey(
-				toi => toi.TicketOrder.Id,
-				toi => toi.TicketType.Id
+				item => item.TicketOrder.Id,
+				item => item.TicketType.Id
 			);
 		});
 
