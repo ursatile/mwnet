@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Rockaway.WebApp.Data;
@@ -73,6 +75,22 @@ app.MapAreaControllerRoute(
 ).RequireAuthorization();
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.MapControllers();
-app.Run();
+
+app.Start();
+
+await Task.Delay(1000);
+var server = app.Services.GetService<IServer>();
+var addressFeature = server.Features.Get<IServerAddressesFeature>();
+var color = Console.ForegroundColor;
+foreach (var address in addressFeature.Addresses) {
+	Console.ForegroundColor = ConsoleColor.Green;
+	Console.WriteLine("Kestrel is listening on address: " + address);
+	Console.ForegroundColor = color;
+}
+
+app.WaitForShutdown();
+
+
+// app.Run();
 
 ILogger<T> CreateAdHocLogger<T>() => LoggerFactory.Create(lb => lb.AddConsole()).CreateLogger<T>();

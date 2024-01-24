@@ -14,6 +14,7 @@ foreach ($file in $projects) {
 		$previous = $dir
 		Write-Output $Matches[1]
 		cd $file.DirectoryName
+		dotnet ef migrations has-pending-model-changes
 	}
     # # Extract the numeric part of the folder path
     # if ($csproj -match '(\d+)') {

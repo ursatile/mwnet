@@ -54,7 +54,7 @@ $border-radius-xxl: 6 * $border-radius;
 	@include smartphone {
 		border: 0;
 		border-radius: 0;
-		margin: 0 0 ($grid-gutter-width/2) 0;
+		margin: 0 0 calc($grid-gutter-width/2) 0;
 	}
 }
 

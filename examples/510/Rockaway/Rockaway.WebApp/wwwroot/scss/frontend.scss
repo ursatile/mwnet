@@ -54,7 +54,7 @@ $border-radius-xxl: 6 * $border-radius;
 	@include smartphone {
 		border: 0;
 		border-radius: 0;
-		margin: 0 0 ($grid-gutter-width/2) 0;
+		margin: 0 0 calc($grid-gutter-width/2) 0;
 	}
 }
 
@@ -249,8 +249,14 @@ div.artist-card {
 	}
 }
 
-.ticket-selector {
-	.row {
-		margin-bottom: calc($container-padding-x / 2);
-	}
+form > .row {
+	margin-bottom: calc($container-padding-x / 4);
 }
+
+hr {
+	opacity: 1;
+}
+
+/*.row > * {
+	outline: 1px dashed #ff0;
+}*/

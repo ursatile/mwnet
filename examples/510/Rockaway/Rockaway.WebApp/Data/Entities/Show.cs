@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Rockaway.WebApp.Data.Entities;
 
 public class Show {
@@ -17,12 +19,14 @@ public class Show {
 	public int NextSupportSlotNumber
 		=> (this.SupportSlots.Count > 0 ? this.SupportSlots.Max(s => s.SlotNumber) : 0) + 1;
 
-
-
 	public Dictionary<string, string> RouteData => new() {
 		{ "venue", this.Venue.Slug },
 		{ "date", this.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) }
 	};
+
+	[NotMapped]
+	public IEnumerable<Artist> SupportArtists
+		=> this.SupportSlots.Select(s => s.Artist);
 
 	public TicketOrder CreateOrder(Dictionary<Guid, int> contents) {
 		var order = new TicketOrder();
@@ -31,7 +35,6 @@ public class Show {
 			if (ticketType == default) continue;
 			order.UpdateQuantity(ticketType, quantity);
 		}
-
 		this.TicketOrders.Add(order);
 		return order;
 	}

@@ -15,8 +15,7 @@ public class CheckoutController(RockawayDbContext db,
 			.ThenInclude(c => c.TicketType).ThenInclude(tt => tt.Show).ThenInclude(s => s.SupportSlots).ThenInclude(ss => ss.Artist)
 			.FirstOrDefaultAsync(order => order.Id == id);
 		if (ticketOrder == default) return NotFound();
-		var model = new TicketOrderViewData(ticketOrder);
-		return View(model)
+		return Ok(id);
 	}
 }
 

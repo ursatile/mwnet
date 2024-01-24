@@ -9,6 +9,10 @@ public class TicketOrder {
 	public Instant CommencedAt { get; set; }
 	public Instant? CompletedAt { get; set; }
 
+	public string FormattedTotalPrice
+		=> Show.Venue.FormatPrice(Contents.Sum(item => item.TicketType.Price * item.Quantity));
+		
+
 	public TicketOrderItem UpdateQuantity(TicketType ticketType, int quantity) {
 		var item = this.Contents.FirstOrDefault(toi => toi.TicketType == ticketType);
 		if (item == default) {
@@ -18,10 +22,4 @@ public class TicketOrder {
 		item.Quantity = quantity;
 		return item;
 	}
-}
-
-public class TicketOrderItem {
-	public TicketOrder TicketOrder { get; set; } = default!;
-	public TicketType TicketType { get; set; } = default!;
-	public int Quantity { get; set; }
 }
