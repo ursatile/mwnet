@@ -4,10 +4,10 @@ namespace Rockaway.WebApp.Models;
 
 public class OrderConfirmationPostData {
 
-	public TicketOrderViewData? TicketOrder { get; set; }
+	public TicketOrderViewData TicketOrder { get; set; } = default!;
 
 	[Required(ErrorMessage = "Please provide your full name")]
-	[MaxLength(100, ErrorMessage = "Sorry - our database can't handle names that long. Max 100 characters, please.")]
+	[MaxLength(100, ErrorMessage = "Sorry - our database can't handle names that long. :( Max 100 characters, please.")]
 	[DisplayName("Full Name")]
 	[Description("Your full name")]
 	public string CustomerName { get; set; } = String.Empty;
@@ -18,7 +18,7 @@ public class OrderConfirmationPostData {
 	[Description("Your email address")]
 	public string CustomerEmail { get; set; } = String.Empty;
 
-	[MustBeTrue(ErrorMessage = "You must agree to pay!")]
+	[MustBeTrue(ErrorMessage = "You must agree to pay for your tickets. No pay, no tickets.")]
 	public bool AgreeToPayment { get; set; }
 
 	public Guid TicketOrderId { get; set; }

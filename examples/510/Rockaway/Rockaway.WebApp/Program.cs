@@ -9,7 +9,9 @@ using Rockaway.WebApp.Services;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages(options => options.Conventions.AuthorizeAreaFolder("admin", "/"));
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => {
+	options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
 
 #if DEBUG && !NCRUNCH

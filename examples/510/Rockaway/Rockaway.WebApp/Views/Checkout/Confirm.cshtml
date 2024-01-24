@@ -76,21 +76,18 @@
 	</div>
 	<div class="row align-items-center">
 		<div class="col-8 col-md-5 offset-md-2">
-			@Html.LabelFor(model => model.AgreeToPayment)
-			@Html.CheckBoxFor(model => model.AgreeToPayment)
-			@Html.ValidationMessageFor(model => model.AgreeToPayment)
 			<label asp-for="@Model.AgreeToPayment">
 				<input type="checkbox" asp-for="@Model.AgreeToPayment" />
 				I agree to pay @Model.TicketOrder.FormattedTotalPrice on the door
 			</label>
-			<span class="form-text text-danger" asp-validation-for="@Model.AgreeToPayment"></span>
+			<span class="form-text text-danger" style="display: block;" asp-validation-for="@Model.AgreeToPayment"></span>
 		</div>
 		<div class="col-4 col-md-3 text-end">
 			<input class="btn btn-primary" type="submit" name="submit" value="Confirm Order" />
 		</div>
 	</div>
 </form>
-
+ 
 @section Scripts {
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
