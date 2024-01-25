@@ -71,11 +71,11 @@ body {
 		font-size: max(1em, 20px);
 	}
 
-	>main {
+	> main {
 		@include fancy-panel;
 	}
 
-	>header {
+	> header {
 		@include fancy-panel;
 		display: flex;
 		justify-content: space-between;
@@ -108,7 +108,7 @@ body {
 			height: 0;
 
 			@include smartphone {
-				&:checked~nav {
+				&:checked ~ nav {
 					height: 300px;
 				}
 			}
@@ -151,16 +151,15 @@ body {
 		}
 	}
 
-	>footer {
+	> footer {
 		@include fancy-panel;
 		font-size: 80%;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
 
-				a#admin-login {
+		a#admin-login {
 			margin-left: 0.5em;
-
 		}
 
 		a {
@@ -255,7 +254,7 @@ div.artist-card {
 	}
 }
 
-form>.row {
+form > .row {
 	margin-bottom: calc($container-padding-x / 4);
 }
 

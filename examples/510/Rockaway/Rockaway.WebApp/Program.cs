@@ -77,22 +77,6 @@ app.MapAreaControllerRoute(
 ).RequireAuthorization();
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.MapControllers();
-
-app.Start();
-
-await Task.Delay(1000);
-var server = app.Services.GetService<IServer>();
-var addressFeature = server.Features.Get<IServerAddressesFeature>();
-var color = Console.ForegroundColor;
-foreach (var address in addressFeature.Addresses) {
-	Console.ForegroundColor = ConsoleColor.Green;
-	Console.WriteLine("Kestrel is listening on address: " + address);
-	Console.ForegroundColor = color;
-}
-
-app.WaitForShutdown();
-
-
-// app.Run();
+app.Run();
 
 ILogger<T> CreateAdHocLogger<T>() => LoggerFactory.Create(lb => lb.AddConsole()).CreateLogger<T>();

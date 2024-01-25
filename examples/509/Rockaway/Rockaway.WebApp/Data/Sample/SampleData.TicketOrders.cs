@@ -24,16 +24,19 @@ public static partial class SampleData {
 			=> AllTicketOrders.SelectMany(o => o.Contents);
 	}
 
-
 	public static TicketOrder CreateTestOrder(this Show show, Guid id, string name, string email) {
-		// We need a random, but stable, quantity for each item, between 1 and 6,
-		// so we use the length of the ticket type name, modulo 5, plus 1.
+		// To generate random-but-stable data, we use numbers based on
+		// the modulo of various string properties.
 		var quantities = show.TicketTypes.ToDictionary(tt => tt.Id, tt => 1 + tt.Name.Length % 5);
-		var o = show.CreateOrder(quantities);
+		var createdAt = show.Date.AtMidnight().InUtc().Minus(Duration.FromDays(42))
+			.PlusHours(show.Venue.Name.Length)
+			.PlusMinutes(show.HeadlineArtist.Name.Length)
+			.PlusSeconds(show.Venue.Address.Length)
+			.ToInstant();
+		var o = show.CreateOrder(quantities, createdAt);
 		o.CustomerEmail = email;
 		o.CustomerName = name;
-		o.CreatedAt = show.Date.AtMidnight().InUtc().PlusHours(-123).ToInstant();
-		o.CreatedAt = show.Date.AtMidnight().InUtc().PlusHours(-123).PlusMinutes(2).ToInstant();
+		o.CompletedAt = createdAt.Plus(Duration.FromMinutes(show.Venue.FullAddress.Length));
 		o.Id = id;
 		return o;
 	}

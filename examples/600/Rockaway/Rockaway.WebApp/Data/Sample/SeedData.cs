@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Rockaway.WebApp.Data.Entities;
 
 namespace Rockaway.WebApp.Data.Sample;
@@ -64,7 +63,7 @@ public static class SeedData {
 			o.Id,
 			o.CustomerName,
 			o.CustomerEmail,
-			o.CommencedAt,
+			o.CreatedAt,
 			o.CompletedAt,
 			ShowDate = o.Show.Date,
 			ShowVenueId = o.Show.Venue.Id

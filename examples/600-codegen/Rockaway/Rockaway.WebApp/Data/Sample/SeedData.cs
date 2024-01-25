@@ -64,7 +64,7 @@ public static class SeedData {
 			o.Id,
 			o.CustomerName,
 			o.CustomerEmail,
-			o.CommencedAt,
+			o.CreatedAt,
 			o.CompletedAt,
 			ShowDate = o.Show.Date,
 			ShowVenueId = o.Show.Venue.Id

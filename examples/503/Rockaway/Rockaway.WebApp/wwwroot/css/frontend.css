@@ -27268,7 +27268,10 @@ body > footer {
     margin: 0 0 0.75rem 0;
   }
 }
-body > footer nav a {
+body > footer a#admin-login {
+  margin-left: 0.5em;
+}
+body > footer a {
   display: inline-block;
   border-left: 1px solid #fff;
   padding: 0 0.5em;
@@ -27277,7 +27280,7 @@ body > footer nav a {
 body > footer nav a:first-child {
   border: none;
 }
-body > footer nav a:hover {
+body > footer a:hover {
   text-decoration: underline;
 }
 @media (max-width: 480px) {

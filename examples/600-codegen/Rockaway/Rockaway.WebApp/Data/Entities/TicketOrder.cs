@@ -6,12 +6,12 @@ public class TicketOrder {
 	public List<TicketOrderItem> Contents { get; set; } = [];
 	public string CustomerName { get; set; } = String.Empty;
 	public string CustomerEmail { get; set; } = String.Empty;
-	public Instant CommencedAt { get; set; }
+	public Instant CreatedAt { get; set; }
 	public Instant? CompletedAt { get; set; }
 
 	public string FormattedTotalPrice
 		=> Show.Venue.FormatPrice(Contents.Sum(item => item.TicketType.Price * item.Quantity));
-		
+
 
 	public TicketOrderItem UpdateQuantity(TicketType ticketType, int quantity) {
 		var item = this.Contents.FirstOrDefault(toi => toi.TicketType == ticketType);

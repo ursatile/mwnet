@@ -22,8 +22,11 @@ public class Show {
 		{ "date", this.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) }
 	};
 
-	public TicketOrder CreateOrder(Dictionary<Guid, int> contents) {
-		var order = new TicketOrder();
+	public TicketOrder CreateOrder(Dictionary<Guid, int> contents, Instant now) {
+		var order = new TicketOrder {
+			Show = this,
+			CreatedAt = now
+		};
 		foreach (var (id, quantity) in contents) {
 			var ticketType = this.TicketTypes.FirstOrDefault(tt => tt.Id == id);
 			if (ticketType == default) continue;

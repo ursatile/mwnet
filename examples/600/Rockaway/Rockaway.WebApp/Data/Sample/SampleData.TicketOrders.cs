@@ -32,8 +32,8 @@ public static partial class SampleData {
 		var o = show.CreateOrder(quantities);
 		o.CustomerEmail = email;
 		o.CustomerName = name;
-		o.CommencedAt = show.Date.AtMidnight().InUtc().PlusHours(-123).ToInstant();
-		o.CommencedAt = show.Date.AtMidnight().InUtc().PlusHours(-123).PlusMinutes(2).ToInstant();
+		o.CreatedAt = show.Date.AtMidnight().InUtc().PlusHours(-123).ToInstant();
+		o.CreatedAt = show.Date.AtMidnight().InUtc().PlusHours(-123).PlusMinutes(2).ToInstant();
 		o.Id = id;
 		return o;
 	}

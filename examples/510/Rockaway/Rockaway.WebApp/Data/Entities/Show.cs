@@ -28,15 +28,17 @@ public class Show {
 	public IEnumerable<Artist> SupportArtists
 		=> this.SupportSlots.Select(s => s.Artist);
 
-	public TicketOrder CreateOrder(Dictionary<Guid, int> contents = null) {
+	public TicketOrder CreateOrder(Dictionary<Guid, int> contents, Instant now) {
 		var order = new TicketOrder {
-			Show = this
+			Show = this,
+			CreatedAt = now
 		};
 		foreach (var (id, quantity) in contents) {
 			var ticketType = this.TicketTypes.FirstOrDefault(tt => tt.Id == id);
 			if (ticketType == default) continue;
 			order.UpdateQuantity(ticketType, quantity);
 		}
+
 		this.TicketOrders.Add(order);
 		return order;
 	}

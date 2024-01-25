@@ -50,6 +50,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 				.WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
 			entity.HasMany(show => show.TicketTypes)
 				.WithOne(tt => tt.Show).OnDelete(DeleteBehavior.Cascade);
+			entity.HasMany(show => show.TicketOrders)
+				.WithOne(to => to.Show).OnDelete(DeleteBehavior.Restrict);
 		});
 
 		modelBuilder.Entity<SupportSlot>(entity => {
@@ -85,10 +87,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 			.HasData(SeedData.For(SampleData.Shows.AllSupportSlots));
 		modelBuilder.Entity<TicketOrder>()
 			.HasData(SeedData.For(SampleData.TicketOrders.AllTicketOrders));
-
 		modelBuilder.Entity<TicketOrderItem>()
 			.HasData(SeedData.For(SampleData.TicketOrders.AllTicketOrderItems));
-
 
 		modelBuilder.Entity<IdentityUser>()
 			.HasData(SampleData.Users.Admin);
