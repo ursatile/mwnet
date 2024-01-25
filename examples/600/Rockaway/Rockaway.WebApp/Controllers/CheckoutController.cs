@@ -60,8 +60,19 @@ public class MailController(RockawayDbContext db, IMailBodyRenderer renderer) : 
 
 	public async Task<IActionResult> HtmlMail(Guid id) {
 		var ticketOrder = await FindOrderAsync(id);
-		var data = new TicketOrderViewData(ticketOrder);
+		if (ticketOrder == default) return NotFound();
+		var uri = Request.GetWebsiteBaseUri();
+		var data = new TicketOrderMailData(ticketOrder, uri);
 		var html = renderer.RenderHtmlBody(data);
 		return Content(html, "text/html");
 	}
+}
+
+public static class UriExtensions {
+	public static Uri Append(this Uri uri, params string[] paths)
+		=> new(paths.Aggregate(uri.AbsoluteUri, (current, path)
+			=> $"{current.TrimEnd('/')}/{path.TrimStart('/')}"));
+
+	public static Uri GetWebsiteBaseUri(this HttpRequest request)
+		=> new($"{request.Scheme}://{request.Host}/");
 }
