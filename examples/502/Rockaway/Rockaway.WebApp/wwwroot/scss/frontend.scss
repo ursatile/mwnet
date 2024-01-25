@@ -96,21 +96,26 @@ body {
 		flex-flow: row wrap;
 		justify-content: space-between;
 
-		nav {
-			a {
-				display: inline-block;
-				border-left: 1px solid #fff;
-				padding: 0 0.5em;
-				text-decoration: none;
-			}
+		a#admin-login {
+			margin-left: 0.5em;
 
+		}
+
+		a {
+			display: inline-block;
+			border-left: 1px solid #fff;
+			padding: 0 0.5em;
+			text-decoration: none;
+		}
+
+		nav {
 			a:first-child {
 				border: none;
 			}
+		}
 
-			a:hover {
-				text-decoration: underline;
-			}
+		a:hover {
+			text-decoration: underline;
 		}
 	}
 }

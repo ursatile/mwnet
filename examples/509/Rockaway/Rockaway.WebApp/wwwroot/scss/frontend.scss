@@ -71,11 +71,11 @@ body {
 		font-size: max(1em, 20px);
 	}
 
-	> main {
+	>main {
 		@include fancy-panel;
 	}
 
-	> header {
+	>header {
 		@include fancy-panel;
 		display: flex;
 		justify-content: space-between;
@@ -108,7 +108,7 @@ body {
 			height: 0;
 
 			@include smartphone {
-				&:checked ~ nav {
+				&:checked~nav {
 					height: 300px;
 				}
 			}
@@ -151,34 +151,40 @@ body {
 		}
 	}
 
-	> footer {
+	>footer {
 		@include fancy-panel;
 		font-size: 80%;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
 
-		nav {
-			a {
-				display: inline-block;
-				border-left: 1px solid #fff;
-				padding: 0 0.5em;
-				text-decoration: none;
-			}
+				a#admin-login {
+			margin-left: 0.5em;
 
+		}
+
+		a {
+			display: inline-block;
+			border-left: 1px solid #fff;
+			padding: 0 0.5em;
+			text-decoration: none;
+		}
+
+		nav {
 			a:first-child {
 				border: none;
 			}
+		}
 
-			a:hover {
-				text-decoration: underline;
-			}
+		a:hover {
+			text-decoration: underline;
 		}
 
 		@include smartphone {
 			margin-bottom: 0;
 
-			span, nav {
+			span,
+			nav {
 				width: 100%;
 				text-align: center;
 				display: block;
@@ -237,7 +243,7 @@ div.artist-card {
 	}
 
 	h4 {
-		background-color: rgba(0,0,0,0.8);
+		background-color: rgba(0, 0, 0, 0.8);
 		padding: calc($container-padding-x / 2);
 		margin: 0;
 		border-radius: 0 0 $border-radius $border-radius;
@@ -249,8 +255,10 @@ div.artist-card {
 	}
 }
 
-.ticket-selector {
-	.row {
-		margin-bottom: calc($container-padding-x / 2);
-	}
+form>.row {
+	margin-bottom: calc($container-padding-x / 4);
+}
+
+hr {
+	opacity: 1;
 }
