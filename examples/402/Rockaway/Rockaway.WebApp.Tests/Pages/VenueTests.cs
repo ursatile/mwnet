@@ -10,7 +10,8 @@ public class VenueTests {
 		var client = factory.CreateClient();
 		var html = await client.GetStringAsync("/venues");
 		var decodedHtml = WebUtility.HtmlDecode(html);
-		var db = factory.Services.GetService<RockawayDbContext>()!;
+		using var scope = factory.Services.CreateScope();
+		var db = scope.ServiceProvider.GetService<RockawayDbContext>()!;
 		var expected = db.Venues.ToList();
 		foreach (var venue in expected) decodedHtml.ShouldContain(venue.Name);
 	}

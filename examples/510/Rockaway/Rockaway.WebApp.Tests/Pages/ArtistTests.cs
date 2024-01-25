@@ -10,7 +10,8 @@ public class ArtistTests {
 		var client = factory.CreateClient();
 		var html = await client.GetStringAsync("/artists");
 		var decodedHtml = WebUtility.HtmlDecode(html);
-		var db = factory.Services.GetService<RockawayDbContext>()!;
+		using var scope = factory.Services.CreateScope();
+		var db = scope.ServiceProvider.GetService<RockawayDbContext>()!;
 		var expected = db.Artists.ToList();
 		foreach (var artist in expected) decodedHtml.ShouldContain(artist.Name);
 	}
