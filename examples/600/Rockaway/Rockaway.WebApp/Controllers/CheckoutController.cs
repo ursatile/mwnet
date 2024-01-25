@@ -1,17 +1,10 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.Extensions.Hosting;
 using Rockaway.WebApp.Data;
 using Rockaway.WebApp.Data.Entities;
 using Rockaway.WebApp.Models;
-using Rockaway.WebApp.Services.Mail;
 
 namespace Rockaway.WebApp.Controllers;
 
-public class CheckoutController(
-	RockawayDbContext db,
+public class CheckoutController(RockawayDbContext db,
 	ILogger<CheckoutController> logger) : Controller {
 
 	private async Task<TicketOrder?> FindOrderAsync(Guid id) {
@@ -44,35 +37,4 @@ public class CheckoutController(
 		};
 		return View(model);
 	}
-}
-
-public class MailController(RockawayDbContext db, IMailBodyRenderer renderer) : Controller {
-	private async Task<TicketOrder?> FindOrderAsync(Guid id) {
-		return await db.TicketOrders
-			.Include(o => o.Contents)
-			.ThenInclude(c => c.TicketType).ThenInclude(tt => tt.Show).ThenInclude(s => s.Venue)
-			.Include(o => o.Contents)
-			.ThenInclude(c => c.TicketType).ThenInclude(tt => tt.Show).ThenInclude(s => s.HeadlineArtist)
-			.Include(o => o.Contents)
-			.ThenInclude(c => c.TicketType).ThenInclude(tt => tt.Show).ThenInclude(s => s.SupportSlots).ThenInclude(ss => ss.Artist)
-			.FirstOrDefaultAsync(order => order.Id == id);
-	}
-
-	public async Task<IActionResult> HtmlMail(Guid id) {
-		var ticketOrder = await FindOrderAsync(id);
-		if (ticketOrder == default) return NotFound();
-		var uri = Request.GetWebsiteBaseUri();
-		var data = new TicketOrderMailData(ticketOrder, uri);
-		var html = renderer.RenderHtmlBody(data);
-		return Content(html, "text/html");
-	}
-}
-
-public static class UriExtensions {
-	public static Uri Append(this Uri uri, params string[] paths)
-		=> new(paths.Aggregate(uri.AbsoluteUri, (current, path)
-			=> $"{current.TrimEnd('/')}/{path.TrimStart('/')}"));
-
-	public static Uri GetWebsiteBaseUri(this HttpRequest request)
-		=> new($"{request.Scheme}://{request.Host}/");
 }

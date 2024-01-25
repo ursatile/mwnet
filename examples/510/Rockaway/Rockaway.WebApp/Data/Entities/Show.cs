@@ -28,8 +28,10 @@ public class Show {
 	public IEnumerable<Artist> SupportArtists
 		=> this.SupportSlots.Select(s => s.Artist);
 
-	public TicketOrder CreateOrder(Dictionary<Guid, int> contents) {
-		var order = new TicketOrder();
+	public TicketOrder CreateOrder(Dictionary<Guid, int> contents = null) {
+		var order = new TicketOrder {
+			Show = this
+		};
 		foreach (var (id, quantity) in contents) {
 			var ticketType = this.TicketTypes.FirstOrDefault(tt => tt.Id == id);
 			if (ticketType == default) continue;

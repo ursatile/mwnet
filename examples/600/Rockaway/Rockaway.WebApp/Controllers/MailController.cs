@@ -1,12 +1,12 @@
 using Rockaway.WebApp.Data;
 using Rockaway.WebApp.Data.Entities;
 using Rockaway.WebApp.Models;
+using Rockaway.WebApp.Services;
+using Rockaway.WebApp.Services.Mail;
 
 namespace Rockaway.WebApp.Controllers;
 
-public class CheckoutController(RockawayDbContext db,
-	ILogger<CheckoutController> logger) : Controller {
-
+public class MailController(RockawayDbContext db, IMailBodyRenderer renderer) : Controller {
 	private async Task<TicketOrder?> FindOrderAsync(Guid id) {
 		return await db.TicketOrders
 			.Include(o => o.Contents)
@@ -18,23 +18,14 @@ public class CheckoutController(RockawayDbContext db,
 			.FirstOrDefaultAsync(order => order.Id == id);
 	}
 
-	[HttpPost]
-	public async Task<IActionResult> Confirm(OrderConfirmationPostData post) {
-		var ticketOrder = await FindOrderAsync(post.TicketOrderId);
-		if (ticketOrder == default) return NotFound();
-		post.TicketOrder = new(ticketOrder);
-		if (ModelState.IsValid) return Ok(post);
-		return View(post);
-	}
-
-	[HttpGet]
-	public async Task<IActionResult> Confirm(Guid id) {
+	public async Task<IActionResult> HtmlMail(Guid id) {
 		var ticketOrder = await FindOrderAsync(id);
 		if (ticketOrder == default) return NotFound();
-		var model = new OrderConfirmationPostData() {
-			TicketOrderId = id,
-			TicketOrder = new(ticketOrder)
-		};
-		return View(model);
+
+		// ReSharper disable once InvokeAsExtensionMethod
+		var uri = UriExtensions.GetWebsiteBaseUri(Request);
+		var data = new TicketOrderMailData(ticketOrder, uri);
+		var html = renderer.RenderHtmlBody(data);
+		return Content(html, "text/html");
 	}
 }
