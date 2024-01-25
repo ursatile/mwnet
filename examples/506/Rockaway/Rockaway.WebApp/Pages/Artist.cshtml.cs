@@ -3,7 +3,7 @@ using Rockaway.WebApp.Models;
 
 namespace Rockaway.WebApp.Pages;
 
-public class ArtistModel(RockawayDbContext db, ILogger<IndexModel> logger) : PageModel {
+public class ArtistModel(RockawayDbContext db) : PageModel {
 	public ArtistViewData Artist = default!;
 
 	public IActionResult OnGet(string slug) {

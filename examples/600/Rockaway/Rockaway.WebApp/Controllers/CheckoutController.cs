@@ -4,8 +4,7 @@ using Rockaway.WebApp.Models;
 
 namespace Rockaway.WebApp.Controllers;
 
-public class CheckoutController(RockawayDbContext db,
-	ILogger<CheckoutController> logger) : Controller {
+public class CheckoutController(RockawayDbContext db) : Controller {
 
 	private async Task<TicketOrder?> FindOrderAsync(Guid id) {
 		return await db.TicketOrders

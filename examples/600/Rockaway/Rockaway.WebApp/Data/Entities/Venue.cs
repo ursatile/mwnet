@@ -67,8 +67,8 @@ public class Venue {
 
 	public string FormatPrice(decimal price) => price.ToString("C", Culture);
 
-	private IEnumerable<string> AddressTokens => [Address, City, PostalCode];
-	private IEnumerable<string> SummaryTokens => [Name, Address, City, PostalCode, Country.GetName(CountryCode)];
+	private IEnumerable<string?> AddressTokens => [Address, City, PostalCode];
+	private IEnumerable<string?> SummaryTokens => [Name, Address, City, PostalCode, Country.GetName(CountryCode)];
 
 	public string FullAddress => String.Join(", ", AddressTokens.Where(s => !String.IsNullOrWhiteSpace(s)));
 	public string Summary => String.Join(", ", SummaryTokens.Where(s => !String.IsNullOrWhiteSpace(s)));
