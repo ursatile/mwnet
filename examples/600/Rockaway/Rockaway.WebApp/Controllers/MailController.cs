@@ -25,7 +25,7 @@ public class MailController(RockawayDbContext db, IMailBodyRenderer renderer) : 
 		// ReSharper disable once InvokeAsExtensionMethod
 		var uri = UriExtensions.GetWebsiteBaseUri(Request);
 		var data = new TicketOrderMailData(ticketOrder, uri);
-		var html = renderer.RenderHtmlBody(data);
+		var html = renderer.RenderOrderConfirmationHtml(data);
 		return Content(html, "text/html");
 	}
 }

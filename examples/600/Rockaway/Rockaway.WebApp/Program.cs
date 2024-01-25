@@ -16,7 +16,10 @@ builder.Services.AddControllersWithViews(options => {
 	options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
-builder.Services.AddSingleton<IMailBodyRenderer>(_ => new MailBodyRenderer(new RazorEngine(), new MjmlRenderer()));
+builder.Services.AddSingleton<IMailTemplateProvider>(new DebugMailTemplateProvider());
+builder.Services.AddSingleton<IMailBodyRenderer, MailBodyRenderer>();
+builder.Services.AddSingleton<IRazorEngine, RazorEngine>();
+builder.Services.AddSingleton<IMjmlRenderer, MjmlRenderer>();
 
 #if DEBUG && !NCRUNCH
 builder.Services.AddSassCompiler();
