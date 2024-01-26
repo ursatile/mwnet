@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Mjml.Net;
@@ -20,6 +18,8 @@ builder.Services.AddSingleton<IMailTemplateProvider>(new DebugMailTemplateProvid
 builder.Services.AddSingleton<IMailBodyRenderer, MailBodyRenderer>();
 builder.Services.AddSingleton<IRazorEngine, RazorEngine>();
 builder.Services.AddSingleton<IMjmlRenderer, MjmlRenderer>();
+builder.Services.AddSingleton<IClock>(SystemClock.Instance);
+ 
 
 #if DEBUG && !NCRUNCH
 builder.Services.AddSassCompiler();
@@ -31,7 +31,7 @@ logger.LogInformation("Rockaway running in {environment} environment", builder.E
 // A bug in .NET 8 means you can't call extension methods from Program.Main, otherwise
 // the aspnet-codegenerator tools fail with "Could not get the reflection type for DbContext"
 // ReSharper disable once InvokeAsExtensionMethod
-if (HostBuilderExtensions.UseSqlite(builder.Environment)) {
+if (HostEnvironmentExtensions.UseSqlite(builder.Environment)) {
 	logger.LogInformation("Using Sqlite database");
 	var sqliteConnection = new SqliteConnection("Data Source=:memory:");
 	sqliteConnection.Open();
@@ -58,7 +58,7 @@ if (app.Environment.IsProduction()) {
 using (var scope = app.Services.CreateScope()) {
 	using var db = scope.ServiceProvider.GetService<RockawayDbContext>()!;
 	// ReSharper disable once InvokeAsExtensionMethod
-	if (HostBuilderExtensions.UseSqlite(app.Environment)) {
+	if (HostEnvironmentExtensions.UseSqlite(app.Environment)) {
 		db.Database.EnsureCreated();
 	} else if (Boolean.TryParse(app.Configuration["apply-migrations"], out var applyMigrations) && applyMigrations) {
 		logger.LogInformation("apply-migrations=true was specified. Applying EF migrations:");

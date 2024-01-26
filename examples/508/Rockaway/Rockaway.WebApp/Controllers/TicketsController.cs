@@ -5,8 +5,7 @@ using Rockaway.WebApp.Models;
 namespace Rockaway.WebApp.Controllers;
 
 [Route("[action]/{venue}/{date}")]
-public class TicketsController(
-	RockawayDbContext db) : Controller {
+public class TicketsController(RockawayDbContext db) : Controller {
 
 	private Task<Show?> FindShow(string venue, LocalDate date) => db.Shows
 		.Include(s => s.TicketTypes)

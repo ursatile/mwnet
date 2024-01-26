@@ -11,7 +11,8 @@ public class TicketOrder {
 
 	public string FormattedTotalPrice
 		=> Show.Venue.FormatPrice(Contents.Sum(item => item.TicketType.Price * item.Quantity));
-		
+
+	public string Reference => Id.ToString("D")[..8].ToUpperInvariant();
 
 	public TicketOrderItem UpdateQuantity(TicketType ticketType, int quantity) {
 		var item = this.Contents.FirstOrDefault(toi => toi.TicketType == ticketType);

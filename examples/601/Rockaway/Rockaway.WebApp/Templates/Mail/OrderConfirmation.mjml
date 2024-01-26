@@ -27,6 +27,9 @@
 					<p>
 						<strong>Hey @Model.CustomerName - you're going to see @Model.Artist.Name!</strong>
 					</p>
+					<p>
+						<strong>Booking Reference:</strong> @Model.Reference
+					</p>
 					<strong>@Model.Artist.Name</strong><br />
 					@if(Model.HasSupport) {
 					<em>plus special guests</em>
