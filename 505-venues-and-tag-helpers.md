@@ -69,7 +69,7 @@ We'll also add an `_unknown.png` for unrecognised countries, which looks like th
 The actual tag helper code looks like this:
 
 ```csharp
-{% include_relative {{page.examples}}/Rockaway.WebApp/TagHelpers/CountryTagHelper.cs %}
+{% include_relative {{page.examples}}/Rockaway.WebApp/TagHelpers/CountryFlagTagHelper.cs %}
 ```
 
 To use it in our pages, we need to register it in `_ViewImports.cshtml`:
