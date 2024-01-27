@@ -1,0 +1,17 @@
+<h3>Blazor Component in MVC</h3>
+<form action="https://eopn46xs7jgblc1.m.pipedream.net" method="post">
+	<input type="text" name="bonkadonk" value="@Output"/>
+	<input type="submit"/>
+</form>
+<button @onclick="Up" class="btn btn-dark">UP</button>
+<button @onclick="Down" class="btn btn-dark">DOWN</button>
+<br />
+<div>@Output</div>
+@code {
+	[Parameter] public decimal Value { get; set; } = 0m;
+
+	[Parameter] public string CultureName { get; set; } = "en-GB";
+	public string Output => Value.ToString("C", CultureInfo.CreateSpecificCulture(CultureName));
+	private void Up() => Value++;
+	private void Down() => Value--;
+}
