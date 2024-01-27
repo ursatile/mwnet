@@ -6,6 +6,60 @@ typora-copy-images-to: ./images
 summary: Dylan's notes and scribblings from workshop prep
 ---
 
+### That Razor Blazor Client Library Thing
+
+Creating the bits:
+
+```
+dotnet new blazor -int WebAssembly -o Bongolis
+```
+
+Add a Razor class lib project:
+
+```
+dotnet new razorclasslib -o Bongolis.RazorClassLib
+dotnet add Bongolis reference .\Bongolis.RazorClassLib\
+dotnet sln add Bongolis.RazorClassLib
+```
+
+plug in:
+
+```
+builder.Services.AddRazorPages();
+```
+
+and
+
+```
+app.MapRazorPages();
+```
+
+Add `/Pages/MyPage.cshtml`:
+
+```
+@page
+@model Bongolis.Pages.MyPage
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>My Page</title>
+</head>
+<body>
+<div>
+	MY PAGE!
+</div>
+</body>
+</html>
+```
+
+
+
+
+
+
+
 #### Commit Logs from NDC Porto
 
 ```
