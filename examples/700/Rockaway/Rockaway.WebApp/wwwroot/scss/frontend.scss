@@ -179,7 +179,7 @@ body {
 			text-decoration: underline;
 		}
 
-		@include smartphone {
+		@include media-breakpoint-down(md) {
 			margin-bottom: 0;
 
 			span,

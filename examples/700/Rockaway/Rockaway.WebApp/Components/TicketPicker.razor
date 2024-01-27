@@ -1,36 +1,43 @@
 @using Rockaway.WebApp.Models
-
 <section class="row">
-	<div class="col-6 cold-md-4 offset-md-2">
+	<div class="col-6 col-md-4 offset-md-2">
 		<strong>Ticket Type</strong>
 	</div>
-	<div class="col-3 col-md-2 text-center">
+	<div class="col-3 col-md-2">
 		<strong>Quantity</strong>
 	</div>
-	<div class="col-3 col-md-2 col-2">
+	<div class="col-3 col-md-2">
 		<strong>Price</strong>
 	</div>
 </section>
-<section class="row">
-	@foreach (var tt in TicketTypes) {
-		<div class="col-6 cold-md-4 offset-md-2">
-			@tt.Name (@Format(tt.Price))
+@foreach (var tt in TicketTypes) {
+	<section class="row">
+		<div class="col-6 col-md-4 offset-md-2">
+			<span>
+			@tt.Name <span class="price">(@Format(tt.Price))</span>
+			</span>
 		</div>
-		<div class="col-3 col-md-2 text-center">
+		<div class="col-3 col-md-2">
 			<a class="fas fa-square-minus" @onclick="() => Decrement(tt.Id)"></a>
 			<input name="tickets[@tt.Id]" type="number" value="@quantities[tt.Id]"/>
 			<a class="fas fa-square-plus" @onclick="() => Increment(tt.Id)"></a>
 		</div>
-		<div class="col-3 col-md-2 text-end">
+		<div class="col-3 col-md-2">
 			@Format(LineTotal(tt))
 		</div>
-	}
+	</section>
+}
+<section class="row">
+	<div class="col-12 col-md-8 offset-md-2" style="display: block;">
+		<hr/>
+	</div>
 </section>
 <section class="row">
-	<div class="col-9 cold-md-6 offset-md-2">
+	<div class="col-6 col-md-4 offset-md-2">
 		<strong>Order Total:</strong>
 	</div>
-	<div class="col-3 col-md-2 text-end">
+	<div class="col-3 col-md-2"></div>
+	<div class="col-3 col-md-2">
 		@Format(OrderTotal)
 	</div>
 </section>
