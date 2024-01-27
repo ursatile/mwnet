@@ -1,5 +1,5 @@
-using Mjml.Net;
 using System.Reflection;
+using Mjml.Net;
 
 namespace Rockaway.WebApp.Services.Mail;
 

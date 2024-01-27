@@ -22,7 +22,7 @@ public class CheckoutController(RockawayDbContext db, IClock clock) : Controller
 		var ticketOrder = await FindOrderAsync(post.TicketOrderId);
 		if (ticketOrder == default) return NotFound();
 		post.TicketOrder = new(ticketOrder);
-		if (! ModelState.IsValid) return View(post);
+		if (!ModelState.IsValid) return View(post);
 		ticketOrder.CustomerEmail = post.CustomerEmail;
 		ticketOrder.CustomerName = post.CustomerName;
 		ticketOrder.CompletedAt = clock.GetCurrentInstant();

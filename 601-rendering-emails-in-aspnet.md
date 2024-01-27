@@ -180,17 +180,47 @@ and the text version, which is actually a Razor view that just doesn't include a
 {% include_relative {{ page.examples}}/Rockaway.WebApp/Templates/Mail/OrderConfirmation.txt %}
 ```
 
+## Capturing the Website URL
+
+Emails need to include links to our website and images hosted on our website, but our site might have more than one URL. When we're building and testing it, everything's coming from `http://localhost/` somewhere. We might have a staging environment as well as a live environment.
+
+Rather than hard-coding the website URL, we'll capture the URL of the site that was hosting the code when we generated the email, and pass this into the email template when we render it.
+
+```csharp
+// Rockaway.WebApp/Services/UriExtensions.cs
+
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Services/UriExtensions.cs %}
+```
+
 ## Previewing Emails
 
 Finally, let's wire up a TicketOrdersController in the Admin area, and add some code which will let use preview the emails for a particular order right in a browser, so we can check they render OK -- and more importantly, fix them if they don't without having to send an email every time we change anything to see if it worked.
 
-We'll use the aspnet-codegenerator to create a TicketOrdersController:
+We'll use the aspnet-codegenerator to create the `TicketOrdersController`:
 
 ```
+dotnet aspnet-codegenerator controller -name TicketOrdersController -m TicketOrder -dc RockawayDbContext --relativeFolderPath Areas/Admin/Controllers --useDefaultLayout --referenceScriptLibraries
 
+dotnet format
 ```
 
+Then we need to move all the views. The `aspnet-codegenerator` tool is not particularly clever, and specifying `--relativeFoldePath` only appears to affect the controller, regardless of where we run the tool from, so move the folder `/Views/TicketOrders` into `/Areas/Admin/Views/`
 
+We need to make a few changes to `Areas/Admin/Controllers/TicketOrdersController`:
+
+1. Add the [Area("Admin")] attribute to the class
+2. Add a constructor parameter `IMailRenderer` so an instance of our mail renderer will be injected
+3. Add a new action method which will render the mail previews and return the results using `Content()`
+
+Once you add in the formatting improvements and fix the namespaces, there's not a whole lot of the original controller left; here's what the code looks like by the time we're done:
+
+```csharp
+// Rockaway.WebApp/Areas/Admin/Controllers/TicketOrdersController.cs
+
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Areas/Admin/Controllers/TicketOrdersController.cs %}
+```
+
+Finally, we need to register `MailBodyRenderer` and its various dependent services in `Program.cs`:
 
 
 

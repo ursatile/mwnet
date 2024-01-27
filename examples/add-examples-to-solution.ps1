@@ -1,4 +1,6 @@
 # Define the base directory where the projects are located
+dotnet new sln --name examples --force
+dotnet new sln --name examples-500 --force
 
 # Get all the project directories
 $projects  = Get-ChildItem  -Recurse | Where-Object { $_.Extension -match 'csproj' }

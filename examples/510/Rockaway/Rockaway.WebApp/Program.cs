@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews(options => {
 	options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
+builder.Services.AddSingleton<IClock>(SystemClock.Instance);
 
 #if DEBUG && !NCRUNCH
 builder.Services.AddSassCompiler();
