@@ -29,10 +29,13 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 			entity.HasIndex(venue => venue.Slug).IsUnique();
 		});
 
-		modelBuilder.Entity<Artist>().HasData(SampleData.Artists.AllArtists);
-		modelBuilder.Entity<Venue>().HasData(SampleData.Venues.AllVenues);
+		modelBuilder.Entity<Artist>()
+			.HasData(SampleData.Artists.AllArtists);
+		modelBuilder.Entity<Venue>()
+			.HasData(SampleData.Venues.AllVenues);
 
-		modelBuilder.Entity<IdentityUser>().HasData(SampleData.Users.Admin);
+		modelBuilder.Entity<IdentityUser>()
+			.HasData(SampleData.Users.Admin);
 
 	}
 }

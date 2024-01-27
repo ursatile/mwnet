@@ -27287,7 +27287,8 @@ body > footer a:hover {
   body > footer {
     margin-bottom: 0;
   }
-  body > footer span, body > footer nav {
+  body > footer span,
+  body > footer nav {
     width: 100%;
     text-align: center;
     display: block;
@@ -27366,8 +27367,12 @@ div.artist-card h4 a, div.artist-card .h4 a {
   text-decoration: none;
 }
 
-.ticket-selector .row {
-  margin-bottom: 0.75rem;
+form > .row {
+  margin-bottom: 0.375rem;
+}
+
+hr {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=frontend.css.map */

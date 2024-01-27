@@ -15,6 +15,6 @@ public class ArtistViewData(Artist artist) {
 
 	public string GetImageUrl(int width, int height)
 		=> String.Format(CLOUDINARY_URL_TEMPLATE, width, height, Slug);
-	
-	public string CssClass => (Name.Length > 20 ? "long-name" : "");
+
+	public string CssClass => Name.Length > 20 ? "long-name" : "";
 }

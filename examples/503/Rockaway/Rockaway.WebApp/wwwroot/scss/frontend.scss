@@ -49,7 +49,7 @@ $border-radius-xxl: 6 * $border-radius;
 	border-radius: 2 * $border-radius;
 	padding: calc($grid-gutter-width/4) + $border-radius;
 	background-color: $panel-color;
-	border: 1px solid $body-color;
+	border: 1px solid color.scale($panel-color, $lightness: -20%);
 
 	@include smartphone {
 		border: 0;
@@ -93,8 +93,9 @@ body {
 
 		label#nav-toggle {
 			display: none;
+
 			@include smartphone {
-			font-size: 200%;
+				font-size: 200%;
 				display: block;
 				position: absolute;
 				z-index: 2;
@@ -105,6 +106,7 @@ body {
 
 		input#nav-checkbox {
 			height: 0;
+
 			@include smartphone {
 				&:checked ~ nav {
 					height: 300px;
@@ -127,6 +129,7 @@ body {
 					background: color.scale($primary, $lightness: -50%);
 				}
 			}
+
 			@include smartphone {
 				position: absolute;
 				overflow-y: hidden;
@@ -136,6 +139,7 @@ body {
 				right: 0;
 				height: 0;
 				transition: height 0.2s ease;
+
 				a {
 					display: block;
 					width: 100%;
@@ -156,7 +160,6 @@ body {
 
 		a#admin-login {
 			margin-left: 0.5em;
-
 		}
 
 		a {
@@ -179,7 +182,8 @@ body {
 		@include smartphone {
 			margin-bottom: 0;
 
-			span, nav {
+			span,
+			nav {
 				width: 100%;
 				text-align: center;
 				display: block;

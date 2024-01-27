@@ -14,12 +14,12 @@
 	<section class="row">
 		<div class="col-6 col-md-4 offset-md-2">
 			<span>
-			@tt.Name <span class="price">(@Format(tt.Price))</span>
+				@tt.Name <span class="price">(@Format(tt.Price))</span>
 			</span>
 		</div>
 		<div class="col-3 col-md-2">
 			<a class="fas fa-square-minus" @onclick="() => Decrement(tt.Id)"></a>
-			<input name="tickets[@tt.Id]" type="number" value="@quantities[tt.Id]"/>
+			<input name="tickets[@tt.Id]" type="number" value="@quantities[tt.Id]" />
 			<a class="fas fa-square-plus" @onclick="() => Increment(tt.Id)"></a>
 		</div>
 		<div class="col-3 col-md-2">
@@ -29,7 +29,7 @@
 }
 <section class="row">
 	<div class="col-12 col-md-8 offset-md-2" style="display: block;">
-		<hr/>
+		<hr />
 	</div>
 </section>
 <section class="row">
@@ -43,12 +43,6 @@
 </section>
 
 @code {
-	private Dictionary<Guid, int> quantities = new();
-
-	private void Increment(Guid id) => quantities[id] = Math.Min(quantities[id] + 1, 10);
-	private void Decrement(Guid id) => quantities[id] = Math.Max(quantities[id] - 1, 0);
-
-	private List<TicketTypeViewData> ticketTypes = [];
 
 	[Parameter]
 	public List<TicketTypeViewData> TicketTypes {
@@ -59,19 +53,20 @@
 		}
 	}
 
-	decimal LineTotal(TicketTypeViewData tt) => quantities[tt.Id] * tt.Price;
-	string Format(decimal price) => price.ToString("C", cultureInfo);
-
-	private CultureInfo cultureInfo = CultureInfo.InvariantCulture;
-
 	[Parameter]
 	public string CultureName {
 		get => cultureInfo.Name;
-		set {
-			if (value != cultureInfo.Name) cultureInfo = CultureInfo.CreateSpecificCulture(value);
-		}
+		set => cultureInfo = CultureInfo.CreateSpecificCulture(value);
 	}
 
-	private decimal OrderTotal => ticketTypes.Sum(tt => tt.Price * quantities[tt.Id]);
+	private Dictionary<Guid, int> quantities = new();
+	private List<TicketTypeViewData> ticketTypes = [];
+	private CultureInfo cultureInfo = CultureInfo.InvariantCulture;
 
+	private void Increment(Guid id) => quantities[id] = Math.Min(quantities[id] + 1, 8);
+	private void Decrement(Guid id) => quantities[id] = Math.Max(quantities[id] - 1, 0);
+
+	decimal LineTotal(TicketTypeViewData tt) => quantities[tt.Id] * tt.Price;
+	string Format(decimal price) => price.ToString("C", cultureInfo);
+	private decimal OrderTotal => ticketTypes.Sum(tt => tt.Price * quantities[tt.Id]);
 }

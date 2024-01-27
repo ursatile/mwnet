@@ -1,10 +1,10 @@
 ---
-title: "7.2 Razor Components and WebAsssembly"
+title: "7.2 Razor and Web Assembly"
 layout: module
-nav_order: 10508
+nav_order: 10702
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "Let's add tickets and ticket prices"
+summary: "In this module, we'll turn our Razor Component into a standalone project which we can deploy using Blazor and web assembly to create interactive controls which don't rely on a network connection."
 previous: mwnet701
 complete: mwnet702
 examples: examples/702/Rockaway
@@ -52,6 +52,55 @@ A Razor Component ends up on your browser screen in one of five different ways, 
 ```
 
 We're going to turn our `TicketPicker` into a standalone component that will support any rendering style (although **static** won't do anything useful).
+
+## Creating a Razor Class Library project
+
+To use the `WebAssembly` render modes, you need to ship **the entire project** to the client.
+
+For projects which are 100% Blazor, this makes perfect sense -- running a Blazor app is like downloading native binaries; once you've downloaded it, everything you need is available locally so you don't need to keep making calls across the network.
+
+If you want to create reusable components that run on web assembly but which you can host inside your Razor Pages or MVC projects, things get a little more complicated. We don't want to ship a huge binary containing the whole of `Rockaway.WebApp` to our end users, so we're going to create a standalone .NET class library which contains just our Razor Components.
+
+> .NET includes a project template `razorclasslib` which is supposedly for creating Razor class libraries -- packages which can contain pages, views, Razor components, etc. At the time of writing (January 2024), the only way I could find to get a Razor class library project to expose WASM components to a normal web application was to hack the project files until it was basically a Blazor standalone project, so we're going to save ourselves some confusing hacking and use the `blazorwasm` template instead.
+
+First we'll create the new project and add it to our solution:
+
+``` dotnetcli
+dotnet new blazorwasm-empty -o Rockaway.RazorComponents
+dotnet sln add Rockaway.RazorComponents
+```
+
+Move `TicketPicker.razor` and `TicketPicker.razor.css` into the root of the new `Rockaway.RazorComponents` project.
+
+We have a **circular dependency** problem now: `Rockaway.WebApp` needs to reference `Rockaway.RazorComponents`, but we've now got code in `Rockaway.RazorComponents` that relies on `TicketTypeViewData`, which is part of `Rockaway.WebApp`. We have three choices:
+
+1. Move `TicketTypeViewData` into the `RazorComponents` project. Not ideal, since then anything which wants to use `TicketTypeViewData` will need to reference our components library.
+2. Modify `TicketPicker` so it doesn't use `TicketTypeViewData` -- maybe we pass in dictionaries instead of a strongly-typed view model.
+3. Created a new shared project, move  `TicketTypeViewData` into this shared project, and then reference it from both `WebApp` and `RazorComponents`. *(If we do this, our shared project will be sent to WebAssembly clients along with our component library, so don't put anything confidential in it!)*
+
+Now we need to modify our component so it doesn't have any dependencies on Rockaway.WebApp. 
+
+We'll create a `TicketPickerItem` that's part of our component library:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.RazorComponents/TicketPickerItem.cs %}
+```
+
+and modify `TicketPicker.razor` to use this type instead our view data:
+
+
+
+Add WebAssembly Server support to `Rockaway.WebApp`
+
+```dotnetcli
+dotnet add package Microsoft.AspNetCore.Components.WebAssembly.Server
+```
+
+
+
+
+
+
 
 
 

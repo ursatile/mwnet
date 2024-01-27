@@ -160,7 +160,6 @@ body {
 
 		a#admin-login {
 			margin-left: 0.5em;
-
 		}
 
 		a {
@@ -183,7 +182,8 @@ body {
 		@include smartphone {
 			margin-bottom: 0;
 
-			span, nav {
+			span,
+			nav {
 				width: 100%;
 				text-align: center;
 				display: block;
@@ -242,7 +242,7 @@ div.artist-card {
 	}
 
 	h4 {
-		background-color: rgba(0,0,0,0.8);
+		background-color: rgba(0, 0, 0, 0.8);
 		padding: calc($container-padding-x / 2);
 		margin: 0;
 		border-radius: 0 0 $border-radius $border-radius;

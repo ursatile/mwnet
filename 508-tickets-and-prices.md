@@ -4,7 +4,7 @@ layout: module
 nav_order: 10508
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "Let's add tickets and ticket prices"
+summary: "In this module, we'll add tickets and ticket prices to our domain model, and build a page where customers can select the tickets they want to order."
 previous: mwnet507
 complete: mwnet508
 examples: examples/508/Rockaway

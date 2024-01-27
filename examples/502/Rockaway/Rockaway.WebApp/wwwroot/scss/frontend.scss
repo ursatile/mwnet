@@ -40,7 +40,7 @@ $border-radius-xxl: 6 * $border-radius;
 	border-radius: 2 * $border-radius;
 	padding: calc($grid-gutter-width/4) + $border-radius;
 	background-color: $panel-color;
-	border: 1px solid $body-color;
+	border: 1px solid color.scale($panel-color, $lightness: -20%);
 }
 
 html {
@@ -98,7 +98,6 @@ body {
 
 		a#admin-login {
 			margin-left: 0.5em;
-
 		}
 
 		a {

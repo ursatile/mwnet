@@ -21,16 +21,5 @@ Total:                                            @($"{Model.FormattedTotalPrice
 ============================================================
 
 rockaway: gig tickets for nice people
-
+email: tickets@rockaway.dev
 @Model.BaseUri
-
-
-
-
-
-
-
-
-
-
-

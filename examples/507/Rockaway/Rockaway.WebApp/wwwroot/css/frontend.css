@@ -27287,7 +27287,8 @@ body > footer a:hover {
   body > footer {
     margin-bottom: 0;
   }
-  body > footer span, body > footer nav {
+  body > footer span,
+  body > footer nav {
     width: 100%;
     text-align: center;
     display: block;

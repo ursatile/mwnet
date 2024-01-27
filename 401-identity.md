@@ -1,5 +1,5 @@
 ---
-title: "4.1 Identity and Authentication"
+title: "4.1 Identity"
 layout: module
 nav_order: 10401
 typora-root-url: ./

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Hosting;
 using Rockaway.WebApp.Data;
 using Rockaway.WebApp.Data.Entities;
 using Rockaway.WebApp.Models;

@@ -50,15 +50,21 @@ The iPhone Pro has a display density of 460 pixels per inch, so if it used a tru
 
 We can take advantage of this in our web pages by providing multiple versions of each image, so that devices with high-density displays use a higher-resolution version of the same image: it'll render at the same size, but with more detail.
 
+1x density: ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/1x/ke.png) ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/1x/gb.png) ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/1x/pt.png)
+
+2x density: ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/2x/ke.png) ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/2x/gb.png) ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/2x/pt.png)
+
+3x density: ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/3x/ke.png) ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/3x/gb.png) ![](examples/505/Rockaway/Rockaway.WebApp/wwwroot/img/flags/3x/pt.png)
+
 Flagpedia offers downloads of each image set at 1x, 2x and 3x density, so we'll grab all three versions.
 
 Unzip:
 
-* [https://flagcdn.com/20x15.zip](https://flagcdn.com/20x15.zip) => `Rockaway.WebApp/wwwroot/img/flags/1x/`
+* [https://flagcdn.com/20x15.zip](https://flagcdn.com/20x15.zip) => `Rockaway.WebApp/wwwroot/img/flags/1x/` 
 * [https://flagcdn.com/40x30.zip](https://flagcdn.com/40x30.zip) => `Rockaway.WebApp/wwwroot/img/flags/2x/`
 * [https://flagcdn.com/60x45.zip](https://flagcdn.com/60x45.zip) => `Rockaway.WebApp/wwwroot/img/flags/3x/`
 
-We'll also add an `_unknown.png` for unrecognised countries, which looks like this: ![unknown]({{ page.examples}}/Rockaway.WebApp/wwwroot/img/flags/1x/unknown.png)
+We'll also add an `_unknown.png` for unrecognised countries: ![unknown]({{ page.examples}}/Rockaway.WebApp/wwwroot/img/flags/1x/unknown.png) ![unknown]({{ page.examples}}/Rockaway.WebApp/wwwroot/img/flags/2x/unknown.png) ![unknown]({{ page.examples}}/Rockaway.WebApp/wwwroot/img/flags/3x/unknown.png)
 
 * [1x/unknown.png]({{ page.examples}}/Rockaway.WebApp/wwwroot/img/flags/1x/unknown.png)
 * [2x/unknown.png]({{ page.examples}}/Rockaway.WebApp/wwwroot/img/flags/2x/unknown.png)

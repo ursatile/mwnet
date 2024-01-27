@@ -27164,7 +27164,7 @@ body > main {
   border-radius: 0.5rem;
   padding: 0.625rem;
   background-color: #00264d;
-  border: 1px solid #212529;
+  border: 1px solid #001f3d;
 }
 @media (max-width: 480px) {
   body > main {
@@ -27178,7 +27178,7 @@ body > header {
   border-radius: 0.5rem;
   padding: 0.625rem;
   background-color: #00264d;
-  border: 1px solid #212529;
+  border: 1px solid #001f3d;
   display: flex;
   justify-content: space-between;
 }
@@ -27255,7 +27255,7 @@ body > footer {
   border-radius: 0.5rem;
   padding: 0.625rem;
   background-color: #00264d;
-  border: 1px solid #212529;
+  border: 1px solid #001f3d;
   font-size: 80%;
   display: flex;
   flex-flow: row wrap;
@@ -27287,7 +27287,8 @@ body > footer a:hover {
   body > footer {
     margin-bottom: 0;
   }
-  body > footer span, body > footer nav {
+  body > footer span,
+  body > footer nav {
     width: 100%;
     text-align: center;
     display: block;

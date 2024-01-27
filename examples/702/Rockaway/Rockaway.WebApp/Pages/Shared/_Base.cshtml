@@ -8,10 +8,9 @@
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="~/css/frontend.css" asp-append-version="true"/>
 	<link rel="stylesheet" href="~/Rockaway.WebApp.styles.css" asp-append-version="true"/>
+	<link rel="stylesheet" href="~/Rockaway.RazorComponents.styles.css" asp-append-version="true"/>
 	<!-- add support for Razor Components -->
 	<base href="~/"/>
-	<component type="typeof(Microsoft.AspNetCore.Components.Web.HeadOutlet)" render-mode="ServerPrerendered"/>
-
 	@await RenderSectionAsync("Head", required: false)
 </head>
 <body class="container">

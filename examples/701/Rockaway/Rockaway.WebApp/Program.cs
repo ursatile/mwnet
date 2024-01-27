@@ -51,8 +51,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<Roc
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-// builder.Services.AddServerSideBlazor();
-builder.Services.AddRazorComponents().AddInteractiveServerComponents().AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddRazorComponents()
+	.AddInteractiveServerComponents();
 
 var app = builder.Build();
 
@@ -62,7 +63,6 @@ if (app.Environment.IsProduction()) {
 	app.UseHsts();
 } else {
 	app.UseDeveloperExceptionPage();
-	app.UseWebAssemblyDebugging();
 }
 
 using (var scope = app.Services.CreateScope()) {
@@ -77,12 +77,12 @@ using (var scope = app.Services.CreateScope()) {
 		Environment.Exit(0);
 	}
 }
-//app.UseBlazorFrameworkFiles();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthorization();
 app.UseAntiforgery();
 app.MapRazorPages();
@@ -94,8 +94,8 @@ app.MapAreaControllerRoute(
 ).RequireAuthorization();
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.MapControllers();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode().AddInteractiveWebAssemblyRenderMode();
-app.MapBlazorHub();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+
 app.Run();
 
 ILogger<T> CreateAdHocLogger<T>() => LoggerFactory.Create(lb => lb.AddConsole()).CreateLogger<T>();

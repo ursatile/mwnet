@@ -16817,14 +16817,14 @@ body > main {
   border-radius: 0.5rem;
   padding: 0.625rem;
   background-color: #00264d;
-  border: 1px solid #212529;
+  border: 1px solid #001f3d;
 }
 body > header {
   margin: 1.5rem 0;
   border-radius: 0.5rem;
   padding: 0.625rem;
   background-color: #00264d;
-  border: 1px solid #212529;
+  border: 1px solid #001f3d;
   display: flex;
   justify-content: space-between;
 }
@@ -16854,7 +16854,7 @@ body > footer {
   border-radius: 0.5rem;
   padding: 0.625rem;
   background-color: #00264d;
-  border: 1px solid #212529;
+  border: 1px solid #001f3d;
   font-size: 80%;
   display: flex;
   flex-flow: row wrap;

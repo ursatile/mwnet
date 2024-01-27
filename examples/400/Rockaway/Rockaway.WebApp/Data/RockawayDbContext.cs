@@ -26,8 +26,10 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options) : Db
 			entity.HasIndex(venue => venue.Slug).IsUnique();
 		});
 
-		modelBuilder.Entity<Artist>().HasData(SampleData.Artists.AllArtists);
-		modelBuilder.Entity<Venue>().HasData(SampleData.Venues.AllVenues);
+		modelBuilder.Entity<Artist>()
+			.HasData(SampleData.Artists.AllArtists);
+		modelBuilder.Entity<Venue>()
+			.HasData(SampleData.Venues.AllVenues);
 
 	}
 }
