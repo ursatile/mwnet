@@ -1,0 +1,14 @@
+﻿a.fas {
+	text-decoration: none;
+	font-size: 200%;
+}
+input[type=number] {
+	border: none;
+	background: none;
+	text-align: center;
+	font-weight: bold;
+	width: 2em;
+	display: inline-block;
+	padding-left: 8px;
+	appearance: textfield;
+}

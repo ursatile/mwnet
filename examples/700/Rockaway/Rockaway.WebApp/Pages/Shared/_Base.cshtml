@@ -2,11 +2,16 @@
 <html lang="en" data-bs-theme="dark">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>@(ViewData["Title"] ?? "Rockaway")</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/frontend.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="~/css/frontend.css" asp-append-version="true"/>
+	<link rel="stylesheet" href="~/Rockaway.WebApp.styles.css" asp-append-version="true"/>
+	<!-- add support for Razor Components -->
+	<base href="~/"/>
+	<component type="typeof(Microsoft.AspNetCore.Components.Web.HeadOutlet)" render-mode="ServerPrerendered"/>
+
 	@await RenderSectionAsync("Head", required: false)
 </head>
 <body class="container">
@@ -14,8 +19,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="_framework/blazor.web.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
-<base href="~/" />
-<script src="_framework/blazor.server.js"></script>
 </html>

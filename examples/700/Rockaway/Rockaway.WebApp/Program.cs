@@ -94,8 +94,7 @@ app.MapAreaControllerRoute(
 ).RequireAuthorization();
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 app.MapControllers();
-app.MapRazorComponents<App>()
-	.AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 app.Run();
 

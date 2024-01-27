@@ -29,63 +29,63 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "50
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "504", "504", "{B4403898-0951-4ABA-A4AE-1BFCA7F6EE50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "504\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{B185FC72-3335-422C-9DC1-58590230EB4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "504\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{B185FC72-3335-422C-9DC1-58590230EB4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "504\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{489AA362-05EE-41F5-9CDF-63E6A7711E7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "504\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{489AA362-05EE-41F5-9CDF-63E6A7711E7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "505", "505", "{3205E0B8-7E65-4D8F-B3CF-53897F07AC9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "505\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{DB1B117F-1141-4C42-8C9D-1D7E8EC89074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "505\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{DB1B117F-1141-4C42-8C9D-1D7E8EC89074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "505\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{D63305CA-0CF5-4C8A-B6A7-C4C699F7F6ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "505\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{D63305CA-0CF5-4C8A-B6A7-C4C699F7F6ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "506", "506", "{AF3B7BEF-AF20-4A60-9E6F-91C2F156561E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "506\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{A703E95F-72A5-4306-8EA6-C67437CCF55A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "506\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{A703E95F-72A5-4306-8EA6-C67437CCF55A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "506\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{E5973E87-D62A-4C0B-BD85-80A85C425A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "506\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{E5973E87-D62A-4C0B-BD85-80A85C425A9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "507", "507", "{39B22F89-125C-4F03-ABD1-295B97B66718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "507\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{3D18FA20-A908-4CAD-8994-8ED1D9850750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "507\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{3D18FA20-A908-4CAD-8994-8ED1D9850750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "507\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{121A80AA-9D6A-490A-B169-9A68D389388B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "507\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{121A80AA-9D6A-490A-B169-9A68D389388B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "508", "508", "{021711C5-E343-43AC-AE00-063E1E721A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "508\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{8134C360-4935-4DC9-B3DE-596C3C0B4DA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "508\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{8134C360-4935-4DC9-B3DE-596C3C0B4DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "508\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{408E4E8C-B10E-4BD7-9A76-7296BCD1231D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "508\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{408E4E8C-B10E-4BD7-9A76-7296BCD1231D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "509", "509", "{AE1F834D-7495-411F-9DE7-60D05D65AED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "509\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{A060EB66-AF75-4286-9B7A-C2C64643B749}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "509\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{A060EB66-AF75-4286-9B7A-C2C64643B749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "509\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{0F6BD64B-2446-4A17-A8FB-02FEB69FA5AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "509\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{0F6BD64B-2446-4A17-A8FB-02FEB69FA5AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "510", "510", "{C77CC97F-9936-4F8A-A8FC-E793025B2D52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "510\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{20BED107-CF5F-4279-BB30-E6DB4C91916E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "510\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{20BED107-CF5F-4279-BB30-E6DB4C91916E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "510\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{CB24E8E2-FF74-4E8B-B622-9E943329D562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "510\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{CB24E8E2-FF74-4E8B-B622-9E943329D562}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "600", "600", "{458786C0-F9D1-4A12-9687-EB763A52163B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "600\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{3E9D81B2-3495-4F88-8EB4-81AA9DEB5F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "600\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{3E9D81B2-3495-4F88-8EB4-81AA9DEB5F88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "600\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{7B062489-79D6-4879-8E6E-C46FA9C87EC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "600\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{7B062489-79D6-4879-8E6E-C46FA9C87EC5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "601", "601", "{F549DC21-9E27-40A6-AB07-D9E8C66D32B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "601\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{E2D1CA29-C689-478E-B1A3-A943DA90354E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "601\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{E2D1CA29-C689-478E-B1A3-A943DA90354E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "601\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{1A143413-AE79-496C-9602-A685366BEE93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "601\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{1A143413-AE79-496C-9602-A685366BEE93}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "700", "700", "{9F3050CE-7B70-49B7-A7F5-A504A021236D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp", "700\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{5E201866-C911-4448-AE68-4831CF1C54D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp", "700\Rockaway\Rockaway.WebApp\Rockaway.WebApp.csproj", "{5E201866-C911-4448-AE68-4831CF1C54D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rockaway.WebApp.Tests", "700\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{8D95FEA9-D101-4AB2-949F-443043DAFDC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rockaway.WebApp.Tests", "700\Rockaway\Rockaway.WebApp.Tests\Rockaway.WebApp.Tests.csproj", "{8D95FEA9-D101-4AB2-949F-443043DAFDC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
