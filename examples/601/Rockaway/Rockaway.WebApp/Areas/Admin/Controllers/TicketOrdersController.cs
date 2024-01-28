@@ -4,9 +4,9 @@ using Rockaway.WebApp.Models;
 using Rockaway.WebApp.Services;
 using Rockaway.WebApp.Services.Mail;
 
-namespace Rockaway.WebApp.Areas_Admin_Controllers;
+namespace Rockaway.WebApp.Areas.Admin.Controllers;
 
-[Area("Admin")]
+[Area("admin")]
 public class TicketOrdersController(RockawayDbContext context,
 	IMailBodyRenderer mailRenderer) : Controller {
 
@@ -16,8 +16,9 @@ public class TicketOrdersController(RockawayDbContext context,
 	// GET: TicketOrders/Details/5
 	public async Task<IActionResult> Details(Guid? id) {
 		if (id == null) return NotFound();
-		var ticketOrder = await context.TicketOrders.FirstOrDefaultAsync(m => m.Id == id);
-		if (ticketOrder == null) return NotFound();
+		var ticketOrder = await context.TicketOrders
+			.FirstOrDefaultAsync(m => m.Id == id);
+		if (ticketOrder == default) return NotFound();
 		return View(ticketOrder);
 	}
 
@@ -44,7 +45,7 @@ public class TicketOrdersController(RockawayDbContext context,
 	public async Task<IActionResult> Edit(Guid? id) {
 		if (id == null) return NotFound();
 		var ticketOrder = await context.TicketOrders.FindAsync(id);
-		if (ticketOrder == null) return NotFound();
+		if (ticketOrder == default) return NotFound();
 		return View(ticketOrder);
 	}
 

@@ -16,7 +16,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 
 	protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder) {
 		base.ConfigureConventions(configurationBuilder);
-		configurationBuilder.AddNodaTimeConverters();
+		// ReSharper disable once InvokeAsExtensionMethod
+		NodaTimeConverters.AddNodaTimeConverters(configurationBuilder);
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -42,7 +43,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 		});
 
 		modelBuilder.Entity<Show>(entity => {
-			entity.HasKey(show => show.Venue.Id, show => show.Date);
+			// ReSharper disable once InvokeAsExtensionMethod
+			EntityTypeBuilderExtensions.HasKey(entity, show => show.Venue.Id, show => show.Date);
 			entity.HasMany(show => show.SupportSlots)
 				.WithOne(ss => ss.Show).OnDelete(DeleteBehavior.Cascade);
 			entity.HasMany(show => show.TicketTypes)
@@ -50,7 +52,8 @@ public class RockawayDbContext(DbContextOptions<RockawayDbContext> options)
 		});
 
 		modelBuilder.Entity<SupportSlot>(entity => {
-			entity.HasKey(
+			// ReSharper disable once InvokeAsExtensionMethod
+			EntityTypeBuilderExtensions.HasKey(entity,
 				slot => slot.Show.Venue.Id,
 				slot => slot.Show.Date,
 				slot => slot.SlotNumber

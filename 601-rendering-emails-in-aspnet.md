@@ -166,7 +166,7 @@ and the implementation.
 
 > As well as our sneaky Razor markup, there might be @ signs in the MJML code which refer to CSS rules, like `@media`. Before we compile our Razor template, we replace any matching rules like `@media` with `@@media` -- and then the Razor engine turns the `@@` back into a literal `@` in the final HTML.
 
-## The Email Templates
+### The Email Templates
 
 The MJML version of the template is at `Rockaway.WebApp/Templates/Mail/OrderConfirmation.mjml`:
 
@@ -180,7 +180,15 @@ and the text version, which is actually a Razor view that just doesn't include a
 {% include_relative {{ page.examples}}/Rockaway.WebApp/Templates/Mail/OrderConfirmation.txt %}
 ```
 
-## Capturing the Website URL
+### TicketOrderMailData, and Capturing the Website URL
+
+We'll extend `TicketOrderViewData` with the extra fields we need to populate and send order emails:
+
+```csharp
+// Rockaway.WebApp/Models/TicketOrderViewData.cs
+
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Models/TicketOrderViewData.cs %}
+```
 
 Emails need to include links to our website and images hosted on our website, but our site might have more than one URL. When we're building and testing it, everything's coming from `http://localhost/` somewhere. We might have a staging environment as well as a live environment.
 
@@ -192,35 +200,96 @@ Rather than hard-coding the website URL, we'll capture the URL of the site that 
 {% include_relative {{ page.examples }}/Rockaway.WebApp/Services/UriExtensions.cs %}
 ```
 
-## Previewing Emails
-
-Finally, let's wire up a TicketOrdersController in the Admin area, and add some code which will let use preview the emails for a particular order right in a browser, so we can check they render OK -- and more importantly, fix them if they don't without having to send an email every time we change anything to see if it worked.
-
-We'll use the aspnet-codegenerator to create the `TicketOrdersController`:
-
-```
-dotnet aspnet-codegenerator controller -name TicketOrdersController -m TicketOrder -dc RockawayDbContext --relativeFolderPath Areas/Admin/Controllers --useDefaultLayout --referenceScriptLibraries
-
-dotnet format
-```
-
-Then we need to move all the views. The `aspnet-codegenerator` tool is not particularly clever, and specifying `--relativeFoldePath` only appears to affect the controller, regardless of where we run the tool from, so move the folder `/Views/TicketOrders` into `/Areas/Admin/Views/`
-
-We need to make a few changes to `Areas/Admin/Controllers/TicketOrdersController`:
-
-1. Add the [Area("Admin")] attribute to the class
-2. Add a constructor parameter `IMailRenderer` so an instance of our mail renderer will be injected
-3. Add a new action method which will render the mail previews and return the results using `Content()`
-
-Once you add in the formatting improvements and fix the namespaces, there's not a whole lot of the original controller left; here's what the code looks like by the time we're done:
+Then we'll create a new class `TicketOrderMailData`, which extends our existing `TicketOrderViewData` and adds the website base URI, and a`QualifyUri` method we can use to build fully-qualified URIs:
 
 ```csharp
-// Rockaway.WebApp/Areas/Admin/Controllers/TicketOrdersController.cs
+// Rockaway.WebApp/Models/TicketOrderMailData.cs
 
-{% include_relative {{ page.examples }}/Rockaway.WebApp/Areas/Admin/Controllers/TicketOrdersController.cs %}
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Models/TicketOrderMailData.cs %}
+```
+
+## Previewing Emails
+
+We'll add links to the `Areas/Admin/TicketOrders/Index.cshtml` view in the admin area to the HTML and text versions of each order email, and add a new controller action to render the previews.
+
+Add a new constructor parameter `IMailRenderer mailRenderer` to the primary constructor on `TicketOrdersController`.
+
+Add a new action method to `TicketOrdersController`:
+
+```csharp
+public async Task<IActionResult> Mail(Guid id, string format = "html") {
+    var ticketOrder = await context.TicketOrders
+        .Include(o => o.Contents).ThenInclude(item => item.TicketType)
+        .Include(o => o.Show).ThenInclude(s => s.HeadlineArtist)
+        .Include(o => o.Show).ThenInclude(s => s.Venue)
+        .Include(o => o.Show).ThenInclude(s => s.SupportSlots).ThenInclude(ss => ss.Artist)
+        .FirstOrDefaultAsync(m => m.Id == id);
+    if (ticketOrder == default) return NotFound();
+    // ReSharper disable once InvokeAsExtensionMethod
+    var data = new TicketOrderMailData(ticketOrder, UriExtensions.GetWebsiteBaseUri(Request));
+    switch (format) {
+        case "html":
+            var html = mailRenderer.RenderOrderConfirmationHtml(data);
+            return Content(html, "text/html");
+        default:
+            var text = mailRenderer.RenderOrderConfirmationText(data);
+            return Content(text, "text/plain", Encoding.UTF8);
+    }
+}
+```
+
+We'll add links to the order list page to view the HTML and text versions of each order email.
+
+Open `/Areas/Admin/Views/TicketOrders/Index.cshtml`, add a new column to the table:
+
+```html
+<th>Emails</th>
+```
+
+and
+
+```html
+<td>
+    <a asp-action="Mail" asp-route-id="@item.Id" asp-route-format="html">Html</a> |
+    <a asp-action="Mail" asp-route-id="@item.Id" asp-route-format="text">Text</a>
+</td>
 ```
 
 Finally, we need to register `MailBodyRenderer` and its various dependent services in `Program.cs`:
 
+```csharp
+#if DEBUG
+builder.Services.AddSingleton<IMailTemplateProvider>(new DebugMailTemplateProvider());
+#else
+builder.Services.AddSingleton<IMailTemplateProvider>(new ResourceMailTemplateProvider());
+#endif
+builder.Services.AddSingleton<IMailBodyRenderer, MailBodyRenderer>();
+builder.Services.AddSingleton<IRazorEngine, RazorEngine>();
+builder.Services.AddSingleton<IMjmlRenderer, MjmlRenderer>();
+```
 
+### Module Checklist
 
+1. Add the `Mjml.Net` NuGet package
+2. Add the `RazorEngineCore` NuGet package
+3. Create the `IMailRenderer` interface
+4. Create the `IMailTemplateProvider` interface
+5. Create debug and release implementations of `IMailTemplateProvider`
+6. Create `MailBodyRenderer`
+7. Inject `IMailRenderer` into `TicketOrdersController` via a new constructor parameter
+8. Add the new `Mail()` action  to `TicketOrdersController`
+9. Add the Emails column and links to `/Areas/Admin/Controllers/TicketOrdersController.cs`
+10. Add extra fields to `TicketOrderViewData`
+11. Create the `UriExtensions` helper class in `Services/`
+12. Register the new mail services in `Program.cs`
+13. Create `Templates/Mail/OrderConfirmation.mjml` and make it an **Embedded Resource**
+14. Create `Templates/Mail/OrderConfirmation.txt` and make it an **Embedded Resource**
+
+### Test Plan
+
+1. Build and run Rockaway.WebApp in **Debug** mode
+2. Sign in to the admin area
+3. Navigate to the Orders page (`/admin/ticketorders`)
+4. Click the **Html** link alongside each order. Verify you get an HTML-formatted email with the correct information.
+5. Click the **Text** link alongside each order. Verify you get a text formatted email body with the correct information.
+6. Repeat for **Release** mode

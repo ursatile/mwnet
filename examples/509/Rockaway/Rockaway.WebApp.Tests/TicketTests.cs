@@ -3,9 +3,23 @@ using Microsoft.Extensions.Logging;
 using NodaTime;
 using Rockaway.WebApp.Controllers;
 using NodaTime.Testing;
+using Rockaway.WebApp.Data;
+
 namespace Rockaway.WebApp.Tests;
 
 public class TicketTests {
+	[Fact]
+	public async Task Tickets_Page_Works() {
+		await using var factory = new WebApplicationFactory<Program>();
+		using var client = factory.CreateClient();
+		using var scope = factory.Services.CreateScope();
+		var db = scope.ServiceProvider.GetService<RockawayDbContext>();
+		var show = db.Shows.Include(show => show.Venue).First();
+		var venue = show.RouteData["venue"];
+		var date = show.RouteData["date"];
+		using var response = await client.GetAsync($"/show/{venue}/{date}");
+		response.EnsureSuccessStatusCode();
+	}
 	[Fact]
 	public async Task Buying_Tickets_Creates_Order() {
 		

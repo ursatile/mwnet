@@ -27,7 +27,11 @@ public class CheckoutController(RockawayDbContext db, IClock clock) : Controller
 		ticketOrder.CustomerName = post.CustomerName;
 		ticketOrder.CompletedAt = clock.GetCurrentInstant();
 		await db.SaveChangesAsync();
-		return Content("Order confirmed. We should probably send you an email or something, right?");
+		return Content(@$"Order confirmed.
+
+		Your order ref is {ticketOrder.Reference}
+
+		We should probably send you an email or something...");
 	}
 
 	[HttpGet]

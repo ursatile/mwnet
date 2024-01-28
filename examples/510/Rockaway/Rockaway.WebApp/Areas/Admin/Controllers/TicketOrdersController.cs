@@ -26,7 +26,10 @@ public class TicketOrdersController(RockawayDbContext context) : Controller {
 	// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> Create([Bind("Id,CustomerName,CustomerEmail,CreatedAt,CompletedAt")] TicketOrder ticketOrder) {
+	public async Task<IActionResult> Create(
+		[Bind("Id,CustomerName,CustomerEmail,CreatedAt,CompletedAt")]
+		TicketOrder ticketOrder
+	) {
 		if (!ModelState.IsValid) return View(ticketOrder);
 		ticketOrder.Id = Guid.NewGuid();
 		context.Add(ticketOrder);

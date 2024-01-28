@@ -4,7 +4,7 @@ using Rockaway.WebApp.Models;
 
 namespace Rockaway.WebApp.Controllers;
 
-public class CheckoutController(RockawayDbContext db) : Controller {
+public class CheckoutController(RockawayDbContext db, IClock clock) : Controller {
 
 	private async Task<TicketOrder?> FindOrderAsync(Guid id) {
 		return await db.TicketOrders
@@ -22,8 +22,16 @@ public class CheckoutController(RockawayDbContext db) : Controller {
 		var ticketOrder = await FindOrderAsync(post.TicketOrderId);
 		if (ticketOrder == default) return NotFound();
 		post.TicketOrder = new(ticketOrder);
-		if (ModelState.IsValid) return Ok(post);
-		return View(post);
+		if (!ModelState.IsValid) return View(post);
+		ticketOrder.CustomerEmail = post.CustomerEmail;
+		ticketOrder.CustomerName = post.CustomerName;
+		ticketOrder.CompletedAt = clock.GetCurrentInstant();
+		await db.SaveChangesAsync();
+		return Content(@$"Order confirmed.
+
+		Your order ref is {ticketOrder.Reference}
+
+		We should probably send you an email or something...");
 	}
 
 	[HttpGet]

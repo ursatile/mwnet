@@ -58,6 +58,7 @@ public class Venue {
 		Shows.Add(show);
 		return show;
 	}
-	public string FullAddress => String.Join(", ", [Address, City, PostalCode]);
 
+	private IEnumerable<string?> AddressTokens => [Address, City, PostalCode];
+	public string FullAddress => String.Join(", ", AddressTokens.Where(s => !String.IsNullOrWhiteSpace(s)));
 }
