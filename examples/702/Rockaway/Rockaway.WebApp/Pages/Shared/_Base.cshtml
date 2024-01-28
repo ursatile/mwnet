@@ -7,9 +7,11 @@
 	<title>@(ViewData["Title"] ?? "Rockaway")</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="~/css/frontend.css" asp-append-version="true"/>
+
+	<!-- add this to enable CSS isolation for Razor Components -->
 	<link rel="stylesheet" href="~/Rockaway.WebApp.styles.css" asp-append-version="true"/>
 	<link rel="stylesheet" href="~/Rockaway.RazorComponents.styles.css" asp-append-version="true"/>
-	<!-- add support for Razor Components -->
+	<!-- Required for Razor Component support -->
 	<base href="~/"/>
 	@await RenderSectionAsync("Head", required: false)
 </head>
@@ -18,6 +20,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<!-- Required for Razor Component support -->
 <script src="_framework/blazor.web.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>

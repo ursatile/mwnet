@@ -4,7 +4,7 @@
 <p>@Model.VenueName, @Model.VenueAddress</p>
 <p>@Model.ShowDate</p>
 
-<form class="ticket-selector" method="post">
+<form method="post">
 
 @(await Html.RenderComponentAsync<TicketPicker>(RenderMode.WebAssembly, new {
 	TicketTypes = Model.TicketTypes.Select(tt => new TicketPickerItem { Id = tt.Id, Name = tt.Name, Price = tt.Price }).ToList(),

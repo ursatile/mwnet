@@ -44,7 +44,4 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Rockaway.RazorComponents\Rockaway.RazorComponents.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="Components\Pages\Welcome.razor" />
-	</ItemGroup>
 </Project>

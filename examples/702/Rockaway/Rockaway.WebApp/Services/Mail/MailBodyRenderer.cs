@@ -38,35 +38,13 @@ public class MailBodyRenderer : IMailBodyRenderer {
 	}
 
 	private string EscapeCssRulesSoRazorDoesNotChokeOnThem(string razorSource) =>
-		cssRules.Aggregate(razorSource, (current, rule) => current.Replace($"{rule}", $"@{rule}"));
+		cssRules.Aggregate(razorSource, (haystack, needle) => haystack.Replace($"{needle}", $"@{needle}"));
 
-	private static readonly string[] cssRules = [
-		"@bottom-center",
-		"@bottom-left",
-		"@bottom-left-corner",
-		"@bottom-right",
-		"@bottom-right-corner",
-		"@charset",
-		"@counter-style",
-		"@document",
-		"@font-face",
-		"@font-feature-values",
-		"@import",
-		"@left-bottom",
-		"@left-middle",
-		"@left-top",
-		"@keyframes",
-		"@media",
-		"@namespace",
-		"@page",
-		"@right-bottom",
-		"@right-middle",
-		"@right-top",
-		"@supports",
-		"@top-center",
-		"@top-left",
-		"@top-left-corner",
-		"@top-right",
-		"@top-right-corner"
-	];
+	private static readonly string[] cssRules = @"
+		@bottom-center @bottom-left @bottom-left-corner @bottom-right 
+		@bottom-right-corner @charset @counter-style @document @font-face 
+		@font-feature-values @import @left-bottom @left-middle @left-top 
+		@keyframes @media @namespace @page @right-bottom @right-middle 
+		@right-top @supports @top-center @top-left @top-left-corner 
+		@top-right @top-right-corner".Split(' ', StringSplitOptions.RemoveEmptyEntries);
 }
