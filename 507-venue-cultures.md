@@ -4,10 +4,11 @@ layout: module
 nav_order: 10507
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "Before we add ticket prices, we need to switch our venues from using country codes to using cultures, so we can use .NET's built-in localisation support to format prices in local currency."
+summary: "In this module, we learn how to use .NET's built-in localisation support to format prices in local currency."
 previous: mwnet506
 complete: mwnet507
 examples: examples/507/Rockaway
+migration: ReplaceCountryCodeWithCultureName
 ---
 
 In the next section, we're going to add tickets to our database. Tickets have prices, and that's where things get interesting.

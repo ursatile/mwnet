@@ -6,6 +6,8 @@ typora-root-url: ./
 typora-copy-images-to: ./images
 summary: "In this exercise, you'll add the Venue entity to our model, scaffold the controllers, create sample data, and set up the database migrations for it."
 previous: mwnet304
+complete: mwnet305
+migration: CreateVenues
 ---
 
 ## Exercise: Adding Venues

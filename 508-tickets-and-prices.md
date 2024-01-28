@@ -8,6 +8,7 @@ summary: "In this module, we'll add tickets and ticket prices to our domain mode
 previous: mwnet507
 complete: mwnet508
 examples: examples/508/Rockaway
+migration: AddTicketTypes
 ---
 
 Let's add tickets to our ticketing system.

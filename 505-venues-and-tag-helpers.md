@@ -4,7 +4,7 @@ layout: module
 nav_order: 10505
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "Let's spice up the venue listing page by using ASP.NET TagHelpers to draw country flags for each venue."
+summary: "In this module, we learn about ASP.NET TagHelpers and use them to enhance our venue listing page by drawing country flags for each venue."
 previous: mwnet504
 complete: mwnet505
 examples: "examples/505/Rockaway"

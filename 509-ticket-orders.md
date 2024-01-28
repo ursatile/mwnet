@@ -8,6 +8,7 @@ summary: "In this module, we'll create the classes and tables we'll use to store
 previous: mwnet508
 complete: mwnet509
 examples: examples/509/Rockaway
+migration: AddTicketOrdersAndTicketOrderItems
 ---
 
 In this module, we'll create the classes and tables we need to actually store the customer's ticket order in the database.

@@ -7,6 +7,7 @@ typora-copy-images-to: ./images
 summary: "In this module, we'll learn how to manage our app's database schema using EF Migrations"
 previous: mwnet302
 complete: mwnet303
+migration: InitialCreate
 ---
 
 In the last section, we learned how to scaffold controllers and views based on a `DbContext` -- but everything we've done so far has used the `Sqlite` database provider.

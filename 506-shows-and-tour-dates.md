@@ -4,10 +4,11 @@ layout: module
 nav_order: 10506
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "Let's send our artists on tour - time to add shows to our application."
+summary: "In this module, we'll see how to add shows to our application data model."
 previous: mwnet505
 complete: mwnet506
 examples: examples/506/Rockaway
+migration: AddShowsAndSupportSlots
 ---
 
 So far, our application's data model is pretty simple - artists and venues, and a bunch of string properties describing each one.

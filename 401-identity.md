@@ -4,9 +4,10 @@ layout: module
 nav_order: 10401
 typora-root-url: ./
 typora-copy-images-to: ./images
-summary: "Let's use ASP.NET to add a user registration and login system"
+summary: "In this module, we use ASP.NET to add a user registration and login system"
 previous: mwnet400
 complete: mwnet401
+migration: AddAspNetIdentity
 ---
 
 ## Scaffolding Identity
