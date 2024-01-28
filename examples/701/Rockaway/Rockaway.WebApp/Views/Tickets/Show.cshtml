@@ -3,7 +3,7 @@
 <h1>@Model.HeadlineArtistName</h1>
 <p>@Model.VenueName, @Model.VenueAddress</p>
 <p>@Model.ShowDate</p>
-<form class="ticket-selector" method="post">
+<form method="post">
 
 @(await Html.RenderComponentAsync<TicketPicker>(RenderMode.ServerPrerendered, new { TicketTypes = Model.TicketTypes, CultureName = Model.CultureName }))
 
@@ -12,5 +12,4 @@
 		<input type="submit" class="btn btn-primary" value="Next &gt;"/>
 	</div>
 </section>
-
 </form>

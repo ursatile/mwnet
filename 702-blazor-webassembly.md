@@ -63,6 +63,8 @@ If you want to create reusable components that run on web assembly but which you
 
 > .NET includes a project template `razorclasslib` which is supposedly for creating Razor class libraries -- packages which can contain pages, views, Razor components, etc. At the time of writing (January 2024), the only way I could find to get a Razor class library project to expose WASM components to a normal web application was to hack the project files until it was basically a Blazor standalone project, so we're going to save ourselves some confusing hacking and use the `blazorwasm` template instead.
 
+### Creating Rockaway.RazorComponents
+
 First we'll create the new project and add it to our solution:
 
 ``` dotnetcli
@@ -78,9 +80,9 @@ We have a **circular dependency** problem now: `Rockaway.WebApp` needs to refere
 2. Modify `TicketPicker` so it doesn't use `TicketTypeViewData` -- maybe we pass in dictionaries instead of a strongly-typed view model.
 3. Created a new shared project, move  `TicketTypeViewData` into this shared project, and then reference it from both `WebApp` and `RazorComponents`. *(If we do this, our shared project will be sent to WebAssembly clients along with our component library, so don't put anything confidential in it!)*
 
-Now we need to modify our component so it doesn't have any dependencies on Rockaway.WebApp. 
+Let's modify our component so it doesn't have any dependencies on Rockaway.WebApp. 
 
-We'll create a `TicketPickerItem` that's part of our component library:
+We'll create a `TicketPickerItem` class that's part of our component library:
 
 ```csharp
 {% include_relative {{ page.examples }}/Rockaway.RazorComponents/TicketPickerItem.cs %}
@@ -88,15 +90,55 @@ We'll create a `TicketPickerItem` that's part of our component library:
 
 and modify `TicketPicker.razor` to use this type instead our view data:
 
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.RazorComponents/TicketPicker.razor %}
+```
 
+Create `Rockaway.RazorComponents/_Imports.razor`:
+
+```
+{% include_relative {{ page.examples }}/Rockaway.RazorComponents/_Imports.razor %}
+```
+
+Create `Rockaway.RazorComponents/Program.cs` -- we're not actually going to run it but the tooling won't build our Razor project unless it's there:
+
+```csharp
+{% include_relative {{ page.examples }}/Rockaway.RazorComponents/Program.cs %}
+```
+
+## Adding Web Assembly support to Web Apps
 
 Add WebAssembly Server support to `Rockaway.WebApp`
 
 ```dotnetcli
-dotnet add package Microsoft.AspNetCore.Components.WebAssembly.Server
+dotnet add Rockaway.WebApp package Microsoft.AspNetCore.Components.WebAssembly.Server
 ```
 
+Add a reference to the `Rockaway.RazorComponents` project:
 
+```
+dotnet add Rockaway.WebApp reference Rockaway.RazorComponents
+```
+
+Add web assembly support to `Program.cs`:
+
+```
+builder.Services.AddRazorComponents()
+	.AddInteractiveServerComponents()
+	.AddInteractiveWebAssemblyComponents();
+```
+
+```
+app.MapRazorComponents<App>()
+	.AddInteractiveServerRenderMode()
+	.AddInteractiveWebAssemblyRenderMode();
+```
+
+Finally, update `Rockaway.WebApp/Views/Tickets/Show.cshtml` to use our new component:
+
+```html
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Views/Tickets/Show.cshtml %}
+```
 
 
 
