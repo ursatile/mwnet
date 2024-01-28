@@ -60,7 +60,7 @@ We can set up a bunch of test ticket orders in our sample data fixtures:
 ```csharp
 // Rockaway.WebApp/Data/Sample/SampleData.TicketOrders.cs
 
-{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SampleData.TicketOrders.cs}
+{% include_relative {{ page.examples }}/Rockaway.WebApp/Data/Sample/SampleData.TicketOrders.cs %}
 ```
 
 along with helper methods in `SeedData`:

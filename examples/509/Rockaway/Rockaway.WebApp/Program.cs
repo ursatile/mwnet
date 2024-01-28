@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages(options => options.Conventions.AuthorizeAreaFolder("admin", "/"));
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
+builder.Services.AddSingleton<IClock>(SystemClock.Instance);
 
 #if DEBUG && !NCRUNCH
 builder.Services.AddSassCompiler();

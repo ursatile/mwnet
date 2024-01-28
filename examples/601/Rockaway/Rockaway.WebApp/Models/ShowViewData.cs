@@ -14,11 +14,14 @@ public class ShowViewData(Show show) {
 
 	public string CountryCode { get; } = show.Venue.CountryCode;
 
+	public string CultureName { get; } = show.Venue.CultureName;
+
 	public List<string> SupportActs { get; } = show.SupportSlots
 			.OrderBy(s => s.SlotNumber)
 			.Select(s => s.Artist.Name).ToList();
 
-	public List<TicketType> TicketTypes { get; } = show.TicketTypes;
+	public List<TicketTypeViewData> TicketTypes { get; }
+		= show.TicketTypes.Select(tt => new TicketTypeViewData(tt)).ToList();
 
 	public Dictionary<string, string> RouteData { get; } = show.RouteData;
 }

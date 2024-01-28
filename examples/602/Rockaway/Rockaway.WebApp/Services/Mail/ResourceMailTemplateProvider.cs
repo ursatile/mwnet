@@ -1,4 +1,3 @@
-using Mjml.Net;
 using System.Reflection;
 
 namespace Rockaway.WebApp.Services.Mail;

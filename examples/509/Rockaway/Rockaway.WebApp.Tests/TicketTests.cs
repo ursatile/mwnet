@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using NodaTime;
 using Rockaway.WebApp.Controllers;
 using NodaTime.Testing;

@@ -7,8 +7,9 @@ using Rockaway.WebApp.Services.Mail;
 namespace Rockaway.WebApp.Areas.Admin.Controllers;
 
 [Area("admin")]
-public class TicketOrdersController(RockawayDbContext context, IMailBodyRenderer mailRenderer) : Controller {
-	// GET: TicketOrders
+public class TicketOrdersController(RockawayDbContext context,
+	IMailBodyRenderer mailRenderer) : Controller {
+
 	public async Task<IActionResult> Index()
 		=> View(await context.TicketOrders.ToListAsync());
 
@@ -29,7 +30,10 @@ public class TicketOrdersController(RockawayDbContext context, IMailBodyRenderer
 	// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public async Task<IActionResult> Create([Bind("Id,CustomerName,CustomerEmail,CreatedAt,CompletedAt")] TicketOrder ticketOrder) {
+	public async Task<IActionResult> Create(
+		[Bind("Id,CustomerName,CustomerEmail,CreatedAt,CompletedAt")]
+		TicketOrder ticketOrder
+	) {
 		if (!ModelState.IsValid) return View(ticketOrder);
 		ticketOrder.Id = Guid.NewGuid();
 		context.Add(ticketOrder);
@@ -81,21 +85,12 @@ public class TicketOrdersController(RockawayDbContext context, IMailBodyRenderer
 		return RedirectToAction(nameof(Index));
 	}
 
-	private bool TicketOrderExists(Guid id) {
-		return context.TicketOrders.Any(e => e.Id == id);
-	}
-
 	public async Task<IActionResult> Mail(Guid id, string format = "html") {
 		var ticketOrder = await context.TicketOrders
-			.Include(o => o.Contents)
-			.ThenInclude(item => item.TicketType)
-			.Include(o => o.Show)
-			.ThenInclude(o => o.HeadlineArtist)
-			.Include(o=>o.Show)
-			.ThenInclude(o => o.Venue)
-			.Include(o => o.Show)
-			.ThenInclude(s => s.SupportSlots)
-			.ThenInclude(s => s.Artist)
+			.Include(o => o.Contents).ThenInclude(item => item.TicketType)
+			.Include(o => o.Show).ThenInclude(s => s.HeadlineArtist)
+			.Include(o => o.Show).ThenInclude(s => s.Venue)
+			.Include(o => o.Show).ThenInclude(s => s.SupportSlots).ThenInclude(ss => ss.Artist)
 			.FirstOrDefaultAsync(m => m.Id == id);
 		if (ticketOrder == default) return NotFound();
 		// ReSharper disable once InvokeAsExtensionMethod
@@ -108,5 +103,9 @@ public class TicketOrdersController(RockawayDbContext context, IMailBodyRenderer
 				var text = mailRenderer.RenderOrderConfirmationText(data);
 				return Content(text, "text/plain", Encoding.UTF8);
 		}
+	}
+
+	private bool TicketOrderExists(Guid id) {
+		return context.TicketOrders.Any(e => e.Id == id);
 	}
 }

@@ -12,9 +12,11 @@ public class TicketTypeViewData {
 		this.Id = tt.Id;
 		this.Name = tt.Name;
 		this.Price = tt.Price;
+		this.FormattedPrice = tt.Show.Venue.FormatPrice(this.Price);
 	}
 
 	public Guid Id { get; set; }
-	public string Name { get; set; } = String.Empty;
+	public string Name { get; set; } = "???";
 	public decimal Price { get; set; }
+	public string FormattedPrice { get; set; } = "???";
 }

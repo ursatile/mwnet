@@ -10,3 +10,15 @@ complete: mwnet701
 examples: examples/701/Rockaway
 ---
 
+Let's upgrade our ticket picker.
+
+At the moment, it looks like this:
+
+![image-20240128022308557](/images/image-20240128022308557.png)
+
+Wouldn't it be cool if, instead of typing numbers in the boxes, you could use little plus/minus buttons to add and remove tickets? And get realtime feedback on the total price of your order - in the right currency, properly formatted?
+
+What if you could do all that without writing any JavaScript?
+
+Let's meet Razor Components: a way to combine HTML, Razor and C# code to create interactive components without writing any JavaScript.
+

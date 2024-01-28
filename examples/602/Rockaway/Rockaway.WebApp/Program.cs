@@ -14,11 +14,17 @@ builder.Services.AddControllersWithViews(options => {
 	options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 builder.Services.AddSingleton<IStatusReporter>(new StatusReporter());
+builder.Services.AddSingleton<IClock>(SystemClock.Instance);
+
+#if DEBUG
 builder.Services.AddSingleton<IMailTemplateProvider>(new DebugMailTemplateProvider());
+#else
+builder.Services.AddSingleton<IMailTemplateProvider>(new ResourceMailTemplateProvider());
+#endif
 builder.Services.AddSingleton<IMailBodyRenderer, MailBodyRenderer>();
 builder.Services.AddSingleton<IRazorEngine, RazorEngine>();
 builder.Services.AddSingleton<IMjmlRenderer, MjmlRenderer>();
-builder.Services.AddSingleton<IClock>(SystemClock.Instance);
+
 builder.Services.AddSingleton<IMailSender, SmtpMailSender>();
 var smtpSettings = new SmtpSettings();
 builder.Configuration.Bind("Smtp", smtpSettings);
