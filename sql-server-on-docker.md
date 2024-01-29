@@ -1,7 +1,7 @@
 ---
 title: SQL Server on Docker
 layout: module
-nav_order: 9901
+nav_order: 99901
 summary: >-
   In this module we'll learn how to use Docker to host SQL Server in a lightweight virtual machine for development and testing.
 examples: examples/201/Rockaway/
