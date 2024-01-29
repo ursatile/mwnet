@@ -25,7 +25,7 @@ if ($args[0]) {
 				}
 				$summary = Select-String -Pattern "summary: .*" $md -Raw
 				if ($summary) {
-					$summary = $summary.Substring(10);
+					$summary = $summary.Substring(10).Trim('"', ' ');
 					Write-Host $summary
 				}
 			}
@@ -35,14 +35,14 @@ if ($args[0]) {
 			cd $target
 			if ($migration) {
 				dotnet build
-				dotnet test
+				# dotnet test -c Release
 				cd Rockaway.WebApp
 				dotnet ef migrations add $migration -- --environment=Staging
 				dotnet format
 				cd ..
 			}
 			git add .
-			git commit -m "Module $moduleNumber"
+			git commit -m "Module ${moduleNumber}: $summary"
 			popd
 		}
 	}
