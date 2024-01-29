@@ -77,7 +77,7 @@ Now we'll modify our `main_rockaway.yml` to use the published application packag
           package: . 
        
       - name: Apply EF Core migrations         
-        run: dotnet Rockaway.WebApp.dll -- --e ConnectionStrings:AZURE_SQL_CONNECTIONSTRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}" apply-migrations=true 
+        run: dotnet Rockaway.WebApp.dll -- --e ConnectionStrings:AZURE_SQL_CONNECTIONSTRING="${% raw %}{{ secrets.AZURE_SQL_CONNECTIONSTRING }}{% endraw %}" apply-migrations=true 
 ```
 
 We'll need to provide a connection string, because this code is running on GitHub's Actions infrastructure which doesn't have access to Azure's configuration.
