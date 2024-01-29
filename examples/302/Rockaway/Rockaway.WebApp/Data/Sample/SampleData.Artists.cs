@@ -196,13 +196,27 @@ public static partial class SampleData {
 			"aerbaarn"
 		);
 
+		public static Artist DotDotDot = new(
+			NextId,
+			"...",
+			"dot-dot-dot to their friends (and fans), ... are a Canadian drone jazz combo formed in Vancouver in 1998, known for their thunderous horn section and innovative visuals.",
+			"dot-dot-dot"
+		);
+
+		public static Artist SilverMountainStringBand = new(
+			NextId,
+			"The Silver Mountain String Band featuring Timber J. MacCorkindale and the Hill Valley Hornswogglers",
+			"Known as the \"Silver Mountain Strings\" if you're into the whole brevity thing, Kentucky's answer to the Leningrad Cowboys has gone from strength to strength, from the Superbowl half time show to their sold-out Vegas residency in 2023.",
+			"silver-mountain-string-band"
+		);
+
 		public static IEnumerable<Artist> AllArtists = new[] {
 			AlterColumn, BodyBag, Coda, DevLeppard, Elektronika, ForEarTransform,
 			GarbageCollectors, HaskellsAngels, IronMedian, JavasCrypt, KillerBite,
 			LambdaOfGod, MottTheTuple, NullTerminatedStringBand, Overflow, PascalsWager,
 			QuantumGate, RunCmd, ScriptKiddies, Terrorform, Unicoder,
 			VirtualMachine, WebmasterOfPuppets, Xslte, Yamb, ZeroBasedIndex,
-			Ærbårn,
+			Ærbårn, DotDotDot, SilverMountainStringBand
 		};
 	}
 }
