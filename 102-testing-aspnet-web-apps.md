@@ -31,9 +31,9 @@ What we want to do is test that those pages exist, and that if we request the co
 
 Let's use `WebApplicationFactory` to plug in an end-to-end test that'll verify that our `/status` page is actually working
 
-First, install the package. From the `Rockaway.WebApp.Tests` folder:
+First, install the package. From the `Rockaway` folder:
 
-```transcript
+```dotnetcli
 dotnet add Rockaway.WebApp.Tests package Microsoft.AspNetCore.Mvc.Testing
 ```
 
