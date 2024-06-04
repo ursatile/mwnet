@@ -15,32 +15,32 @@ public static partial class SampleData {
 	}
 	public static class Shows {
 		public static readonly Show Coda_Barracuda_20240517 = Venues.Barracuda
-			.BookShow(Artists.Coda, new(2024, 5, 17))
+			.BookShow(Artists.Coda, new(2024, 8, 17))
 			.WithSupportActs(Artists.KillerBite, Artists.Overflow);
 
 		public static readonly Show Coda_Columbia_20240518 = Venues.Columbia
-			.BookShow(Artists.Coda, new(2024, 5, 18))
+			.BookShow(Artists.Coda, new(2024, 8, 18))
 			.WithSupportActs(Artists.KillerBite, Artists.Overflow);
 
 		public static readonly Show Coda_Bataclan_20240519 = Venues.Bataclan
-			.BookShow(Artists.Coda, new(2024, 5, 19))
+			.BookShow(Artists.Coda, new(2024, 8, 19))
 			.WithSupportActs(Artists.KillerBite, Artists.Overflow, Artists.JavasCrypt);
 
 
 		public static readonly Show Coda_NewCrossInn_20240520 = Venues.NewCrossInn
-			.BookShow(Artists.Coda, new(2024, 5, 20))
+			.BookShow(Artists.Coda, new(2024, 8, 20))
 			.WithSupportActs(Artists.JavasCrypt);
 
 		public static readonly Show Coda_JohnDee_20240522 = Venues.JohnDee
-			.BookShow(Artists.Coda, new(2024, 5, 22))
+			.BookShow(Artists.Coda, new(2024, 8, 22))
 			.WithSupportActs(Artists.JavasCrypt);
 
 		public static readonly Show Coda_PubAnchor_20240523 = Venues.PubAnchor
-			.BookShow(Artists.Coda, new(2024, 5, 23))
+			.BookShow(Artists.Coda, new(2024, 8, 23))
 			.WithSupportActs(Artists.JavasCrypt);
 
 		public static readonly Show Coda_Gagarin_20240525 =
-			Venues.Gagarin.BookShow(Artists.Coda, new(2024, 5, 25))
+			Venues.Gagarin.BookShow(Artists.Coda, new(2024, 8, 25))
 			.WithSupportActs(Artists.JavasCrypt, Artists.SilverMountainStringBand);
 
 		public static IEnumerable<Show> AllShows = [
