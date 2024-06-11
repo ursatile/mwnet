@@ -11,7 +11,9 @@ complete: mwnet503
 
 In this module, we're going to use CSS media queries and a few frontend design tricks to create a layout that responds smoothly to different device profiles -- without repeating ourselves or using JavaScript.
 
-First, let's add a mixin that'll make it easy to declare rules which only apply to small screens. There's a set of breakpoints and device sizes already built in to Bootstrap, but we're going to create a new one just to see how they work:
+First, let's add a mixin that'll make it easy to declare rules which only apply to small screens. There's a set of breakpoints and device sizes already built in to Bootstrap, but we're going to create a new one just to see how they work.
+
+Add this to `Rockaway.WebApp/wwwroot/scss/frontend.scss`:
 
 ```scss
 @mixin smartphone {
@@ -21,7 +23,7 @@ First, let's add a mixin that'll make it easy to declare rules which only apply 
 }
 ```
 
-Now, we can inject that new `smartphone` mixin into our existing `fancy-panel` mixin, to change the way panels render on smartphones:
+Now, we can inject that new `smartphone` mixin into our existing `fancy-panel` mixin, to change the way panels render on smartphones. 
 
 ```scss
 @mixin fancy-panel($panel-color: color.scale($primary, $lightness: -75%)) {
